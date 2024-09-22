@@ -29,6 +29,7 @@ class AppContainer extends HTMLElement {
             post.setAttribute(Attributes.region,element.region);
             post.setAttribute(Attributes.description,element.description);
             post.setAttribute(Attributes.hashtags,element.hashtags);
+            post.setAttribute(Attributes.uid,String(element.id));
             this.posts.push(post);
         });
     }
@@ -37,18 +38,19 @@ class AppContainer extends HTMLElement {
     }
     render(){
         if(this.shadowRoot){
+            this.shadowRoot.innerHTML = `
+                <app-nav-profile></app-nav-profile>
+            `;
+        }
+        if(this.shadowRoot){
             this.users.forEach((users) => {
                 this.shadowRoot?.appendChild(users);
             });
-
+        }
         if(this.shadowRoot){
             this.posts.forEach((posts) => {
                 this.shadowRoot?.appendChild(posts);
             });
-        }
-            this.shadowRoot.innerHTML = `
-                <app-nav-profile></app-nav-profile>
-            `
         }
     }
 };
