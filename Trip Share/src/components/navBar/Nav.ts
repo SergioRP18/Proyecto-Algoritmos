@@ -63,13 +63,7 @@ class NavBar extends HTMLElement {
                                 </li>
                             </ul>
                         </div>
-
-                        <div class="input-log-out-bottom">
-                            <img src="${this.photo}" alt="">
-                            <h6>${this.username}</h6>
-                            <p>${this.name}</p>
-                            
-                        </div>
+                        <user-bar></user-bar>
                     </nav>
                 </aside>
             `;

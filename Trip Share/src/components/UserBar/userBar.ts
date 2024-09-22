@@ -1,11 +1,11 @@
-export enum Attribute {
+enum Attribute {
     'username' = 'username',
     'name' = 'name',
     'photo' = 'photo',
     'uid' = 'uid',
-}
+};
 
-class NavProfile extends HTMLElement {
+class UserBar extends HTMLElement {
     username? : string;
     name? : string;
     photo? : string;
@@ -16,13 +16,7 @@ class NavProfile extends HTMLElement {
         this.attachShadow({mode:'open'});
     }
     static get observedAttributes(){
-        const atr: Record<Attribute, null> = {
-                username : null,
-                name : null,
-                photo : null,
-                uid : null,
-        };
-        return Object.keys(atr);
+        return Object.keys(Attr);
     }
     attributeChangedCallback(propName: Attribute, oldValue: string | undefined, newValue: string | undefined){
         switch(propName){
@@ -35,20 +29,15 @@ class NavProfile extends HTMLElement {
         }
         this.render();
     }
-    connectedCallback(){
-        this.render();
-    }
     render(){
         if(this.shadowRoot){
             this.shadowRoot.innerHTML = `
                 <aside>
                     <nav>
-                        <div class="">
-                        </div>
-
-                        <div class="">
-                            <p>Information - Help - News - API - Privacity - Conditions - Lenguage - Trip Verified</p>
-                            <p>2024 TRIP SHARED FROM DMI</p>
+                        <div class="user-bar-dashboard">
+                            <img src="${this.photo}" alt="">
+                            <h6>${this.username}</h6>
+                            <p>${this.name}</p>
                         </div>
                     </nav>
                 </aside>
@@ -56,5 +45,5 @@ class NavProfile extends HTMLElement {
         };
     }
 };
-customElements.define('app-nav-profile', NavProfile);
-export default NavProfile;
+customElements.define("user-bar", UserBar);
+export default UserBar;
