@@ -38,8 +38,13 @@ class AppContainer extends HTMLElement {
     }
     render(){
         if(this.shadowRoot){
-            this.shadowRoot.innerHTML = `
-                <app-nav-profile></app-nav-profile>
+            this.shadowRoot.innerHTML += `
+            <app-nav-profile></app-nav-profile>
+            `;
+        }
+        if(this.shadowRoot){
+            this.shadowRoot.innerHTML += `
+                <section-search-bar></section-search-bar>
             `;
         }
         if(this.shadowRoot){

@@ -14,7 +14,7 @@ class NavBar extends HTMLElement {
     uid? : number;
 
     static get observedAttributes(){
-        return Object.keys(Attr);
+        return Object.keys(Attribute);
     }
     attributeChangedCallback(propName: Attribute, oldValue: string | undefined, newValue: string | undefined){
         switch(propName){

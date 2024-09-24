@@ -1,3 +1,5 @@
+import styles from './navAside.css'
+
 class navAside extends HTMLElement {
     constructor(){
         super();
@@ -20,6 +22,10 @@ class navAside extends HTMLElement {
                 </aside>
             `;
         };
+
+        const cssNavAside = this.ownerDocument.createElement("style");
+        cssNavAside.innerHTML = styles;
+        this.shadowRoot?.appendChild(cssNavAside);
     }
 };
 customElements.define('app-nav-profile', navAside);

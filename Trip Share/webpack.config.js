@@ -9,6 +9,23 @@ module: {
         use: 'ts-loader',
         exclude: /node_modules/,
     },
+    {
+        test: /\.(png|jpeg|gif|jpg)$/i,
+        use: [
+            {
+                loader: 'file-loader',
+                options: {
+                    name: '[name].[ext]',
+                    outputPath: './src/asset',
+                },
+            },
+        ],
+    },
+    {
+        test: /\.css$/i,
+        use: ["css-loader"],
+    },
+
     ],
 },
 resolve: {

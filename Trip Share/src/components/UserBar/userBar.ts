@@ -1,3 +1,5 @@
+import styles from './userBar.css'
+
 enum Attribute {
     'username' = 'username',
     'name' = 'name',
@@ -43,6 +45,10 @@ class UserBar extends HTMLElement {
                 </aside>
             `;
         };
+
+        const cssUserBar = this.ownerDocument.createElement("style");
+        cssUserBar.innerHTML = styles;
+        this.shadowRoot?.appendChild(cssUserBar);
     }
 };
 customElements.define("user-bar", UserBar);
