@@ -15,6 +15,8 @@ class SearchBar extends HTMLElement {
                 <div class="container-search-bar">
                     <input type="text" id="search-bar" placeholder="Search for #Hashtag or friends">
                     <div class ="pills-search-bar">
+                    <h1>¿Not knowing where to go?</h1>
+                    <h2>Select one of the following options</h2>
                         <button>Región Pacífica</button>
                         <button>Región Andina</button>
                         <button>Región Amazónica</button>

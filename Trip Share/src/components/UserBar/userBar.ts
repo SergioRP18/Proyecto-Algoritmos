@@ -18,7 +18,7 @@ class UserBar extends HTMLElement {
         this.attachShadow({mode:'open'});
     }
     static get observedAttributes(){
-        return Object.keys(Attr);
+        return Object.keys(Attribute);
     }
     attributeChangedCallback(propName: Attribute, oldValue: string | undefined, newValue: string | undefined){
         switch(propName){
