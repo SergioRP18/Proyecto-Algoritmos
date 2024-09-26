@@ -1,4 +1,4 @@
-import styles from './searchBar.css'
+import styles from './searchBar.css';
 
 class SearchBar extends HTMLElement {
     constructor(){
@@ -11,12 +11,14 @@ class SearchBar extends HTMLElement {
     render(){
         if(this.shadowRoot){
             this.shadowRoot.innerHTML = `
-            <section>
+            <section class="search-section">
                 <div class="container-search-bar">
                     <input type="text" id="search-bar" placeholder="Search for #Hashtag or friends">
+                    <div class="search-titles">
+                        <h1>¿Not knowing where to go?</h1>
+                        <h2>Select one of the following options</h2>
+                    </div>
                     <div class ="pills-search-bar">
-                    <h1>¿Not knowing where to go?</h1>
-                    <h2>Select one of the following options</h2>
                         <button>Región Pacífica</button>
                         <button>Región Andina</button>
                         <button>Región Amazónica</button>
