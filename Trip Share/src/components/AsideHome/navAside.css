@@ -1,0 +1,63 @@
+/* Estilos generales para la barra lateral derecha */
+aside {
+    background-color: #E6F4FF; /* Color azul claro */
+    padding: 1rem;
+    border-left: 1px solid #CCC; /* Borde de separación */
+    position: fixed; /* Hace que la barra de navegación esté fija */
+    top: 0;
+    right: 0; /* Fijado al lado derecho de la pantalla */
+    height: 100vh; /* Asegura que la barra cubra toda la altura de la pantalla */
+    z-index: 1000; /* Asegura que la barra esté siempre por encima del contenido */
+    width: 18%; /* Ajusta el ancho según la referencia */
+    font-family: 'Arial', sans-serif;
+}
+
+/* Estilos del contenido dentro de la barra */
+nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Estilos del user-bar */
+.user-bar-dashboard {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+/* Imagen de perfil */
+.user-bar-dashboard img {
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+}
+
+/* Texto dentro del user-bar */
+.user-bar-dashboard h6 {
+    margin: 0.5rem 0 0.2rem;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.user-bar-dashboard p {
+    font-size: 0.9rem;
+    color: #555;
+}
+
+/* Footer fijo al final de la barra lateral */
+.footer {
+    text-align: center;
+    font-size: 0.8rem;
+    color: #888;
+    margin-top: auto;
+    padding-top: 1rem;
+    border-top: 1px solid #CCC;
+    width: 100%;
+}
+
+/* Responsive */
+@media (max-width: 767px) {
+    aside {
+        display: none;
+    }
+}

@@ -1,0 +1,71 @@
+/* Estilos generales para la barra de navegación */
+aside {
+    background-color: #FAF8F8; /* Color de fondo más oscuro */
+    padding: 1rem;
+    border-right: 1px solid #CCC; /* Borde de separación */
+    position: fixed; /* Barra fija */
+    top: 0;
+    left: 0;
+    height: 100vh; /* Cobertura de toda la altura de la pantalla */
+    z-index: 1000; /* Por encima del contenido */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 18%; /* Ancho específico */
+    box-sizing: border-box;
+}
+
+/* Logo */
+.logo img {
+    width: 80px;
+    margin-bottom: 2rem;
+}
+
+/* Lista de enlaces de navegación */
+.inputs ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Estilos de cada enlace en la lista */
+.inputs li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+/* Iconos SVG junto a los enlaces */
+.inputs li svg {
+    margin-right: 0.5rem;
+}
+
+/* Estilos del texto de los enlaces */
+.inputs li a {
+    text-decoration: none;
+    font-size: 1rem;
+    color: #147AFF;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+}
+
+/* Imagen de perfil en la barra */
+.inputs li img {
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    margin-left: 0.5rem;
+}
+
+/* Asegura que el user-bar esté al final de la barra */
+.user-bar {
+    margin-top: auto;
+}
+
+/* Responsive */
+@media (max-width: 767px) {
+    aside {
+        display: none;
+    }
+}
