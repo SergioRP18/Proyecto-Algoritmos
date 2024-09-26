@@ -1,0 +1,190 @@
+/* Estilos generales para los posts */
+.post-container {
+    display: flex;
+    justify-content: center;
+    padding: 1rem;
+    background-color: #fff;
+}
+
+.card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+    margin: 1rem;
+    overflow: hidden;
+    font-family: 'Arial', sans-serif;
+}
+
+.head-card {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid #ddd;
+}
+
+.head-card img {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    margin-right: 1rem;
+}
+
+.head-card p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #333;
+}
+
+.head-card button {
+    margin-left: auto;
+    background-color: #147AFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    font-size: 0.8rem;
+}
+
+.body-card {
+    padding: 1rem;
+}
+
+.body-card p {
+    margin: 0.5rem 0;
+    color: #555;
+    font-size: 1rem;
+}
+
+.body-card a {
+    display: block;
+    color: #147AFF;
+    font-size: 0.9rem;
+    text-decoration: none;
+    margin-bottom: 1rem;
+}
+
+.body-card img {
+    width: 100%;
+    border-radius: 10px;
+    margin-top: 1rem;
+}
+
+.icon-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin-top: 1rem;
+}
+
+.icon-bar svg {
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
+    fill: #147AFF;
+}
+
+.icon-bar p {
+    font-size: 1rem;
+    margin-left: 0.5rem;
+    color: #555;
+}
+
+.footer-card {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    border-top: 1px solid #ddd;
+}
+
+.footer-card img {
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    margin-right: 1rem;
+}
+
+.footer-card input {
+    flex-grow: 1;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+}
+
+.footer-card svg {
+    margin-left: 1rem;
+    cursor: pointer;
+    stroke: #147AFF;
+    fill: none;
+}
+
+/* Ajustes de responsividad */
+@media (min-width: 768px) {
+    .card {
+        max-width: 600px; /* Aumenta el tamaño en pantallas más grandes */
+    }
+
+    .head-card img {
+        width: 60px; /* Imagen de usuario más grande en pantallas grandes */
+        height: 60px;
+    }
+
+    .head-card p {
+        font-size: 1rem; /* Texto ligeramente más grande */
+    }
+
+    .head-card button {
+        font-size: 0.9rem; /* Botón ligeramente más grande */
+    }
+
+    .body-card p {
+        font-size: 1.1rem; /* Texto ligeramente más grande */
+    }
+
+    .body-card a {
+        font-size: 1rem; /* Hashtags ligeramente más grandes */
+    }
+
+    .footer-card img {
+        width: 40px; /* Imagen del pie de post más grande */
+        height: 40px;
+    }
+
+    .footer-card input {
+        font-size: 1rem; /* Caja de comentarios ligeramente más grande */
+    }
+}
+
+/* Media queries para pantallas pequeñas */
+@media (max-width: 767px) {
+    .card {
+        max-width: 100%; /* El post ocupa todo el ancho en móviles */
+    }
+
+    .head-card img {
+        width: 40px; /* Imagen de usuario más pequeña en móviles */
+        height: 40px;
+    }
+
+    .head-card button {
+        padding: 0.4rem 0.8rem; /* Botón más pequeño en móviles */
+        font-size: 0.8rem;
+    }
+
+    .body-card img {
+        margin-top: 0.5rem;
+    }
+
+    .footer-card img {
+        width: 30px; /* Imagen del pie de post más pequeña */
+        height: 30px;
+    }
+
+    .footer-card input {
+        padding: 0.4rem 0.8rem; /* Caja de comentarios más pequeña */
+        font-size: 0.9rem;
+    }
+}
