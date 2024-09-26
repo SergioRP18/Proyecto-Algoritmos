@@ -55,43 +55,9 @@ nav {
     width: 100%;
 }
 
-/* Media queries para pantallas más grandes */
-@media (min-width: 768px) {
-    aside {
-        width: 18%; /* La barra se reduce en pantallas más grandes */
-    }
-
-    .user-bar-dashboard img {
-        width: 50px; /* Imagen de perfil más pequeña en pantallas grandes */
-        height: 50px;
-    }
-
-    .user-bar-dashboard h6 {
-        font-size: 1.2rem; /* Texto más grande en pantallas grandes */
-    }
-
-    .user-bar-dashboard p {
-        font-size: 1rem; /* Texto más grande en pantallas grandes */
-    }
-}
-
-/* Media queries para pantallas pequeñas (móviles) */
+/* Responsive */
 @media (max-width: 767px) {
     aside {
-        width: 100%; /* La barra ocupa toda la anchura de la pantalla */
-        height: auto; /* La altura se ajusta automáticamente en dispositivos móviles */
-    }
-
-    .user-bar-dashboard img {
-        width: 40px; /* Imagen de perfil más pequeña en móviles */
-        height: 40px;
-    }
-
-    .user-bar-dashboard h6 {
-        font-size: 1rem; /* Texto ligeramente más pequeño en móviles */
-    }
-
-    .user-bar-dashboard p {
-        font-size: 0.85rem; /* Texto ligeramente más pequeño en móviles */
+        display: none;
     }
 }
