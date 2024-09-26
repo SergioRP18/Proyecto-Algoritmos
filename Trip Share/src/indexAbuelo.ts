@@ -57,6 +57,11 @@ class AppContainer extends HTMLElement {
                 this.shadowRoot?.appendChild(posts);
             });
         }
+        if(this.shadowRoot){
+            this.shadowRoot.innerHTML += `
+                <nav-responsive></nav-responsive>
+            `;
+        }
     }
 };
 customElements.define('app-container', AppContainer);
