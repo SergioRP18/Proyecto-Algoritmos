@@ -60,9 +60,9 @@ class NavBar extends HTMLElement {
                                 </li>
                             </ul>
                         </div>
-
+                        <div class ="userbarbot">
                         <user-bar></user-bar>
-
+                        </div>
                     </nav>
                 </aside>
             `;

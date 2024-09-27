@@ -66,11 +66,22 @@
 
 .body-card .icons {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between; /* Distribuye los íconos de forma equitativa */
     align-items: center;
     margin-top: 1rem;
 }
 
+/* Agrupa los primeros tres íconos (Likes, Comments, Share) */
+.icons .left-icons {
+    display: flex;
+    align-items: center;
+}
+
+/* Ícono de estrella alineado a la derecha */
+.icons .right-icon {
+    display: flex;
+    align-items: center;
+}
 
 .icons svg {
     width: 25px; /* Ajustar el tamaño de los íconos si es necesario */
@@ -131,13 +142,12 @@
 }
 
 #agregar-deseados.added {
-    background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNSIgaGVpZ2h0PSIyNSIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBmaWxsPSIjMTQ3QUZGIiBkPSJNMTQuNDMgMTBMMTIgMmwtMi40MyA4SDJsNi4xOCA0LjQxTDUuODMgMjJMMTIgMTcuMzFMMTguMTggMjJsLTIuMzUtNy41OUwyMiAxMHoiLz48L3N2Zz4=);
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNSIgaGVpZ2h0PSIyNSIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBmaWxsPSIjMTQ3QUZGIiBkPSJNMTQuNDMgMTBMMTIgMmwtMi40MyA4SDJsNi4xOCA0LjQxTDUuODMgMjJMMTIgMTcuMzFMMTguMTggMjJsLTIuMzMtNy41OUwyMiAxMHoiLz48L3N2Zz4=);
 }
 
 button.Following {
     background-color: white;
     color: #147AFF;
-
 }
 
 .icon-bar p {
