@@ -29,6 +29,7 @@ class SearchBar extends HTMLElement {
             <section class="search-section">
                 <div class="container-search-bar">
                     <input type="text" id="search-bar" placeholder="Search for #Hashtag or friends">
+                    <button><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="none" stroke="#147AFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10a7 7 0 1 0 14 0a7 7 0 1 0-14 0m18 11l-6-6"/></svg></button>
                     <div class="search-titles">
                         <h1>¿Not knowing where to go?</h1>
                         <h2>Select one of the following options</h2>
