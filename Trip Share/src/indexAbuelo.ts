@@ -3,9 +3,10 @@ import { infoPost } from './data/dataPost';
 import './components/indexPadre';
 import NavBar, {Attribute} from './components/navBar/Nav';
 import AppPost, {Attributes} from './components/cardPost/post';
+import UserBar, {AttributeUser} from './components/UserBar/userBar';
 
 class AppContainer extends HTMLElement {
-    users: NavBar[] = [];
+    inputs: NavBar[] = [];
     posts: AppPost[] = [];
 
     constructor(){
@@ -13,18 +14,29 @@ class AppContainer extends HTMLElement {
         this.attachShadow({mode:'open'});
 
         data.forEach((element) => {
-            const user = this.ownerDocument.createElement("app-nav-bar") as NavBar;
-            user.setAttribute(Attribute.username,element.username);
-            user.setAttribute(Attribute.name,element.name);
-            user.setAttribute(Attribute.photo,element.photo);
-            user.setAttribute(Attribute.uid,String(element.id));
-            this.users.push(user);
+            const input = this.ownerDocument.createElement("app-nav-bar") as NavBar;
+            input.setAttribute(Attribute.username,element.username);
+            input.setAttribute(Attribute.name,element.name);
+            input.setAttribute(Attribute.photo,element.photo);
+            input.setAttribute(Attribute.uid,String(element.id));
+            
+            const user = this.ownerDocument.createElement("user-bar") as UserBar;
+            user.setAttribute(AttributeUser.username,element.username);
+            user.setAttribute(AttributeUser.name,element.name);
+            user.setAttribute(AttributeUser.photo,element.photo);
+            user.setAttribute(AttributeUser.uid,String(element.id));
+            
+            input.appendChild(user);
+
+            this.inputs.push(input);
         });
+
+        
 
         infoPost.forEach((element) => {
             const post = this.ownerDocument.createElement("app-post") as AppPost;
             post.setAttribute(Attributes.image,element.image);
-            post.setAttribute(Attributes.photoUser,element.photoUser);
+            post.setAttribute(Attributes.photouser,element.photouser);
             post.setAttribute(Attributes.username,element.username);
             post.setAttribute(Attributes.region,element.region);
             post.setAttribute(Attributes.description,element.description);
@@ -48,8 +60,8 @@ class AppContainer extends HTMLElement {
             `;
         }
         if(this.shadowRoot){
-            this.users.forEach((users) => {
-                this.shadowRoot?.appendChild(users);
+            this.inputs.forEach((input) => {
+                this.shadowRoot?.appendChild(input);
             });
         }
         if(this.shadowRoot){

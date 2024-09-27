@@ -6,6 +6,7 @@
     padding: 1rem;
     background-color: transparent; /* Fondo transparente */
     border-bottom: 1px solid #ddd; /* Borde en la parte inferior */
+    font-family: 'Poppins', sans-serif;
 }
 
 .user-bar-dashboard img {
@@ -19,11 +20,13 @@
     font-size: 1.2rem;
     color: #000;
     margin: 0;
+    font-family: 'Poppins', sans-serif;
 }
 
 .user-bar-dashboard p {
     font-size: 1rem;
     color: #666;
+    font-family: 'Poppins', sans-serif;
 }
 
 /* Media queries para pantallas más grandes */

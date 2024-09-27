@@ -1,7 +1,7 @@
 interface DataPost {
     id: number,
     image: string,
-    photoUser: string,
+    photouser: string,
     username: string,
     region: string,
     description: string,
@@ -12,7 +12,7 @@ export const infoPost: DataPost [] = [
     {
         id: 1,
         image: "https://img.freepik.com/foto-gratis/manta-rayas-realista-agua-mar_23-2151461127.jpg?t=st=1727034113~exp=1727037713~hmac=ac132cfb2642165e108f4836e975386a71ce2fd2e49dc34b62e0c46fcc320436&w=1380",
-        photoUser: "https://cdn-icons-png.flaticon.com/512/8847/8847419.png",
+        photouser: "https://www.abasturhub.com/img/blog/viajero---nuevos-tipos-de-viajeros_-viajes-de-experiencia.png",
         username: "X_AE_A-13",
         region: "Pacific Region",
         description: "Visiting the whales in the beautiful Pacific region, I love to travel.",
@@ -21,7 +21,7 @@ export const infoPost: DataPost [] = [
     {
         id: 2,
         image: "https://img.freepik.com/foto-gratis/manta-rayas-realista-agua-mar_23-2151461127.jpg?t=st=1727034113~exp=1727037713~hmac=ac132cfb2642165e108f4836e975386a71ce2fd2e49dc34b62e0c46fcc320436&w=1380",
-        photoUser: "https://cdn-icons-png.flaticon.com/512/8847/8847419.png",
+        photouser: "https://www.abasturhub.com/img/blog/viajero---nuevos-tipos-de-viajeros_-viajes-de-experiencia.png",
         username: "X_AE_A-13",
         region: "Pacific Region",
         description: "Visiting the whales in the beautiful Pacific region, I love to travel.",
@@ -30,7 +30,7 @@ export const infoPost: DataPost [] = [
     {
         id: 3,
         image: "https://img.freepik.com/foto-gratis/manta-rayas-realista-agua-mar_23-2151461127.jpg?t=st=1727034113~exp=1727037713~hmac=ac132cfb2642165e108f4836e975386a71ce2fd2e49dc34b62e0c46fcc320436&w=1380",
-        photoUser: "https://cdn-icons-png.flaticon.com/512/8847/8847419.png",
+        photouser: "https://www.abasturhub.com/img/blog/viajero---nuevos-tipos-de-viajeros_-viajes-de-experiencia.png",
         username: "X_AE_A-13",
         region: "Pacific Region",
         description: "Visiting the whales in the beautiful Pacific region, I love to travel.",
@@ -39,7 +39,7 @@ export const infoPost: DataPost [] = [
     {
         id: 4,
         image: "https://img.freepik.com/foto-gratis/manta-rayas-realista-agua-mar_23-2151461127.jpg?t=st=1727034113~exp=1727037713~hmac=ac132cfb2642165e108f4836e975386a71ce2fd2e49dc34b62e0c46fcc320436&w=1380",
-        photoUser: "https://cdn-icons-png.flaticon.com/512/8847/8847419.png",
+        photouser: "https://www.abasturhub.com/img/blog/viajero---nuevos-tipos-de-viajeros_-viajes-de-experiencia.png",
         username: "X_AE_A-13",
         region: "Pacific Region",
         description: "Visiting the whales in the beautiful Pacific region, I love to travel.",

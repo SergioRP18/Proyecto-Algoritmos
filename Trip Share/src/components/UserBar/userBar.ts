@@ -1,6 +1,6 @@
 import styles from './userBar.css'
 
-enum Attribute {
+export enum AttributeUser {
     'username' = 'username',
     'name' = 'name',
     'photo' = 'photo',
@@ -18,17 +18,20 @@ class UserBar extends HTMLElement {
         this.attachShadow({mode:'open'});
     }
     static get observedAttributes(){
-        return Object.keys(Attribute);
+        return Object.keys(AttributeUser);
     }
-    attributeChangedCallback(propName: Attribute, oldValue: string | undefined, newValue: string | undefined){
+    attributeChangedCallback(propName: AttributeUser, oldValue: string | undefined, newValue: string | undefined){
         switch(propName){
-                case Attribute.uid:
+                case AttributeUser.uid:
                     this.uid = newValue ? Number(newValue) : undefined;
                     break;
                 default:
                     this[propName] = newValue;
                     break;
         }
+        this.render();
+    }
+    connectedCallback(){
         this.render();
     }
     render(){

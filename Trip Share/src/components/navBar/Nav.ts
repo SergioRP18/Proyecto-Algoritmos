@@ -1,3 +1,4 @@
+
 import styles from './Nav.css'
 
 export enum Attribute {
@@ -13,6 +14,10 @@ class NavBar extends HTMLElement {
     photo? : string;
     uid? : number;
 
+    constructor(){
+        super();
+        this.attachShadow({mode:'open'});
+    }
     static get observedAttributes(){
         return Object.keys(Attribute);
     }
@@ -26,10 +31,6 @@ class NavBar extends HTMLElement {
                     break;
                 }
                 this.render();
-            }
-    constructor(){
-        super();
-        this.attachShadow({mode:'open'});
     }
     connectedCallback(){
     this.render();
@@ -40,7 +41,7 @@ class NavBar extends HTMLElement {
                 <aside>
                     <nav>
                         <div class="logo">
-                            <img src="../../assets/Logo.png" alt="logo of brand">
+                            <img src="https://github.com/SergioRP18/logo-trip-share/blob/60425bb95745f5de7c7d5532dd68d7a04b4b7787/Logo.png" alt="logo of brand">
                         </div>
 
                         <div class="inputs">
@@ -63,12 +64,13 @@ class NavBar extends HTMLElement {
                                 </li>
                             </ul>
                         </div>
+
                         <user-bar></user-bar>
+
                     </nav>
                 </aside>
             `;
         };
-
         const cssNav = this.ownerDocument.createElement("style");
         cssNav.innerHTML = styles;
         this.shadowRoot?.appendChild(cssNav);
