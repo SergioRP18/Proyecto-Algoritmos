@@ -24,32 +24,35 @@ class SearchBar extends HTMLElement {
         });
     }
     render(){
-        if(this.shadowRoot){
-            this.shadowRoot.innerHTML = `
-            <section class="search-section">
-                <div class="container-search-bar">
+    if(this.shadowRoot){
+        this.shadowRoot.innerHTML = `
+        <section class="search-section">
+            <div class="container-search-bar">
+                <div class="search-wrapper">
                     <input type="text" id="search-bar" placeholder="Search for #Hashtag or friends">
-                    <button><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="none" stroke="#147AFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10a7 7 0 1 0 14 0a7 7 0 1 0-14 0m18 11l-6-6"/></svg></button>
-                    <div class="search-titles">
-                        <h1>¿Not knowing where to go?</h1>
-                        <h2>Select one of the following options</h2>
-                    </div>
-                    <div class ="pills-search-bar">
-                        <button>Región Pacífica</button>
-                        <button>Región Andina</button>
-                        <button>Región Amazónica</button>
-                        <button>Región Caribe</button>
-                        <button>Región Orinoquía</button>
-                    </div>
+                    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="none" stroke="#147AFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10a7 7 0 1 0 14 0a7 7 0 1 0-14 0m18 11l-6-6"/></svg>
                 </div>
-            </section>
-            `;
-        };
+                <div class="search-titles">
+                    <h1>¿Not knowing where to go?</h1>
+                    <h2>Select one of the following options</h2>
+                </div>
+                <div class ="pills-search-bar">
+                    <button>Región Pacífica</button>
+                    <button>Región Andina</button>
+                    <button>Región Amazónica</button>
+                    <button>Región Caribe</button>
+                    <button>Región Orinoquía</button>
+                </div>
+            </div>
+        </section>
+        `;
+    };
 
-        const cssSearchBar = this.ownerDocument.createElement("style");
-        cssSearchBar.innerHTML = styles;
-        this.shadowRoot?.appendChild(cssSearchBar);
-    }
+    const cssSearchBar = this.ownerDocument.createElement("style");
+    cssSearchBar.innerHTML = styles;
+    this.shadowRoot?.appendChild(cssSearchBar);
+}
+
 };
 customElements.define("section-search-bar", SearchBar);
 export default SearchBar;

@@ -1,6 +1,6 @@
 /* Estilos generales para la barra de navegación */
 aside {
-    background-color: #FAF8F8; /* Color de fondo más oscuro */
+    background-color: #FAF8F8;
     padding: 1rem;
     border-right: 1px solid #CCC;
     position: fixed;
@@ -58,15 +58,23 @@ aside {
 /* Imagen de perfil en la barra */
 .inputs li img {
     border-radius: 50%;
-    width: 35px; /* Aumenta el tamaño para alinearlo mejor con los iconos */
+    width: 35px;
     height: 35px;
-    margin-right: 0.5rem; /* Cambia el margen a la derecha */
+    margin-right: 0.5rem;
 }
 
 /* Asegura que el user-bar esté al final de la barra */
-.userbarbot {
+.userbar-exit {
+    display: flex;
+    justify-content: space-between; /* Espacia el userbarbot y el exit */
+    align-items: center;
     margin-top: 14.5rem;
     margin-bottom: 1rem;
+    padding-right: 1rem; /* Ajuste de espacio para el ícono de salida */
+}
+
+.exit {
+    cursor: pointer;
 }
 
 /* Responsive */
