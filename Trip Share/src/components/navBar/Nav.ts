@@ -35,15 +35,15 @@ class NavBar extends HTMLElement {
     connectedCallback(){
     this.render();
     }
-    render(){
+    render() {
         if(this.shadowRoot){
             this.shadowRoot.innerHTML = `
                 <aside>
                     <nav>
                         <div class="logo">
-                            <img src="https://github.com/SergioRP18/logo-trip-share/blob/60425bb95745f5de7c7d5532dd68d7a04b4b7787/Logo.png" alt="logo of brand">
+                            <img src="https://firebasestorage.googleapis.com/v0/b/narracion-hipermedia.appspot.com/o/Logo.png?alt=media&token=00dede4b-d714-4de3-bd48-b022d6864d6c" alt="logo of brand">
                         </div>
-
+    
                         <div class="inputs">
                             <ul>
                                 <li>
@@ -59,14 +59,14 @@ class NavBar extends HTMLElement {
                                     <a href="">Create</a>
                                 </li>
                                 <li>
-                                    <img src="${this.photo}" alt="">
+                                    <img src="${this.photo}" alt="Profile Picture">
                                     <a href="">Profile</a>
                                 </li>
                             </ul>
                         </div>
-
-                        <user-bar></user-bar>
-
+                        <div class="userbarbot">
+                            <user-bar></user-bar>
+                        </div>
                     </nav>
                 </aside>
             `;
@@ -74,7 +74,7 @@ class NavBar extends HTMLElement {
         const cssNav = this.ownerDocument.createElement("style");
         cssNav.innerHTML = styles;
         this.shadowRoot?.appendChild(cssNav);
-    }
+    }    
 };
 customElements.define('app-nav-bar', NavBar);
 export default NavBar;

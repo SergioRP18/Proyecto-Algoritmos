@@ -4,7 +4,7 @@
     text-align: left;
     padding: 1rem;
     background-color: transparent; /* Fondo transparente */
-    border-bottom: 1px solid #ddd; /* Borde en la parte inferior */
+    border-top: 1px solid #147AFF; /* Borde en la parte inferior */
     font-family: 'Poppins', sans-serif;
     margin-top: auto; /* Desplazar el user bar hacia la parte inferior */
     justify-content: center; /* Centrar el contenido horizontalmente */
