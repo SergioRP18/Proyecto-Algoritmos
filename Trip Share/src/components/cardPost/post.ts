@@ -1,4 +1,4 @@
-import styles from './post.css'
+import styles from './post.css';
 
 export enum Attributes {
     "uid" = "uid",
@@ -11,23 +11,25 @@ export enum Attributes {
 };
 
 class AppPost extends HTMLElement {
-    uid? : number
-    image? : string
-    photouser? : string
-    username? : string
-    region? : string
-    description? : string
-    hashtags? : string
+    uid?: number;
+    image?: string;
+    photouser?: string;
+    username?: string;
+    region?: string;
+    description?: string;
+    hashtags?: string;
 
-    constructor(){
+    constructor() {
         super();
-        this.attachShadow({mode: 'open'});
+        this.attachShadow({ mode: 'open' });
     }
-    static get observedAttributes(){
+
+    static get observedAttributes() {
         return Object.keys(Attributes);
     }
-    attributeChangedCallback(propName:Attributes, oldValue:string | undefined, newValue:string | undefined){
-        switch(propName){
+
+    attributeChangedCallback(propName: Attributes, oldValue: string | undefined, newValue: string | undefined) {
+        switch (propName) {
             case Attributes.uid:
                 this.uid = newValue ? Number(newValue) : undefined;
                 break;
@@ -37,24 +39,44 @@ class AppPost extends HTMLElement {
         }
         this.render();
     }
-    connectedCallback(){
+
+    connectedCallback() {
         this.render();
 
         const likeIcon = this.shadowRoot?.getElementById("like-icon");
-        const likeCounter = this.shadowRoot?.getElementById("contador-likes")
+        const likeCounter = this.shadowRoot?.getElementById("contador-likes");
         const agregarDeseados = this.shadowRoot?.getElementById("agregar-deseados");
-        const followButton = this.shadowRoot?.querySelector("button")
+        const followButton = this.shadowRoot?.querySelector("button");
+        const commentInput = this.shadowRoot?.querySelector<HTMLInputElement>(".footer-card input");
+        const commentSection = this.shadowRoot?.querySelector(".comment-section");
+        const sendButton = this.shadowRoot?.querySelector(".footer-card .send-button");
 
         let isLiked = false;
         let likes = 0;
         let isAdded = false;
         let isFollowing = false;
 
+        const addComment = () => {
+            if (commentInput && commentInput.value.trim() !== "") {
+                const newComment = document.createElement("div");
+                newComment.classList.add("comment");
+
+                newComment.innerHTML = `
+                    <img src="${this.photouser}" alt="User profile">
+                    <p>${commentInput.value}</p>
+                `;
+
+                commentSection?.appendChild(newComment);
+                commentInput.value = ""; // Clear input after posting the comment
+                commentSection?.scrollTo(0, commentSection.scrollHeight); // Scroll to the newest comment
+            }
+        };
+
         likeIcon?.addEventListener("click", () => {
             isLiked = !isLiked;
-            likes = isLiked ? likes + 1 : likes -1;
+            likes = isLiked ? likes + 1 : likes - 1;
             likeCounter!.textContent = likes.toString();
-            if(isLiked){
+            if (isLiked) {
                 likeIcon.classList.add("liked");
             } else {
                 likeIcon.classList.remove("liked");
@@ -63,7 +85,7 @@ class AppPost extends HTMLElement {
 
         agregarDeseados?.addEventListener("click", () => {
             isAdded = !isAdded;
-            if(isAdded){
+            if (isAdded) {
                 agregarDeseados.classList.add("added");
             } else {
                 agregarDeseados.classList.remove("added");
@@ -72,7 +94,7 @@ class AppPost extends HTMLElement {
 
         followButton?.addEventListener("click", () => {
             isFollowing = !isFollowing;
-            if(isFollowing){
+            if (isFollowing) {
                 followButton.textContent = "Following";
                 followButton.classList.add("Following");
             } else {
@@ -80,9 +102,20 @@ class AppPost extends HTMLElement {
                 followButton.classList.remove("Following");
             }
         });
+
+        commentInput?.addEventListener("keypress", (e) => {
+            if (e.key === "Enter") {
+                addComment();
+            }
+        });
+
+        sendButton?.addEventListener("click", () => {
+            addComment();
+        });
     }
-    render(){
-        if(this.shadowRoot){
+
+    render() {
+        if (this.shadowRoot) {
             this.shadowRoot.innerHTML = `
             <section>
                 <div class="post-container">
@@ -90,8 +123,8 @@ class AppPost extends HTMLElement {
                         <div class="head-card">
                             <img src="${this.photouser}" alt="photo user">
                             <div class="ubi">
-                            <h1>${this.username}</h1>
-                            <p>${this.region}</p>
+                                <h1>${this.username}</h1>
+                                <p>${this.region}</p>
                             </div>
                             <button>Follow</button>
                         </div>
@@ -116,20 +149,22 @@ class AppPost extends HTMLElement {
                         <div class="footer-card">
                             <img src="${this.photouser}" alt="photo user">
                             <input type="text" placeholder="Write your comment..">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 24 24"><g fill="none" stroke="#147AFF" stroke-linecap="round" stroke-width="2"><path d="m12 17l-1.5 1.5a3.536 3.536 0 0 1-5 0v0a3.536 3.536 0 0 1 0-5l3-3a3.536 3.536 0 0 1 5 0v0"/><path d="m12 7l1.5-1.5a3.536 3.536 0 0 1 5 0v0a3.536 3.536 0 0 1 0 5l-3 3a3.536 3.536 0 0 1-5 0v0"/></g></svg>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 24 24"><g fill="none" stroke="#147AFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0-18 0m6-2h.01M15 10h.01"/><path d="M9.5 15a3.5 3.5 0 0 0 5 0"/></g></svg>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 24 24"><path fill="none" stroke="#147AFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.698 4.034L21 12L4.698 19.966a.5.5 0 0 1-.546-.124a.56.56 0 0 1-.12-.568L6.5 12L4.032 4.726a.56.56 0 0 1 .12-.568a.5.5 0 0 1 .546-.124M6.5 12H21"/></svg>
+                            <svg class="send-button" xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 24 24"><path fill="none" stroke="#147AFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.698 4.034L21 12L4.698 19.966a.5.5 0 0 1-.546-.124a.56.56 0 0 1-.12-.568L6.5 12L4.032 4.726a.56.56 0 0 1 .12-.568a.5.5 0 0 1 .546-.124M6.5 12H21"/></svg>
+                        </div>
+                        <div class="comment-section">
+                            <!-- Aquí se añadirán los comentarios -->
                         </div>
                     </div>
                 </div>
             </section>
             `;
-        };
+        }
 
         const cssPost = this.ownerDocument.createElement("style");
         cssPost.innerHTML = styles;
         this.shadowRoot?.appendChild(cssPost);
     }
-};
+}
+
 customElements.define("app-post", AppPost);
 export default AppPost;
