@@ -40,19 +40,21 @@ class UserBar extends HTMLElement {
                 <aside>
                     <nav>
                         <div class="user-bar-dashboard">
-                            <img src="${this.photo}" alt="">
-                            <h6>${this.username}</h6>
-                            <p>${this.name}</p>
+                            <img src="${this.photo}" alt="Profile picture">
+                            <div class="text-container">
+                                <h6>${this.username || "Username"}</h6>
+                                <p>${this.name || "Real Name"}</p>
+                            </div>
                         </div>
                     </nav>
                 </aside>
             `;
         };
-
+    
         const cssUserBar = this.ownerDocument.createElement("style");
         cssUserBar.innerHTML = styles;
         this.shadowRoot?.appendChild(cssUserBar);
-    }
+    }    
 };
 customElements.define("user-bar", UserBar);
 export default UserBar;

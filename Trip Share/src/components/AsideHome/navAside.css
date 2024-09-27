@@ -10,6 +10,8 @@ aside {
     z-index: 1000; /* Asegura que la barra esté siempre por encima del contenido */
     width: 18%; /* Ajusta el ancho según la referencia */
     font-family: 'Arial', sans-serif;
+    display: flex;
+    flex-direction: column;
 }
 
 /* Estilos del contenido dentro de la barra */
@@ -17,6 +19,7 @@ nav {
     display: flex;
     flex-direction: column;
     align-items: center;
+    flex-grow: 1;
 }
 
 /* Estilos del user-bar */
@@ -49,11 +52,13 @@ nav {
     text-align: center;
     font-size: 0.8rem;
     color: #888;
-    margin-top: auto;
+    margin-top: auto; /* Hace que el footer se pegue al fondo de la barra */
     padding-top: 1rem;
+    margin-bottom: 1cm; /* Agrega un espacio de 1 cm desde el borde inferior */
     border-top: 1px solid #CCC;
     width: 100%;
 }
+
 
 /* Responsive */
 @media (max-width: 767px) {
