@@ -1,5 +1,6 @@
 /* Estilos generales para la barra de navegación */
 aside {
+    font-family: poppins;
     background-color: #FAF8F8; /* Color de fondo más oscuro */
     padding: 1rem;
     border-right: 1px solid #CCC; /* Borde de separación */
@@ -17,7 +18,8 @@ aside {
 
 /* Logo */
 .logo img {
-    width: 80px;
+    width: 170px;
+    margin-left: 5px;
     margin-bottom: 2rem;
 }
 

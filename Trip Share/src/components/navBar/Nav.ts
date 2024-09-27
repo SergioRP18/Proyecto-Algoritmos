@@ -41,7 +41,7 @@ class NavBar extends HTMLElement {
                 <aside>
                     <nav>
                         <div class="logo">
-                            <img src="https://github.com/SergioRP18/logo-trip-share/blob/60425bb95745f5de7c7d5532dd68d7a04b4b7787/Logo.png" alt="logo of brand">
+                            <img src="https://github.com/SergioRP18/logo-trip-share/raw/60425bb95745f5de7c7d5532dd68d7a04b4b7787/Logo.png" alt="logo of brand">
                         </div>
 
                         <div class="inputs">
@@ -66,6 +66,7 @@ class NavBar extends HTMLElement {
                         </div>
 
                         <user-bar></user-bar>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 24 24"><path fill="none" stroke="#147AFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12h-9.5m7.5 3l3-3l-3-3m-5-2V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h5a2 2 0 0 0 2-2v-1"/></svg>
 
                     </nav>
                 </aside>
