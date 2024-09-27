@@ -2,15 +2,11 @@
 import styles from './Nav.css'
 
 export enum Attribute {
-    'username' = 'username',
-    'name' = 'name',
     'photo' = 'photo',
     'uid' = 'uid',
 }
 
 class NavBar extends HTMLElement {
-    username? : string;
-    name? : string;
     photo? : string;
     uid? : number;
 
@@ -35,7 +31,7 @@ class NavBar extends HTMLElement {
     connectedCallback(){
     this.render();
     }
-    render(){
+    render() {
         if(this.shadowRoot){
             this.shadowRoot.innerHTML = `
                 <aside>
@@ -43,7 +39,7 @@ class NavBar extends HTMLElement {
                         <div class="logo">
                             <img src="https://github.com/SergioRP18/logo-trip-share/raw/60425bb95745f5de7c7d5532dd68d7a04b4b7787/Logo.png" alt="logo of brand">
                         </div>
-
+    
                         <div class="inputs">
                             <ul>
                                 <li>
@@ -59,14 +55,13 @@ class NavBar extends HTMLElement {
                                     <a href="">Create</a>
                                 </li>
                                 <li>
-                                    <img src="${this.photo}" alt="">
+                                    <img src="${this.photo}" alt="Profile Picture">
                                     <a href="">Profile</a>
                                 </li>
                             </ul>
                         </div>
 
                         <user-bar></user-bar>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 24 24"><path fill="none" stroke="#147AFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12h-9.5m7.5 3l3-3l-3-3m-5-2V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h5a2 2 0 0 0 2-2v-1"/></svg>
 
                     </nav>
                 </aside>
@@ -75,7 +70,7 @@ class NavBar extends HTMLElement {
         const cssNav = this.ownerDocument.createElement("style");
         cssNav.innerHTML = styles;
         this.shadowRoot?.appendChild(cssNav);
-    }
+    }    
 };
 customElements.define('app-nav-bar', NavBar);
 export default NavBar;

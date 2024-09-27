@@ -43,8 +43,12 @@ class AppPost extends HTMLElement {
         const likeIcon = this.shadowRoot?.getElementById("like-icon");
         const likeCounter = this.shadowRoot?.getElementById("contador-likes")
         const agregarDeseados = this.shadowRoot?.getElementById("agregar-deseados");
+        const followButton = this.shadowRoot?.querySelector("button")
+
         let isLiked = false;
         let likes = 0;
+        let isAdded = false;
+        let isFollowing = false;
 
         likeIcon?.addEventListener("click", () => {
             isLiked = !isLiked;
@@ -55,7 +59,27 @@ class AppPost extends HTMLElement {
             } else {
                 likeIcon.classList.remove("liked");
             }
-        })
+        });
+
+        agregarDeseados?.addEventListener("click", () => {
+            isAdded = !isAdded;
+            if(isAdded){
+                agregarDeseados.classList.add("added");
+            } else {
+                agregarDeseados.classList.remove("added");
+            }
+        });
+
+        followButton?.addEventListener("click", () => {
+            isFollowing = !isFollowing;
+            if(isFollowing){
+                followButton.textContent = "Following";
+                followButton.classList.add("Following");
+            } else {
+                followButton.textContent = "Follow";
+                followButton.classList.remove("Following");
+            }
+        });
     }
     render(){
         if(this.shadowRoot){

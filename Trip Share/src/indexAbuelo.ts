@@ -15,8 +15,6 @@ class AppContainer extends HTMLElement {
 
         data.forEach((element) => {
             const input = this.ownerDocument.createElement("app-nav-bar") as NavBar;
-            input.setAttribute(Attribute.username,element.username);
-            input.setAttribute(Attribute.name,element.name);
             input.setAttribute(Attribute.photo,element.photo);
             input.setAttribute(Attribute.uid,String(element.id));
             

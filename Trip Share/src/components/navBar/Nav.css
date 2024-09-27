@@ -1,26 +1,28 @@
 /* Estilos generales para la barra de navegación */
 aside {
-    font-family: poppins;
     background-color: #FAF8F8; /* Color de fondo más oscuro */
     padding: 1rem;
-    border-right: 1px solid #CCC; /* Borde de separación */
-    position: fixed; /* Barra fija */
+    border-right: 1px solid #CCC;
+    position: fixed;
     top: 0;
     left: 0;
-    height: 100vh; /* Cobertura de toda la altura de la pantalla */
-    z-index: 1000; /* Por encima del contenido */
+    height: 100vh;
+    z-index: 1000;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    width: 18%; /* Ancho específico */
+    width: 18%;
     box-sizing: border-box;
 }
 
 /* Logo */
+.logo {
+    display: flex;
+    margin-bottom: 1rem;
+}
 .logo img {
-    width: 170px;
-    margin-left: 5px;
-    margin-bottom: 2rem;
+    width: 160px;
+    margin-bottom: 1rem;
 }
 
 /* Lista de enlaces de navegación */
@@ -34,7 +36,7 @@ aside {
 .inputs li {
     display: flex;
     align-items: center;
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
 }
 
 /* Iconos SVG junto a los enlaces */
@@ -50,19 +52,21 @@ aside {
     font-weight: bold;
     display: flex;
     align-items: center;
+    font-family: 'Poppins', sans-serif;
 }
 
 /* Imagen de perfil en la barra */
 .inputs li img {
     border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    margin-left: 0.5rem;
+    width: 35px; /* Aumenta el tamaño para alinearlo mejor con los iconos */
+    height: 35px;
+    margin-right: 0.5rem; /* Cambia el margen a la derecha */
 }
 
 /* Asegura que el user-bar esté al final de la barra */
-.user-bar {
-    margin-top: auto;
+.userbarbot {
+    margin-top: 14.5rem;
+    margin-bottom: 1rem;
 }
 
 /* Responsive */

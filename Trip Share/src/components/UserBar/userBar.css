@@ -1,65 +1,67 @@
 .user-bar-dashboard {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    text-align: center;
+    text-align: left;
     padding: 1rem;
     background-color: transparent; /* Fondo transparente */
-    border-bottom: 1px solid #ddd; /* Borde en la parte inferior */
+    border-top: 1px solid #147AFF; /* Borde en la parte inferior */
     font-family: 'Poppins', sans-serif;
+    margin-top: auto; /* Desplazar el user bar hacia la parte inferior */
+    justify-content: center; /* Centrar el contenido horizontalmente */
 }
 
 .user-bar-dashboard img {
     border-radius: 50%;
-    width: 60px;
-    height: 60px;
-    margin-bottom: 1rem;
+    width: 40px;
+    height: 40px;
+    margin-right: 0.5rem; /* Espacio entre la imagen y los textos */
 }
 
 .user-bar-dashboard h6 {
-    font-size: 1.2rem;
+    font-size: 1rem;
     color: #000;
     margin: 0;
+    font-weight: bold;
     font-family: 'Poppins', sans-serif;
 }
 
 .user-bar-dashboard p {
-    font-size: 1rem;
+    font-size: 0.9rem;
     color: #666;
     font-family: 'Poppins', sans-serif;
+    margin: 0; /* Elimina el margen para evitar separación no deseada */
 }
 
 /* Media queries para pantallas más grandes */
 @media (min-width: 768px) {
     .user-bar-dashboard {
-        flex-direction: row;
-        text-align: left;
-        justify-content: space-between;
+        justify-content: flex-start; /* Alinea el contenido a la izquierda en pantallas más grandes */
     }
 
     .user-bar-dashboard img {
-        margin-right: 1rem;
+        width: 50px;
+        height: 50px;
     }
 
     .user-bar-dashboard h6 {
-        font-size: 1.5rem;
+        font-size: 1.2rem;
     }
 
     .user-bar-dashboard p {
-        font-size: 1.2rem;
+        font-size: 1rem;
     }
 }
 
 /* Media queries para pantallas pequeñas */
 @media (max-width: 767px) {
     .user-bar-dashboard {
-        flex-direction: column;
-        text-align: center;
+        justify-content: center; /* Centra el contenido en móviles */
+        flex-direction: row; /* Mantiene la disposición en fila en móviles */
     }
 
     .user-bar-dashboard img {
-        width: 50px;
-        height: 50px;
+        width: 40px;
+        height: 40px;
     }
 
     .user-bar-dashboard h6 {

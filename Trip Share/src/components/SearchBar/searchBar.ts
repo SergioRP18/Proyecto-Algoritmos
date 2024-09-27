@@ -7,6 +7,21 @@ class SearchBar extends HTMLElement {
     }
     connectedCallback(){
         this.render();
+
+        const selectedPills = this.shadowRoot?.querySelectorAll("button");
+
+        selectedPills?.forEach(selectedPill => {
+            let isSelected = false;
+    
+            selectedPill?.addEventListener("click", () => {
+                isSelected = !isSelected;
+                if(isSelected){
+                    selectedPill.classList.add("selected");
+                } else {
+                    selectedPill.classList.remove("selected");
+                }
+            });
+        });
     }
     render(){
         if(this.shadowRoot){

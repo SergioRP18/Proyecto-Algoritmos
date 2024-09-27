@@ -13,7 +13,7 @@
     max-width: 600px; /* Aumenta el ancho del campo de búsqueda */
     padding: 0.75rem; /* Aumenta el relleno interno */
     border-radius: 25px;
-    border: 1px solid #DDD;
+    border: 1px solid #147AFF;
     background-color: #F9F9F9;
     margin-bottom: 1.5rem; /* Aumenta el espacio inferior */
     font-size: 1rem; /* Ajusta el tamaño de la fuente */
@@ -29,10 +29,11 @@
 
 .search-titles h2 {
     font-size: 1.25rem; /* Tamaño de fuente para el subtítulo */
-    color: #666; /* Color gris para el subtítulo */
+    color: #333; /* Color gris para el subtítulo */
     margin-bottom: 2rem; /* Espacio inferior más amplio */
     text-align: center; /* Asegura que el texto esté centrado */
     font-family: 'Poppins', sans-serif;
+    font-weight: 600;
 }
 
 .pills-search-bar {
@@ -40,22 +41,28 @@
     justify-content: center;
     flex-wrap: wrap;
     gap: 0.75rem; /* Espacio entre los botones */
-    width: 100%;
+    width: 90%;
 }
 
 .pills-search-bar button {
     padding: 0.75rem 1.5rem; /* Aumenta el relleno interno para los botones */
-    border: none;
+    border: 1px solid #147AFF;
     border-radius: 25px; /* Bordes más redondeados */
-    background-color: #147AFF;
-    color: #FFF;
+    background-color: white;
+    color:#147AFF;
     cursor: pointer;
     font-size: 1.1rem; /* Tamaño de fuente más grande para los botones */
     transition: background-color 0.3s ease; /* Animación suave para el cambio de color */
 }
 
 .pills-search-bar button:hover {
-    background-color: #005bb5; /* Color de fondo más oscuro al hacer hover */
+    background-color:#147AFF; /* Color de fondo más oscuro al hacer hover */
+    color: white;
+}
+
+button.selected {
+    background-color: #147AFF;
+    color: white;
 }
 
 @media (min-width: 768px) {

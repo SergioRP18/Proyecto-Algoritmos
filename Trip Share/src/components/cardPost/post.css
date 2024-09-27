@@ -126,7 +126,19 @@
     fill: #147AFF;
 }
 
+#like-icon.liked {
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNSIgaGVpZ2h0PSIyNSIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBmaWxsPSIjMTQ3QUZGIiBkPSJNMSAyMWg0VjlIMXptMjItMTFjMC0xLjEtLjktMi0yLTJoLTYuMzFsLjk1LTQuNTdsLjAzLS4zMmMwLS40MS0uMTctLjc5LS40NC0xLjA2TDE0LjE3IDFMNy41OSA3LjU5QzcuMjIgNy45NSA3IDguNDUgNyA5djEwYzAgMS4xLjkgMiAyIDJoOWMuODMgMCAxLjU0LS41IDEuODQtMS4yMmwzLjAyLTcuMDVjLjA5LS4yMy4xNC0uNDcuMTQtLjczeiIvPjwvc3ZnPg==);
+}
 
+#agregar-deseados.added {
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNSIgaGVpZ2h0PSIyNSIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBmaWxsPSIjMTQ3QUZGIiBkPSJNMTQuNDMgMTBMMTIgMmwtMi40MyA4SDJsNi4xOCA0LjQxTDUuODMgMjJMMTIgMTcuMzFMMTguMTggMjJsLTIuMzUtNy41OUwyMiAxMHoiLz48L3N2Zz4=);
+}
+
+button.Following {
+    background-color: white;
+    color: #147AFF;
+
+}
 
 .icon-bar p {
     font-size: 1rem;
