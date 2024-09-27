@@ -3,31 +3,14 @@ import { infoPost } from './data/dataPost';
 import './components/indexPadre';
 import NavBar, {Attribute} from './components/navBar/Nav';
 import AppPost, {Attributes} from './components/cardPost/post';
-import UserBar, {AttributeUser} from './components/UserBar/userBar';
+import navAside, {AttributeAside} from './components/AsideHome/navAside';
 
 class AppContainer extends HTMLElement {
-    inputs: NavBar[] = [];
     posts: AppPost[] = [];
 
     constructor(){
         super();
         this.attachShadow({mode:'open'});
-
-        data.forEach((element) => {
-            const input = this.ownerDocument.createElement("app-nav-bar") as NavBar;
-            input.setAttribute(Attribute.photo,element.photo);
-            input.setAttribute(Attribute.uid,String(element.id));
-            
-            const user = this.ownerDocument.createElement("user-bar") as UserBar;
-            user.setAttribute(AttributeUser.username,element.username);
-            user.setAttribute(AttributeUser.name,element.name);
-            user.setAttribute(AttributeUser.photo,element.photo);
-            user.setAttribute(AttributeUser.uid,String(element.id));
-            
-            input.appendChild(user);
-
-            this.inputs.push(input);
-        });
 
         
 
@@ -47,20 +30,35 @@ class AppContainer extends HTMLElement {
         this.render();
     }
     render(){
+        const aside = this.ownerDocument.createElement("app-nav-profile") as navAside;
+            aside.setAttribute(AttributeAside.photo,data.photo);
+            aside.setAttribute(AttributeAside.uid,String(data.id));
+            aside.setAttribute(AttributeAside.username,data.username);
+            aside.setAttribute(AttributeAside.name,data.name);
+            aside.setAttribute(AttributeAside.photo,data.photo);
+
         if(this.shadowRoot){
-            this.shadowRoot.innerHTML += `
-            <app-nav-profile></app-nav-profile>
-            `;
+            
+            this.shadowRoot?.appendChild(aside);
+            
         }
         if(this.shadowRoot){
             this.shadowRoot.innerHTML += `
                 <section-search-bar></section-search-bar>
             `;
         }
+
+        const input = this.ownerDocument.createElement("app-nav-bar") as NavBar;
+            input.setAttribute(Attribute.photo,data.photo);
+            input.setAttribute(Attribute.uid,String(data.id));
+            input.setAttribute(Attribute.username,data.username);
+            input.setAttribute(Attribute.name,data.name);
+            input.setAttribute(Attribute.photo,data.photo);
+
         if(this.shadowRoot){
-            this.inputs.forEach((input) => {
-                this.shadowRoot?.appendChild(input);
-            });
+            
+            this.shadowRoot?.appendChild(input);
+            
         }
         if(this.shadowRoot){
             this.posts.forEach((posts) => {
