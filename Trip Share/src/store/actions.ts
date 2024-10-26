@@ -1,4 +1,4 @@
-import { Screens } from "../types/navegation";
+import { Screens } from "../types/navigation";
 
 export const navigate = (screen: Screens) => {
     return{
