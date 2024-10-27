@@ -18,11 +18,6 @@ class Login extends HTMLElement {
                     <input type="password" id="password" name="password" placeholder="Password" required>
                     <button type="submit">Log In</button>
                 </form>
-
-                <footer>
-                    <p>Information - Help - News - API - Privacity - Conditions - Lenguage - Trip Verified</p>
-                    <p>2024 TRIP SHARE FROM DMI</p>
-                </footer>
             `
         }
     }
