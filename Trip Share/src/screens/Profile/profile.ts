@@ -1,4 +1,4 @@
-class Profile extends HTMLElement {
+class AppProfile extends HTMLElement {
     constructor(){
         super();
         this.attachShadow({mode:'open'});
@@ -9,7 +9,7 @@ class Profile extends HTMLElement {
     }
 
     render(){
-        
+
     }
 };
-customElements.define("app-profile", Profile);
+customElements.define("app-profile", AppProfile);
