@@ -28,18 +28,23 @@ class AppContainer extends HTMLElement {
                 this.shadowRoot?.appendChild(login);
                 break;
             
+            case Screens.REGISTER:
+                const register = this.ownerDocument.createElement("app-register");
+                this.shadowRoot?.appendChild(register);
+                break;
+            
             case Screens.PROFILE:
                 const profile = this.ownerDocument.createElement("app-profile");
                 this.shadowRoot?.appendChild(profile);
                 break;
 
             case Screens.MY_WISH_LIST:
-                const myWishList = this.ownerDocument.createElement("app-login");
+                const myWishList = this.ownerDocument.createElement("app-wish-list");
                 this.shadowRoot?.appendChild(myWishList);
                 break;
             
             case Screens.EDIT_PROFILE:
-                const editProfile = this.ownerDocument.createElement("app-login");
+                const editProfile = this.ownerDocument.createElement("app-edit-profile");
                 this.shadowRoot?.appendChild(editProfile);
                 break;
 

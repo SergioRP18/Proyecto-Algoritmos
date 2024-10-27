@@ -12,4 +12,4 @@ class AppMyWishList extends HTMLElement {
         
     }
 };
-customElements.define("", AppMyWishList);
+customElements.define("app-wish-list", AppMyWishList);
