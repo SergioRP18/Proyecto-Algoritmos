@@ -38,6 +38,11 @@ class AppContainer extends HTMLElement {
                 this.shadowRoot?.appendChild(myWishList);
                 break;
             
+            case Screens.EDIT_PROFILE:
+                const editProfile = this.ownerDocument.createElement("app-login");
+                this.shadowRoot?.appendChild(editProfile);
+                break;
+
             default:
                 break;
         }
