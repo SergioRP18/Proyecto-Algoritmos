@@ -1,4 +1,4 @@
-import Storage, { PersistanceKeys } from "../utils/Storage";
+import Storage, { PersistanceKeys } from "../utils/storage";
 import { Screens } from "../types/navigation";
 import { AppState, Actions, Observer } from "../types/store";
 import { reducer } from "./reducer";

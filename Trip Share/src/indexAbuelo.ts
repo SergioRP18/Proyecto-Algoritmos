@@ -1,4 +1,5 @@
 import './screens/Dashboard/dashboard'
+import './screens/Login/login'
 import './components/indexPadre'
 import { addObserver } from './store';
 import { appState } from './store';
@@ -25,6 +26,11 @@ class AppContainer extends HTMLElement {
             case Screens.LOGIN:
                 const login = this.ownerDocument.createElement("app-login");
                 this.shadowRoot?.appendChild(login);
+                break;
+            
+            case Screens.PROFILE:
+                const profile = this.ownerDocument.createElement("app-login");
+                this.shadowRoot?.appendChild(profile);
                 break;
             
             default:

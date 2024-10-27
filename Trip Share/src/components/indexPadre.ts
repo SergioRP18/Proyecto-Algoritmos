@@ -4,3 +4,4 @@ export { default as UserBar } from './UserBar/userBar';
 export { default as AppPost } from './cardPost/post';
 export { default as SearchBar } from './SearchBar/searchBar';
 export { default as NavResponsive } from './navBar/navBarResponsive/NavResponsive';
+export { default as login } from './login/login';
