@@ -4,12 +4,14 @@ import { infoPost } from '../../data/dataPost';
 import { data } from '../../data/dataUser';
 import NavBar, {Attribute} from '../../components/navBar/Nav'
 import navAside, {AttributeAside} from '../../components/AsideHome/navAside'
+import { addObserver } from '../../store';
 class AppDashboard extends HTMLElement {
     posts: AppPost[] = [];
 
     constructor(){
         super();
         this.attachShadow({mode:'open'});
+        addObserver(this);
 
         infoPost.forEach((element) => {
             const post = this.ownerDocument.createElement("app-post") as AppPost;

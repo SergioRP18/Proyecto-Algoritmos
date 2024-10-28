@@ -14,8 +14,8 @@ class Login extends HTMLElement {
                 <img src="">
 
                 <form id="user-form">
-                    <input type="e-mail" id="email" name="email" placeholder="E-mail" required>
-                    <input type="password" id="password" name="password" placeholder="Password" required>
+                    <input type="e-mail" id="email" name="email" placeholder="E-mail">
+                    <input type="password" id="password" name="password" placeholder="Password">
                     <button type="submit">Log In</button>
                 </form>
             `
