@@ -6,4 +6,8 @@ export { default as SearchBar } from './SearchBar/searchBar';
 export { default as NavResponsive } from './navBar/navBarResponsive/NavResponsive';
 export { default as Photo } from './CreatePost/inputPhoto';
 export { default as Post } from './CreatePost/inputPost';
+export { default as ImageLogin } from './login/imageLogin';
+export {  } from '';
+export {  } from '';
+export {  } from '';
 export {  } from '';

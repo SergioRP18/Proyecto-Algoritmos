@@ -14,8 +14,6 @@ class Login extends HTMLElement {
     render(){
         if(this.shadowRoot){
             this.shadowRoot.innerHTML = `
-                <img src="">
-
                 <form id="user-form">
                     <input type="e-mail" id="email" name="email" placeholder="E-mail">
                     <input type="password" id="password" name="password" placeholder="Password">
