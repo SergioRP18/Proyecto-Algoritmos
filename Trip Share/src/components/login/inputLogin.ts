@@ -1,7 +1,7 @@
 import { dispatch } from "../../store/index";
 import { navigate } from "../../store/actions";
 import { Screens } from "../../types/navigation";
-class Login extends HTMLElement {
+class InputLogin extends HTMLElement {
     constructor(){
         super();
         this.attachShadow({mode:'open'});
@@ -31,5 +31,5 @@ class Login extends HTMLElement {
         }
     }
 };
-customElements.define("login-section", Login);
-export default Login;
+customElements.define("login-section", InputLogin);
+export default InputLogin;

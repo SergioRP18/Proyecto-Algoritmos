@@ -1,5 +1,4 @@
-import "../../components/login/inputLogin";
-import "../../components/login/imageLogin";
+import "../../components/indexPadre";
 class AppLogin extends HTMLElement {
     constructor(){
         super();
@@ -15,6 +14,7 @@ class AppLogin extends HTMLElement {
             this.shadowRoot.innerHTML = `
                 <section-image-login></section-image-login>
                 <login-section></login-section>
+                <section-footer-login></section-footer-login>
             `
         }
     }

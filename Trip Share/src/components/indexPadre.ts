@@ -7,7 +7,7 @@ export { default as NavResponsive } from './navBar/navBarResponsive/NavResponsiv
 export { default as Photo } from './CreatePost/inputPhoto';
 export { default as Post } from './CreatePost/inputPost';
 export { default as ImageLogin } from './login/imageLogin';
-export {  } from '';
-export {  } from '';
+export { default as InputLogin } from './login/inputLogin';
+export { default as FooterLogin } from './login/footerLogin';
 export {  } from '';
 export {  } from '';
