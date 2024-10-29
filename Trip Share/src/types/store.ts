@@ -4,8 +4,12 @@ export type AppState = {
     screen: string
 }
 
-export enum ScreenActions {
+export enum Actions {
     "NAVIGATE" = "NAVIGATE",
 }
 
-export type Actions = ScreenActions;
+export enum Screens {
+	'LOGIN' = 'LOGIN',
+	'DASHBOARD' = 'DASHBOARD',
+}
+

@@ -1,3 +1,6 @@
+import { dispatch } from "../../store/index";
+import { navigate } from "../../store/actions";
+import { Screens } from "../../types/navigation";
 class Login extends HTMLElement {
     constructor(){
         super();
@@ -16,9 +19,14 @@ class Login extends HTMLElement {
                 <form id="user-form">
                     <input type="e-mail" id="email" name="email" placeholder="E-mail">
                     <input type="password" id="password" name="password" placeholder="Password">
-                    <button type="submit">Log In</button>
+                    <button type="submit" id="btn">Log In</button>
                 </form>
-            `
+            `;
+
+            const loginBtn = this.ownerDocument.getElementById("btn");
+            loginBtn?.addEventListener('submit', () => {
+                    dispatch(navigate(Screens.DASHBOARD));
+            });
         }
     }
 };

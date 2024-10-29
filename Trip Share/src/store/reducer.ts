@@ -1,10 +1,16 @@
-export const reducer = (currentAction: any, currentState: any) => {
-    const { type, payload } = currentAction;
+import { Actions } from "../types/store";
 
-    switch(type){
-        case "NAVIGATE":
-            currentState.screen = payload
-        break;
+export const reducer = (currentAction: any, currentState: any) => {
+    const { action, payload } = currentAction;
+
+    switch(action){
+        case Actions.NAVIGATE:
+            return {
+				...currentState,
+				screen: payload,
+			};
+
+        default:
+        return currentState;
     }
-    return currentState;
-}
+};

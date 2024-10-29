@@ -2,7 +2,7 @@ import { Screens } from "../types/navigation";
 
 export const navigate = (screen: Screens) => {
     return{
-        type:"NAVIGATE",
+        action:"NAVIGATE",
         payload: screen,
     }
 }
