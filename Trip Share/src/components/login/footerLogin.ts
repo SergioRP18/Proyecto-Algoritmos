@@ -1,3 +1,5 @@
+import styles from './login.css'
+
 class FooterLogin extends HTMLElement {
     constructor(){
         super();
@@ -11,12 +13,17 @@ class FooterLogin extends HTMLElement {
     render(){
         if(this.shadowRoot){
             this.shadowRoot.innerHTML = `
+                <link rel="stylesheet" href="./login.css">
                 <div class="footer-login">
                     <p>Information - Help - News - API - Privacity - Conditions - Lenguage - Trip Verified</p>
                     <p>2024 TRIP SHARED FROM DMI</p>
                 </div>
             `;
-        }
+        };
+
+        const cssLogin = this.ownerDocument.createElement("style");
+        cssLogin.innerHTML = styles;
+        this.shadowRoot?.appendChild(cssLogin);        
     }
 };
 customElements.define("section-footer-login", FooterLogin);
