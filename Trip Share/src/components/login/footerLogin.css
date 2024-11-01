@@ -1,0 +1,20 @@
+/* footerLogin.css */
+
+.footer-login {
+    width: 100%;
+    background-color: #F3F3F3;
+    padding: 15px 20px;
+    color: #aaaaaa;
+    font-size: 0.75rem;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 200; /* Poppins Light */
+}

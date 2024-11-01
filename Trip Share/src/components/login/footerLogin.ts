@@ -1,4 +1,4 @@
-import styles from './login.css'
+import styles from './footerLogin.css'
 
 class FooterLogin extends HTMLElement {
     constructor(){

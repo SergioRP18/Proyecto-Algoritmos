@@ -1,4 +1,4 @@
-import styles from './login.css'
+import styles from './imageLogin.css'
 
 class ImageLogin extends HTMLElement {
     constructor(){

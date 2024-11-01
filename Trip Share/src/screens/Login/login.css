@@ -1,0 +1,38 @@
+/* login.css */
+
+/* Estructura general */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #1a1a1a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+/* Contenedor principal */
+.main-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 90%; /* Ajusta el ancho para que haya más espacio en los lados */
+    max-width: 1400px;
+    gap: 300px; /* Mayor espacio entre el logo y el formulario */
+    padding: 80px;
+}
+
+/* Footer */
+.footer {
+    width: 100%;
+    background-color: #F3F3F3;
+    padding: 15px 20px;
+    color: #2D2C2C;
+    font-size: 0.75rem;
+    text-align: left;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+}

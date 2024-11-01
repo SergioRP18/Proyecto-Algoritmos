@@ -1,4 +1,4 @@
-import styles from './login.css'; 
+import styles from './inputLogin.css'; 
 
 import { dispatch } from "../../store/index";
 import { navigate } from "../../store/actions";
