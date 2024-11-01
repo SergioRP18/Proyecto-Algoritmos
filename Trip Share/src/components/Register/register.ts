@@ -56,16 +56,12 @@ class AppRegister extends HTMLElement {
                 <button id="submit-btn">Register</button>
             `;
 
-            const style = document.createElement("style");
-            style.textContent = styles;
-            this.shadowRoot.appendChild(style);
-
             this.shadowRoot.querySelector("#submit-btn")?.addEventListener("click", () => this.submitForm());
-        }
+        };
+        const cssLogin = this.ownerDocument.createElement("style");
+        cssLogin.innerHTML = styles;
+        this.shadowRoot?.appendChild(cssLogin); 
     }
-}
-
-customElements.define("app-register", AppRegister);
 };
 customElements.define("app-register", AppRegister);
 export default AppRegister;
