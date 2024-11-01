@@ -15,7 +15,7 @@ class AppLogin extends HTMLElement {
                 <section-image-login></section-image-login>
                 <login-section></login-section>
                 <section-footer-login></section-footer-login>
-            `
+            `;
         }
     }
 };

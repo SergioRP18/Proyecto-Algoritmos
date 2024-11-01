@@ -13,6 +13,8 @@ class AppRegister extends HTMLElement {
         if(this.shadowRoot){
             this.shadowRoot.innerHTML = `
                 <section-header-register></section-header-register>
+                <section-inputs-register></section-inputs-register>
+                <section-selector-register></section-selector-register>
             `;
         }
     }

@@ -11,7 +11,7 @@ export { default as InputLogin } from './login/inputLogin';
 export { default as FooterLogin } from './login/footerLogin';
 export { default as HeaderRegister } from './Register/headerRegister';
 export { default as InputsRegister } from './Register/inputsRegister';
-export {  } from '';
+export { default as SelectorRegister } from './Register/selectorsRegister';
 export {  } from '';
 export {  } from '';
 export {  } from '';

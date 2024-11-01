@@ -1,33 +1,43 @@
-import Storage, { PersistanceKeys } from "../utils/storage";
+import Storage from "../utils/storage";
 import { Screens } from "../types/navigation";
-import { AppState, Actions, Observer } from "../types/store";
+import { AppState, Observer } from "../types/store";
 import { reducer } from "./reducer";
+import { getFirebaseInstance } from "../utils/Firebase";
+import { navigate, setUserCredentials } from "./actions";
+import { onAuthStateChanged } from "firebase/auth";
 
-const emptyState = {
-    screen: Screens.LOGIN,
+const onAuth = async () => {
+	const { auth } = await getFirebaseInstance();
+	onAuthStateChanged(auth, (user) => {
+		if (user) {
+			user.uid !== null ? dispatch(setUserCredentials(user.uid)) : ''; //Es la que se encarga de guardar el id del usuario
+			dispatch(navigate(Screens.DASHBOARD)); //Esta es la de navegar a dashboard
+		} else {
+			dispatch(navigate(Screens.LOGIN));
+		}
+	});
 };
 
-export let appState: AppState = Storage.get<AppState>({
-    key: PersistanceKeys.STORE,
-    defaultValue: emptyState,
-}) || emptyState;
+onAuth();
+
+const initialState: AppState = {
+	screen: 'LOGIN',
+	user: '',
+};
+
+export let appState = initialState;
 
 let observers: Observer[] = [];
 
-const persistStore = (state: AppState) =>
-    Storage.set({ key: PersistanceKeys.STORE, value: state });
+export const dispatch = (action: any) => {
+	const clone = JSON.parse(JSON.stringify(appState));
+	const newState = reducer(action, clone);
+	appState = newState;
 
-const notifyObservers = () => observers.forEach((o) => o.render());
-
-export const dispatch = (action: Actions) => {
-    const clone = JSON.parse(JSON.stringify(appState));
-    const newState = reducer(action, clone);
-    appState = newState;
-
-    persistStore(newState);
-    notifyObservers();
+	observers.forEach((o: any) => o.render());
 };
 
-export const addObserver = (ref: Observer) => {
-    observers = [...observers, ref];
+export const addObserver = (ref: any) => {
+	observers = [...observers, ref];
 };
+
