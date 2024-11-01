@@ -1,0 +1,19 @@
+.selectors {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.selectors h1 {
+    font-size: 1rem;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.selectors select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-family: 'Poppins', sans-serif;
+}

@@ -1,4 +1,6 @@
+import styles from './register.css';
 import '../../components/indexPadre';
+
 class AppRegister extends HTMLElement {
     constructor(){
         super();
@@ -16,8 +18,13 @@ class AppRegister extends HTMLElement {
                 <section-inputs-register></section-inputs-register>
                 <section-selector-register></section-selector-register>
             `;
+
+            const style = document.createElement("style");
+            style.textContent = styles;
+            this.shadowRoot.appendChild(style);
         }
     }
-};
-customElements.define("app-register", AppRegister)
+}
+
+customElements.define("app-register", AppRegister);
 export default AppRegister;
