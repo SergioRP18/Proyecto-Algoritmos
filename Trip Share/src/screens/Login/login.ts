@@ -1,3 +1,4 @@
+import styles from './login.css';
 import "../../components/indexPadre";
 
 class AppLogin extends HTMLElement {
@@ -13,17 +14,25 @@ class AppLogin extends HTMLElement {
     render() {
         if (this.shadowRoot) {
             this.shadowRoot.innerHTML = `
-                <link rel="stylesheet" href="./login.css">
                 <div class="main-container">
-                    <div class="logo-login">
-                         <section-image-login></section-image-login> <!-- Logo -->
+                    <div class="logo-login-big">
+                        <section-image-login></section-image-login> <!-- Logo -->
                     </div>
                     <div class="right-section">
                         <login-section></login-section> <!-- Formulario de inicio de sesión -->
                     </div>
                 </div>
-                <section-footer-login></section-footer-login>
+                <div class="footer">
+                    <section-footer-login></section-footer-login>
+                </div>
             `;
+
+            // Crear un elemento <style> y añadir el contenido del archivo CSS importado
+            const style = document.createElement('style');
+            style.textContent = styles;
+
+            // Añadir el elemento <style> al shadowRoot
+            this.shadowRoot.appendChild(style);
         }
     }
 }

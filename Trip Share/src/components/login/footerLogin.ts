@@ -1,4 +1,4 @@
-import styles from './login.css'
+import styles from './footerLogin.css'
 
 class FooterLogin extends HTMLElement {
     constructor(){
@@ -13,7 +13,7 @@ class FooterLogin extends HTMLElement {
     render(){
         if(this.shadowRoot){
             this.shadowRoot.innerHTML = `
-                <link rel="stylesheet" href="./login.css">
+                <link rel="stylesheet" href="./footerLogin.css">
                 <div class="footer-login">
                     <p>Information - Help - News - API - Privacity - Conditions - Lenguage - Trip Verified</p>
                     <p>2024 TRIP SHARED FROM DMI</p>

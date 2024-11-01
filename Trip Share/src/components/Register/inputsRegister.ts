@@ -1,3 +1,4 @@
+import styles from './inputsRegister.css';
 import { registerUser } from "../../utils/Firebase";
 import { dispatch } from "../../store";
 import { navigate } from "../../store/actions";
@@ -8,7 +9,7 @@ const credentials = {
     lastName: '',
     email: '',
     password: '',
-}
+};
 
 class InputsRegister extends HTMLElement {
     constructor(){
@@ -20,26 +21,26 @@ class InputsRegister extends HTMLElement {
         this.render();
     }
 
-    changeEmail(e: any) {
-		credentials.email = e.target.value;
-	}
+    changeEmail(e: Event) {
+        credentials.email = (e.target as HTMLInputElement).value;
+    }
 
-	changePassword(e: any) {
-		credentials.password = e.target.value;
-	}
+    changePassword(e: Event) {
+        credentials.password = (e.target as HTMLInputElement).value;
+    }
 
-	changeName(e: any) {
-		credentials.name = e.target.value;
-	}
+    changeName(e: Event) {
+        credentials.name = (e.target as HTMLInputElement).value;
+    }
 
-    changeLastName(e: any) {
-		credentials.lastName = e.target.value;
-	}
+    changeLastName(e: Event) {
+        credentials.lastName = (e.target as HTMLInputElement).value;
+    }
 
     async submitForm() {
-		const resp = await registerUser(credentials);
-		resp ? dispatch(navigate(Screens.LOGIN)) : alert('No se pudo crear el usuario');
-	}
+        const resp = await registerUser(credentials);
+        resp ? dispatch(navigate(Screens.LOGIN)) : alert('No se pudo crear el usuario');
+    }
 
     render(){
         if(this.shadowRoot){
@@ -52,6 +53,9 @@ class InputsRegister extends HTMLElement {
                 </div>
             `;
 
+            const style = document.createElement("style");
+            style.textContent = styles;
+            this.shadowRoot.appendChild(style);
             const pEmail = this.ownerDocument.querySelector("#user-email");
             pEmail?.addEventListener('change', this.changeEmail);
 
@@ -65,6 +69,7 @@ class InputsRegister extends HTMLElement {
             pLastName?.addEventListener('change', this.changeLastName);
         }
     }
-};
+}
+
 customElements.define("section-inputs-register", InputsRegister);
 export default InputsRegister;

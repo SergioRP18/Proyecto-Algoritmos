@@ -1,0 +1,12 @@
+/* imageLogin.css */
+
+.logo-login {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%; /* Para alinear verticalmente con el formulario */
+}
+
+.logo-login img {
+    width: 320px;
+}

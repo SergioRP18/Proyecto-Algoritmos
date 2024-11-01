@@ -1,4 +1,4 @@
-import styles from './login.css'; 
+import styles from './inputLogin.css'; 
 import { addObserver, dispatch } from "../../store";
 import { navigate } from "../../store/actions";
 import { Screens } from "../../types/navigation";
@@ -70,7 +70,7 @@ class InputLogin extends HTMLElement {
     render() {
         if (this.shadowRoot) {
             this.shadowRoot.innerHTML = `
-                <style>${styles}</style>
+                <link rel="stylesheet" href="./inputLogin.css">
                 <form id="user-form" class="login-container">
                     <input type="email" id="email" name="email" placeholder="E-mail">
                     <input type="password" id="password" name="password" placeholder="Password">
@@ -97,7 +97,10 @@ class InputLogin extends HTMLElement {
                 event.preventDefault();
                 this.togglePopup();
             });
-        }       
+        };
+        const cssLogin = this.ownerDocument.createElement("style");
+        cssLogin.innerHTML = styles;
+        this.shadowRoot?.appendChild(cssLogin);  
     }
 }
 

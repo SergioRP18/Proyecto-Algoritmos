@@ -1,5 +1,7 @@
+import styles from './register.css';
 import { registerUser } from "../../utils/Firebase";
 import '../../components/indexPadre';
+
 
 class AppRegister extends HTMLElement {
     constructor(){
@@ -54,9 +56,17 @@ class AppRegister extends HTMLElement {
                 <button id="submit-btn">Register</button>
             `;
 
+            const style = document.createElement("style");
+            style.textContent = styles;
+            this.shadowRoot.appendChild(style);
+
             this.shadowRoot.querySelector("#submit-btn")?.addEventListener("click", () => this.submitForm());
         }
     }
+}
+
+customElements.define("app-register", AppRegister);
 };
 customElements.define("app-register", AppRegister);
 export default AppRegister;
+

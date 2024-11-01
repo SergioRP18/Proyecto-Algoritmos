@@ -1,0 +1,71 @@
+/* Fondo del modal */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+/* Contenido del modal */
+.modal-content {
+    background-color: #ffffff;
+    padding: 20px;
+    width: 400px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Encabezado del modal */
+.header-register h1 {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.header-register p {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+/* Botón de cerrar */
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+/* Input fields */
+.inputs-register input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 2px solid #007bff;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Botón de registro */
+.register-button {
+    background-color: #22BF0D;
+    color: white;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.register-button:hover {
+    background-color: #1e9e0b;
+}
