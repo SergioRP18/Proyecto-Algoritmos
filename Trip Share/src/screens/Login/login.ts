@@ -1,22 +1,31 @@
 import "../../components/indexPadre";
+
 class AppLogin extends HTMLElement {
-    constructor(){
+    constructor() {
         super();
-        this.attachShadow({mode:'open'});
+        this.attachShadow({ mode: 'open' });
     }
 
-    async connectedCallback(){
+    async connectedCallback() {
         this.render();
     }
 
-    render(){
-        if(this.shadowRoot){
+    render() {
+        if (this.shadowRoot) {
             this.shadowRoot.innerHTML = `
-                <section-image-login></section-image-login>
-                <login-section></login-section>
+                <link rel="stylesheet" href="./login.css">
+                <div class="main-container">
+                    <div class="logo-login">
+                         <section-image-login></section-image-login> <!-- Logo -->
+                    </div>
+                    <div class="right-section">
+                        <login-section></login-section> <!-- Formulario de inicio de sesión -->
+                    </div>
+                </div>
                 <section-footer-login></section-footer-login>
             `;
         }
     }
-};
-customElements.define("app-login", AppLogin)
+}
+
+customElements.define("app-login", AppLogin);

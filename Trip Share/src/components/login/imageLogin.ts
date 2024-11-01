@@ -1,3 +1,5 @@
+import styles from './login.css'
+
 class ImageLogin extends HTMLElement {
     constructor(){
         super();
@@ -15,7 +17,11 @@ class ImageLogin extends HTMLElement {
             <img src="https://github.com/SergioRP18/logo-trip-share/raw/60425bb95745f5de7c7d5532dd68d7a04b4b7787/Logo.png">
             </div>
             `;
-        }
+        };
+
+        const cssLogin = this.ownerDocument.createElement("style");
+        cssLogin.innerHTML = styles;
+        this.shadowRoot?.appendChild(cssLogin);        
     }
 };
 customElements.define("section-image-login", ImageLogin);

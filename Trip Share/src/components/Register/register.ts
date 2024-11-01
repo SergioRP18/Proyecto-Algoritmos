@@ -20,3 +20,4 @@ class AppRegister extends HTMLElement {
     }
 };
 customElements.define("app-register", AppRegister)
+export default AppRegister;

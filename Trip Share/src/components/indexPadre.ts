@@ -12,7 +12,7 @@ export { default as FooterLogin } from './login/footerLogin';
 export { default as HeaderRegister } from './Register/headerRegister';
 export { default as InputsRegister } from './Register/inputsRegister';
 export { default as SelectorRegister } from './Register/selectorsRegister';
-export {  } from '';
+export { default as AppRegister } from './Register/register';
 export {  } from '';
 export {  } from '';
 export {  } from '';
