@@ -52,16 +52,16 @@ class InputsRegister extends HTMLElement {
                 </div>
             `;
 
-            const pEmail = this.ownerDocument.getElementById("#user-email");
+            const pEmail = this.ownerDocument.querySelector("#user-email");
             pEmail?.addEventListener('change', this.changeEmail);
 
-            const pPass = this.ownerDocument.getElementById("#user-password");
+            const pPass = this.ownerDocument.querySelector("#user-password");
             pPass?.addEventListener('change', this.changePassword);
 
-            const pName = this.ownerDocument.getElementById("#user");
+            const pName = this.ownerDocument.querySelector("#user");
             pName?.addEventListener('change', this.changeName);
 
-            const pLastName = this.ownerDocument.getElementById("#last-user");
+            const pLastName = this.ownerDocument.querySelector("#last-user");
             pLastName?.addEventListener('change', this.changeLastName);
         }
     }

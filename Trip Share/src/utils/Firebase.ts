@@ -53,14 +53,16 @@ export const registerUser = async (credentials: any) => {
 
 		const where = doc(db, 'users', userCredential.user.uid);
 		const data = {
-			age: credentials.age,
+			age: `${credentials.day}-${credentials.month}-${credentials.year}`,
 			name: credentials.name,
+            lastName: credentials.lastName,
+			region: credentials.region,
 		};
 
 		await setDoc(where, data);
 		return true;
 	} catch (error) {
-		console.error(error);
+		console.error("Error de Firebase:", error);
 		return false;
 	}
 };

@@ -67,6 +67,7 @@ class SelectorRegister extends HTMLElement {
                             <option value="4">Orinoco Region</option>
                         </select>
                 </div>
+
             `;
 
             const pDay = this.ownerDocument.getElementById("day");

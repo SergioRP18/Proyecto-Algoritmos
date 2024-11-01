@@ -37,12 +37,24 @@ class InputLogin extends HTMLElement {
 
     async submitForm(event: Event) {
         event.preventDefault();
+
+        // Verificar si los campos están vacíos
+        if (!credentials.email || !credentials.password) {
+            alert("Por favor, completa todos los campos.");
+            return; // Detener la ejecución si hay campos vacíos
+        }
+
         try {
+            // Intenta hacer login
             await loginUser(credentials.email, credentials.password);
+            
+            // Si el login es exitoso, navega al dashboard
             this.GoToDashboard();
         } catch (error) {
-            console.error("Error logging in:", error);
-            alert("An error occurred during login. Please try again.");
+            console.error("Error de inicio de sesión:", error);
+            
+            // Muestra una alerta si las credenciales no son correctas
+            alert("Credenciales incorrectas. Por favor, verifica tu email y contraseña.");
         }
     }
 
@@ -78,7 +90,6 @@ class InputLogin extends HTMLElement {
                 </div>
             `;
 
-            // Event listeners
             this.shadowRoot.getElementById("email")?.addEventListener('input', this.changeEmail.bind(this));
             this.shadowRoot.getElementById("password")?.addEventListener('input', this.changePassword.bind(this));
             this.shadowRoot.getElementById("login-btn")?.addEventListener('click', this.submitForm.bind(this));
