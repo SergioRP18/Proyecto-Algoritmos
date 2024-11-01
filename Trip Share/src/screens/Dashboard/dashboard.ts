@@ -4,7 +4,9 @@ import { infoPost } from '../../data/dataPost';
 import { data } from '../../data/dataUser';
 import NavBar, {Attribute} from '../../components/navBar/Nav'
 import navAside, {AttributeAside} from '../../components/AsideHome/navAside'
-import { addObserver } from '../../store';
+import { addObserver, dispatch } from '../../store';
+import { navigate } from '../../store/actions';
+import { Screens } from '../../types/navigation';
 class AppDashboard extends HTMLElement {
     posts: AppPost[] = [];
 
@@ -28,9 +30,14 @@ class AppDashboard extends HTMLElement {
 
     async connectedCallback(){
         this.render();
+        const button = this.shadowRoot?.querySelector('button');
+        button?.addEventListener(('click'), () =>{
+            dispatch(navigate(Screens.LOGIN))
+    })
     }
 
     render(){
+        
         const aside = this.ownerDocument.createElement("app-nav-profile") as navAside;
             aside.setAttribute(AttributeAside.photo,data.photo);
             aside.setAttribute(AttributeAside.uid,String(data.id));
