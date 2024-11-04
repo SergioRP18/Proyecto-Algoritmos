@@ -1,5 +1,8 @@
 import './screens/Dashboard/dashboard'
 import './screens/Login/login'
+import './screens/Profile/profile'
+import './screens/editProfile/editProfile'
+import './screens/myWishList/wishList'
 import './components/indexPadre'
 import { addObserver } from './store';
 import { appState } from './store';

@@ -27,14 +27,10 @@ class AppLogin extends HTMLElement {
                 </div>
             `;
 
-            // Crear un elemento <style> y añadir el contenido del archivo CSS importado
             const style = document.createElement('style');
             style.textContent = styles;
-
-            // Añadir el elemento <style> al shadowRoot
             this.shadowRoot.appendChild(style);
         }
     }
 }
-
 customElements.define("app-login", AppLogin);

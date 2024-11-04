@@ -1,4 +1,7 @@
-
+import { Screens } from '../../types/navigation';
+import { dispatch } from '../../store';
+import { navigate } from '../../store/actions';
+import ExitAccount from '../ExitAccount/exitAccount';
 import styles from './Nav.css'
 
 export enum Attribute {
@@ -6,7 +9,6 @@ export enum Attribute {
     'uid' = 'uid',
     'username' = 'username',
     'name' = 'name',
-
 }
 
 class NavBar extends HTMLElement {
@@ -33,9 +35,15 @@ class NavBar extends HTMLElement {
                 }
                 this.render();
     }
+
     connectedCallback(){
     this.render();
     }
+
+    goNavigate(screen: Screens){
+        dispatch(navigate(screen));
+    }
+
     render() {
         if(this.shadowRoot){
             this.shadowRoot.innerHTML = `
@@ -76,6 +84,31 @@ class NavBar extends HTMLElement {
                     </nav>
                 </aside>
             `;
+
+            this.shadowRoot.querySelector("#home-link")?.addEventListener("click", (event) => {
+                event.preventDefault();
+                this.goNavigate(Screens.DASHBOARD);
+            });
+
+            this.shadowRoot.querySelector("#wishlist-link")?.addEventListener("click", (event) => {
+                event.preventDefault();
+                this.goNavigate(Screens.MY_WISH_LIST);
+            });
+
+            this.shadowRoot.querySelector("#create-link")?.addEventListener("click", (event) => {
+                event.preventDefault();
+                this.goNavigate(Screens.EDIT_PROFILE);
+            });
+
+            this.shadowRoot.querySelector("#profile-link")?.addEventListener("click", (event) => {
+                event.preventDefault();
+                this.goNavigate(Screens.PROFILE);
+            });
+
+            this.shadowRoot.querySelector(".exit")?.addEventListener("click", () => {
+                const exitPopup = this.ownerDocument.createElement('exit-account') as ExitAccount;
+                this.shadowRoot?.appendChild(exitPopup);
+            });
         };
         const cssNav = this.ownerDocument.createElement("style");
         cssNav.innerHTML = styles;

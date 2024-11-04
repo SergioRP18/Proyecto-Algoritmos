@@ -24,12 +24,12 @@ class AppRegister extends HTMLElement {
 
     connectedCallback(){
         this.render();
+        this.shadowRoot?.addEventListener('close-popup', this.closeDialog.bind(this));
     }
 
     changeEmail(e: any) {
         this.setAttribute('email', e.target.value);
         credentials.email = e.target.value;
-        console.log(e.target.value);
         
     }
 
@@ -40,8 +40,6 @@ class AppRegister extends HTMLElement {
 
     changeName(e: any) {
         this.setAttribute('name', e.target.value);
-        console.log(e.target.value);
-        
         credentials.name = e.target.value;
     }
 
@@ -73,7 +71,11 @@ class AppRegister extends HTMLElement {
 
     async submitForm() {
         const resp = await registerUser(credentials);
-        resp ? dispatch(navigate(Screens.LOGIN)) : alert('No se pudo crear el usuario');
+        if(resp){
+            dispatch(navigate(Screens.DASHBOARD));
+        } else {
+            alert('User could not be created')
+        }
     }
 
     openDialog(){
@@ -81,27 +83,31 @@ class AppRegister extends HTMLElement {
         dialog?.showModal()
     }
 
+    closeDialog() {
+        const dialog = this.shadowRoot?.querySelector("#register-dialog") as HTMLDialogElement;
+        dialog?.close();
+    }
+
     render(){
         if(this.shadowRoot){
-            // Crear el diálogo
+
             const dialog = this.ownerDocument.createElement('dialog');
             dialog.id = 'register-dialog';
 
-            // Agregar la sección de encabezado
             const header = this.ownerDocument.createElement('section-header-register');
             dialog.appendChild(header);
 
-            // Crear el contenedor de entradas
             const inputsDiv = this.ownerDocument.createElement('div');
             inputsDiv.className = 'inputs-register';
 
-            // Crear los campos de entrada
+
             const nameInput = this.ownerDocument.createElement('input');
             nameInput.type = 'text';
             nameInput.id = 'name';
             nameInput.name = 'user';
             nameInput.placeholder = 'Name';
             nameInput.required = true;
+            nameInput.addEventListener('change', this.changeName.bind(this));
             inputsDiv.appendChild(nameInput);
 
             const lastNameInput = this.ownerDocument.createElement('input');
@@ -110,6 +116,7 @@ class AppRegister extends HTMLElement {
             lastNameInput.name = 'last-user';
             lastNameInput.placeholder = 'Last name';
             lastNameInput.required = true;
+            lastNameInput.addEventListener('change', this.changeLastName.bind(this));
             inputsDiv.appendChild(lastNameInput);
 
             const emailInput = this.ownerDocument.createElement('input');
@@ -118,6 +125,7 @@ class AppRegister extends HTMLElement {
             emailInput.name = 'email';
             emailInput.placeholder = 'Email';
             emailInput.required = true;
+            emailInput.addEventListener('change', this.changeEmail.bind(this));
             inputsDiv.appendChild(emailInput);
 
             const passwordInput = this.ownerDocument.createElement('input');
@@ -126,21 +134,18 @@ class AppRegister extends HTMLElement {
             passwordInput.name = 'password';
             passwordInput.placeholder = 'Password';
             passwordInput.required = true;
+            passwordInput.addEventListener('change', this.changePassword.bind(this));
             inputsDiv.appendChild(passwordInput);
 
-            // Agregar el contenedor de entradas al diálogo
             dialog.appendChild(inputsDiv);
 
-            // Agregar el encabezado de cumpleaños
             const birthdayHeader = this.ownerDocument.createElement('h1');
             birthdayHeader.innerText = 'Birthday';
             dialog.appendChild(birthdayHeader);
 
-            // Crear el contenedor de selectores
             const selectorsDiv = this.ownerDocument.createElement('div');
             selectorsDiv.className = 'selectors';
 
-            // Crear los selectores de día, mes y año
             const daySelect = this.ownerDocument.createElement('select');
             daySelect.id = 'day';
             daySelect.name = 'day';
@@ -151,6 +156,7 @@ class AppRegister extends HTMLElement {
                 <option value="3">3</option>
                 <option value="31">31</option>
             `;
+            daySelect.addEventListener('change', this.changeDay.bind(this));
             selectorsDiv.appendChild(daySelect);
 
             const monthSelect = this.ownerDocument.createElement('select');
@@ -158,11 +164,12 @@ class AppRegister extends HTMLElement {
             monthSelect.name = 'month';
             monthSelect.innerHTML = `
                 <option value="">Select one month</option>
-                <option value="1">January</option>
-                <option value="2">February</option>
-                <option value="3">March</option>
-                <option value="12">December</option>
+                <option value="January">January</option>
+                <option value="February">February</option>
+                <option value="March">March</option>
+                <option value="December">December</option>
             `;
+            monthSelect.addEventListener('change', this.changeMonth.bind(this));
             selectorsDiv.appendChild(monthSelect);
 
             const yearSelect = this.ownerDocument.createElement('select');
@@ -174,9 +181,9 @@ class AppRegister extends HTMLElement {
                 <option value="1901">1901</option>
                 <option value="2024">2024</option>
             `;
+            yearSelect.addEventListener('change', this.changeYear.bind(this));
             selectorsDiv.appendChild(yearSelect);
 
-            // Agregar el encabezado de región y el selector de región
             const regionHeader = this.ownerDocument.createElement('h1');
             regionHeader.innerText = 'Region';
             selectorsDiv.appendChild(regionHeader);
@@ -186,43 +193,26 @@ class AppRegister extends HTMLElement {
             regionSelect.name = 'region-user';
             regionSelect.innerHTML = `
                 <option value="">Select region</option>
-                <option value="1">Pacific Region</option>
-                <option value="2">Andean Region</option>
-                <option value="3">Amazonian Region</option>
-                <option value="4">Orinoco Region</option>
+                <option value="Pacific Region">Pacific Region</option>
+                <option value="Andean Region">Andean Region</option>
+                <option value="Amazonian Region">Amazonian Region</option>
+                <option value="Orinoco Region">Orinoco Region</option>
             `;
+            regionSelect.addEventListener('change', this.changeRegion.bind(this));
             selectorsDiv.appendChild(regionSelect);
 
-            // Agregar el contenedor de selectores al diálogo
             dialog.appendChild(selectorsDiv);
 
-            // Crear el botón de registro
             const submitButton = this.ownerDocument.createElement('button');
             submitButton.id = 'submit-btn';
             submitButton.innerText = 'Register';
             submitButton.addEventListener('click', (event) => {
                 event.preventDefault();
-                // Lógica para manejar el registro
+                this.submitForm();
             });
             dialog.appendChild(submitButton);
 
-            // Agregar el diálogo al shadowRoot
             this.shadowRoot.appendChild(dialog);
-
-
-            this.shadowRoot.querySelector("#submit-btn")?.addEventListener("click", () => this.submitForm());
-
-            const pEmail = this.shadowRoot.querySelector("#user-email");
-            pEmail?.addEventListener('change', this.changeEmail.bind(this));
-
-            const pPass = this.shadowRoot.querySelector("#user-password");
-            pPass?.addEventListener('change', this.changePassword.bind(this));
-
-            const pName = this.shadowRoot.querySelector("#name");
-            pName?.addEventListener('change', this.changeName.bind(this));            
-
-            const pLastName = this.shadowRoot.querySelector("#last-name");
-            pLastName?.addEventListener('change', this.changeLastName.bind(this));
         };
         const cssLogin = this.ownerDocument.createElement("style");
         cssLogin.innerHTML = styles;

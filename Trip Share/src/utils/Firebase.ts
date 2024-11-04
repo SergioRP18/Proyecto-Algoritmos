@@ -1,5 +1,3 @@
-import { appState } from '../store';
-
 let db: any;
 let auth: any;
 
@@ -7,7 +5,7 @@ export const getFirebaseInstance = async () => {
     if(!db){
         const {getFirestore} = await import ('firebase/firestore')
         const {initializeApp} = await import ('firebase/app')
-        const { getAuth } = await import('firebase/auth');
+        const { getAuth, signOut } = await import('firebase/auth');
 
         const firebaseConfig = {
         apiKey: "AIzaSyA8b5kXUDZUVrpOz4JmOBoSeLtypGP5k-Y",
@@ -26,20 +24,38 @@ export const getFirebaseInstance = async () => {
 };
 
 export const loginUser = async (email: string, password: string) => {
-    try{
-        const { auth } = await getFirebaseInstance();
-        const { signInWithEmailAndPassword, setPersistence, browserLocalPersistence } = await import('firebase/auth');
+    if (!email || !password) {
+        alert("Please fill in all fields.");
+        return Promise.reject("Please fill in all fields");
+    }
+    const { auth } = await getFirebaseInstance();
+    const { signInWithEmailAndPassword, setPersistence, browserLocalPersistence } = await import('firebase/auth');
 
-        setPersistence(auth, browserLocalPersistence).then(() => {
-            return signInWithEmailAndPassword(auth, email, password);
-        }).catch((error: any) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            console.log(errorCode, errorMessage);
-        });
-
-    } catch(error) {
+    try {
+        await setPersistence(auth, browserLocalPersistence);
+    } catch (error) {
         console.error(error);
+        return Promise.reject("Error setting up Persistence");
+    }
+
+    let credentials;
+    try {
+        credentials = await signInWithEmailAndPassword(auth, email, password);
+    } catch(error) {
+        return Promise.reject("Authentication failure, wrong credentials");
+    }
+
+    return Promise.resolve(auth.currentUser?.uid);
+
+};
+
+export const logoutUser = async () => {
+    try {
+        const { auth } = await getFirebaseInstance();
+        const { signOut } = await import('firebase/auth');
+        await signOut(auth);
+    } catch (error) {
+        console.error("Error during logout:", error);
     }
 };
 

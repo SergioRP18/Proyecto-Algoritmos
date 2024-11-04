@@ -3,38 +3,42 @@ import { addObserver, dispatch } from "../../store";
 import { loginUser } from '../../utils/Firebase';
 import AppRegister from '../../components/Register/register';
 import "../../components/indexPadre";
-
-const credentials = {
-    email: '',
-    password: '',
-};
-
 class InputLogin extends HTMLElement {
-    private showPopup: boolean;
 
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
         addObserver(this);
-        this.showPopup = false;
     }
 
     connectedCallback() {
         this.render();
     }
 
-    changeEmail(e: any) {
-		credentials.email = e.target.value;
-	}
-
-	changePassword(e: any) {
-		credentials.password = e.target.value;
-	}
-
     submitForm() {
-		loginUser(credentials.email, credentials.password);
+        const emailInput = this.shadowRoot?.querySelector('#user-email') as HTMLInputElement;
+        const passwordInput = this.shadowRoot?.querySelector('#user-password') as HTMLInputElement;
+        
+        const credentials = {
+            email: emailInput?.value?.trim(),
+            password: passwordInput?.value,
+        };
+
+		loginUser(credentials.email, credentials.password).then(userId => {
+            console.log("Successful login");
+            alert("Successful login");
+            this.resetForm();
+        })
+        .catch(error => {
+            console.error("Error during login:", error);
+            alert("Please verify your credentials.");
+        });
 	}
 
+    resetForm() {
+        const form = this.shadowRoot?.querySelector("#form-user") as HTMLFormElement;
+        form?.reset();
+    }
 
     render() {
         if (this.shadowRoot) {
@@ -46,21 +50,20 @@ class InputLogin extends HTMLElement {
             pName.type = 'email'; 
             pName.placeholder = 'Email';
             pName.id = 'user-email';
-            pName.addEventListener('change', this.changeEmail);
+            pName.autofocus = true;
             form.appendChild(pName);
 
             const pPass = this.ownerDocument.createElement('input');
             pPass.type = 'password';
             pPass.placeholder = 'Password';
             pPass.id = 'user-password';
-            pPass.addEventListener('change', this.changePassword);
             form.appendChild(pPass);
 
             const save = this.ownerDocument.createElement('button');
             save.type = 'submit';
 			save.innerText = 'Log In';
             save.id = 'login-btn';
-			save.addEventListener('click', (event) => {
+			save.addEventListener('click', async (event) => {
                 event.preventDefault();
                 this.submitForm();
             });
@@ -71,7 +74,7 @@ class InputLogin extends HTMLElement {
             forgotDiv.className = 'forgot-password';    
 
             const forgot = this.ownerDocument.createElement('button');
-			forgot.innerText = '¿Forgot your password?';
+			forgot.innerText = 'Forgot your password?';
             forgot.id = 'forgotpassword-btn';
 			forgotDiv.appendChild(forgot);
             form.appendChild(forgotDiv);
