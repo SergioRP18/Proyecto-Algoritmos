@@ -1,3 +1,5 @@
+import '../../components/indexPadre';
+
 class Post extends HTMLElement {
     constructor(){
         super();
@@ -7,10 +9,23 @@ class Post extends HTMLElement {
         this.render()
     }
 
+    openDialog(){
+        const dialog = this.shadowRoot?.querySelector('#create-dialog') as HTMLDialogElement;
+        dialog?.showModal()
+    }
+
+    closeDialog(){
+        const dialog = this.shadowRoot?.querySelector('#create-dialog') as HTMLDialogElement;
+        dialog?.close();
+    }
+
     render(){
         if(this.shadowRoot){
             const dialog = this.ownerDocument.createElement('dialog');
             dialog.id = 'create-dialog';
+
+            const photoComponent = this.ownerDocument.createElement('header-photo-create');
+            dialog.appendChild(photoComponent);
 
             const inputsDiv = this.ownerDocument.createElement('div');
             inputsDiv.className = 'inputs-create';
@@ -46,6 +61,8 @@ class Post extends HTMLElement {
             inputsDiv.appendChild(location);
 
             dialog.appendChild(inputsDiv);
+
+            this.shadowRoot.appendChild(dialog);
         }
     }
 };
