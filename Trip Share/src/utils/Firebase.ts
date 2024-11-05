@@ -1,3 +1,5 @@
+import { getDocs } from 'firebase/firestore';
+
 let db: any;
 let auth: any;
 
@@ -22,6 +24,38 @@ export const getFirebaseInstance = async () => {
     }
     return { db, auth };
 };
+
+export const addPost = async (post: any) => {
+    try{
+        const {db} = await getFirebaseInstance();
+        const {collection, addDoc} = await import('firebase/firestore');
+
+        const where = collection(db, 'posts');
+        await addDoc(where, post);
+        console.log('Se añadió con exito');
+    } catch (error){
+        console.error('Error adding document', error);
+    }
+};
+
+export const getPosts = async () => {
+    try {
+        const {db} = await getFirebaseInstance();
+        const {collection, addDoc} = await import('firebase/firestore');
+
+        const where = collection(db, 'posts');
+        const querySnapshot = await getDocs(where);
+        const data: any[] = [];
+
+        querySnapshot.forEach((doc) => {
+			data.push(doc.data());
+		});
+
+        return data;
+    } catch (error){
+        console.error('Error getting documents', error);
+    }
+}
 
 export const loginUser = async (email: string, password: string) => {
     if (!email || !password) {

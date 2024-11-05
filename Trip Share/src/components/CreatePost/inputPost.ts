@@ -9,15 +9,43 @@ class Post extends HTMLElement {
 
     render(){
         if(this.shadowRoot){
-            this.shadowRoot.innerHTML = `
-                <h1>Write your review</h1>
-                <input type="text" id="description" placeholder="Every photo has a story..." required>
-                <h1>Your Hashtags</h1>
-                <input type="text" id="labels" placeholder="How do you identify this moment..." required>
-                <h1>Your Location</h1>
-                <input type="text" id="location" placeholder="Help others find this place..." required>
-                <button class="update">Publish</button>
-            `;
+            const dialog = this.ownerDocument.createElement('dialog');
+            dialog.id = 'create-dialog';
+
+            const inputsDiv = this.ownerDocument.createElement('div');
+            inputsDiv.className = 'inputs-create';
+
+            const descriptionHeader = this.ownerDocument.createElement('h1');
+            descriptionHeader.innerText = 'Write your review';
+            dialog.appendChild(descriptionHeader);
+
+            const description = this.ownerDocument.createElement('input');
+            description.type = 'text';
+            description.id = 'post-description';
+            description.required = true;
+            inputsDiv.appendChild(description);
+
+            const descriptionHashtags = this.ownerDocument.createElement('h1');
+            descriptionHashtags.innerText = 'Your Hashtags';
+            dialog.appendChild(descriptionHashtags);
+
+            const hashtags = this.ownerDocument.createElement('input');
+            hashtags.type = 'text';
+            hashtags.id = 'post-hashtags';
+            hashtags.required = true;
+            inputsDiv.appendChild(hashtags);
+
+            const descriptionLocation = this.ownerDocument.createElement('h1');
+            descriptionLocation.innerText = 'Your Location';
+            dialog.appendChild(descriptionLocation);
+
+            const location = this.ownerDocument.createElement('input');
+            location.type = 'text';
+            location.id = 'post-hashtags';
+            location.required = true;
+            inputsDiv.appendChild(location);
+
+            dialog.appendChild(inputsDiv);
         }
     }
 };

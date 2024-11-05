@@ -1,5 +1,6 @@
 import { Screens } from "../types/navigation";
 import { ScreenActions } from "../types/store";
+import { getPosts } from "../utils/Firebase";
 
 export const navigate = (screen: Screens) => {
     return{
@@ -14,3 +15,11 @@ export const setUserCredentials = (user: string) => {
         payload: user,
     };
 };
+
+export const getPostsAction = async () => {
+    const posts = await getPosts();
+    return{
+        action: ScreenActions.GET_POSTS,
+        payload: posts,
+    };
+}
