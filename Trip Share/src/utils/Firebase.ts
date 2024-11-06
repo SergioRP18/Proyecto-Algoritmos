@@ -1,11 +1,9 @@
-import { getDocs } from 'firebase/firestore';
-
 let db: any;
 let auth: any;
 
 export const getFirebaseInstance = async () => {
     if(!db){
-        const {getFirestore} = await import ('firebase/firestore')
+        const {getFirestore, collection, getDocs, addDoc} = await import ('firebase/firestore')
         const {initializeApp} = await import ('firebase/app')
         const { getAuth, signOut } = await import('firebase/auth');
 
@@ -26,22 +24,30 @@ export const getFirebaseInstance = async () => {
 };
 
 export const addPost = async (post: any) => {
-    try{
-        const {db} = await getFirebaseInstance();
-        const {collection, addDoc} = await import('firebase/firestore');
+    try {
+        const { auth, db } = await getFirebaseInstance();
+        
+        const currentUser = auth.currentUser;
+        if (!currentUser) {
+            console.error("User is not authenticated");
+            return Promise.reject("User is not authenticated");
+        }
 
-        const where = collection(db, 'posts');
-        await addDoc(where, post);
-        console.log('Se añadió con exito');
-    } catch (error){
-        console.error('Error adding document', error);
+        const { collection, addDoc } = await import('firebase/firestore');
+
+        const postsCollection = collection(db, 'posts');
+        await addDoc(postsCollection, { ...post, userId: currentUser.uid });
+
+        console.log('Post added successfully');
+    } catch (error) {
+        console.error('Error adding post:', error);
     }
 };
 
 export const getPosts = async () => {
     try {
         const {db} = await getFirebaseInstance();
-        const {collection, addDoc} = await import('firebase/firestore');
+        const {collection, getDocs} = await import('firebase/firestore');
 
         const where = collection(db, 'posts');
         const querySnapshot = await getDocs(where);
@@ -62,25 +68,24 @@ export const loginUser = async (email: string, password: string) => {
         alert("Please fill in all fields.");
         return Promise.reject("Please fill in all fields");
     }
+
     const { auth } = await getFirebaseInstance();
     const { signInWithEmailAndPassword, setPersistence, browserLocalPersistence } = await import('firebase/auth');
 
     try {
+        // Configurando la persistencia
         await setPersistence(auth, browserLocalPersistence);
-    } catch (error) {
-        console.error(error);
-        return Promise.reject("Error setting up Persistence");
-    }
 
-    let credentials;
-    try {
-        credentials = await signInWithEmailAndPassword(auth, email, password);
-    } catch(error) {
+        // Intentando iniciar sesión con Firebase
+        const credentials = await signInWithEmailAndPassword(auth, email, password);
+
+        // Si el login es exitoso, retornamos el UID del usuario
+        return Promise.resolve(auth.currentUser?.uid);
+
+    } catch (error) {
+        console.error("Error during authentication", error);
         return Promise.reject("Authentication failure, wrong credentials");
     }
-
-    return Promise.resolve(auth.currentUser?.uid);
-
 };
 
 export const logoutUser = async () => {
@@ -115,4 +120,24 @@ export const registerUser = async (credentials: any) => {
 		console.error("Error de Firebase:", error);
 		return false;
 	}
+};
+
+export const getUserToken = async () => {
+    const { auth } = await getFirebaseInstance();
+    const currentUser = auth.currentUser;
+
+    if (!currentUser) {
+        console.error("No user authenticated");
+        return Promise.reject("No user authenticated");
+    }
+
+    try {
+        const idToken = await currentUser.getIdToken(true);
+        console.log("ID Token:", idToken);
+
+        return idToken;
+    } catch (error) {
+        console.error("Error fetching ID token:", error);
+        return Promise.reject("Error fetching ID token");
+    }
 };

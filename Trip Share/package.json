@@ -11,6 +11,8 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "@firebase/auth": "^1.8.0",
+    "@firebase/firestore": "^4.7.4",
     "@types/firebase": "^3.2.3",
     "css-loader": "^7.1.2",
     "file-loader": "^6.2.0",
@@ -22,6 +24,6 @@
     "webpack-cli": "^5.1.4"
   },
   "dependencies": {
-    "firebase": "^11.0.1"
+    "firebase": "^10.14.1"
   }
 }

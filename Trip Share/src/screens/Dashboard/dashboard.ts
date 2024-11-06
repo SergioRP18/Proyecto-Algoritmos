@@ -40,7 +40,7 @@ class AppDashboard extends HTMLElement {
 
     async renderNavProfile(){
         try{
-            const data = await loginUser();
+            const data = await loginUser('user-email@example.com', 'password123');
 
             const aside = this.ownerDocument.createElement("app-nav-profile") as navAside;
             aside.setAttribute(AttributeAside.photo, data.photo);

@@ -36,19 +36,36 @@ class UserBar extends HTMLElement {
     }
     render(){
         if(this.shadowRoot){
-            this.shadowRoot.innerHTML = `
-                <aside>
-                    <nav>
-                        <div class="user-bar-dashboard">
-                            <img src="${this.photo}" alt="Profile picture">
-                            <div class="text-container">
-                                <h6>${this.username || "Username"}</h6>
-                                <p>${this.name || "Real Name"}</p>
-                            </div>
-                        </div>
-                    </nav>
-                </aside>
-            `;
+            const aside = this.ownerDocument.createElement('aside');
+
+            const nav = this.ownerDocument.createElement('nav');
+
+            const userBar = this.ownerDocument.createElement('div');
+            userBar.classList.add('user-bar-dashboard'); 
+
+            const img = this.ownerDocument.createElement('img');
+            img.src = this.photo || 'default-photo.jpg';
+            img.alt = 'Profile picture';
+
+            const textContainer = this.ownerDocument.createElement('div');
+            textContainer.classList.add('text-container');
+
+            const h6 = this.ownerDocument.createElement('h6');
+            h6.innerText = this.username || 'Username';
+
+            const p = this.ownerDocument.createElement('p');
+            p.innerText = this.name || 'Real Name';
+
+            textContainer.appendChild(h6);
+            textContainer.appendChild(p);
+
+            userBar.appendChild(img);
+            userBar.appendChild(textContainer);
+            
+            nav.appendChild(userBar);
+            aside.appendChild(nav);
+
+            this.shadowRoot.appendChild(aside);
         };
     
         const cssUserBar = this.ownerDocument.createElement("style");
