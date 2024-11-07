@@ -1,74 +1,76 @@
-.user-bar-dashboard {
+.user-bar {
     display: flex;
-    align-items: center;
     text-align: left;
     padding: 1rem;
-    background-color: transparent; /* Fondo transparente */
-    border-top: 1px solid #147AFF; /* Borde en la parte inferior */
+    background-color: transparent;
+    border-top: 1px solid #147AFF;
     font-family: 'Poppins', sans-serif;
-    margin-top: auto; /* Desplazar el user bar hacia la parte inferior */
-    justify-content: center; /* Centrar el contenido horizontalmente */
+    margin-top: auto;
+    justify-content: center;
 }
 
-.user-bar-dashboard img {
+.profile-img {
     border-radius: 50%;
     width: 40px;
     height: 40px;
-    margin-right: 0.5rem; /* Espacio entre la imagen y los textos */
+    margin-right: 0.5rem;
 }
 
-.user-bar-dashboard h6 {
+.text-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.text-container h6 {
     font-size: 1rem;
     color: #000;
     margin: 0;
     font-weight: bold;
-    font-family: 'Poppins', sans-serif;
 }
 
-.user-bar-dashboard p {
+.text-container p {
     font-size: 0.9rem;
     color: #666;
-    font-family: 'Poppins', sans-serif;
-    margin: 0; /* Elimina el margen para evitar separación no deseada */
+    margin: 0;
 }
 
 /* Media queries para pantallas más grandes */
 @media (min-width: 768px) {
-    .user-bar-dashboard {
-        justify-content: flex-start; /* Alinea el contenido a la izquierda en pantallas más grandes */
+    .user-bar {
+        justify-content: flex-start;
     }
 
-    .user-bar-dashboard img {
+    .profile-img {
         width: 50px;
         height: 50px;
     }
 
-    .user-bar-dashboard h6 {
+    .text-container h6 {
         font-size: 1.2rem;
     }
 
-    .user-bar-dashboard p {
+    .text-container p {
         font-size: 1rem;
     }
 }
 
 /* Media queries para pantallas pequeñas */
 @media (max-width: 767px) {
-    .user-bar-dashboard {
-        justify-content: center; /* Centra el contenido en móviles */
-        flex-direction: row; /* Mantiene la disposición en fila en móviles */
+    .user-bar {
+        justify-content: center;
+        flex-direction: row;
     }
 
-    .user-bar-dashboard img {
+    .profile-img {
         width: 40px;
         height: 40px;
     }
 
-    .user-bar-dashboard h6 {
+    .text-container h6 {
         font-size: 1rem;
     }
 
-    .user-bar-dashboard p {
+    .text-container p {
         font-size: 0.9rem;
     }
 }

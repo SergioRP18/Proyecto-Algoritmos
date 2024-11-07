@@ -76,6 +76,24 @@ aside {
 .exit {
     cursor: pointer;
 }
+.link-container {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Espacio entre icono y texto */
+}
+
+.icon {
+    width: 35px;
+    height: 35px;
+}
+
+.link-text {
+    font-family: Poppins;
+    font-size: 14px;
+    font-weight: bold;
+    color: #147AFF;
+    cursor: pointer;
+}
 
 /* Responsive */
 @media (max-width: 767px) {

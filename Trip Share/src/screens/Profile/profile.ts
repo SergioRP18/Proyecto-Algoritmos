@@ -1,4 +1,5 @@
 import { addObserver } from "../../store";
+import NavBar from "../../components/navBar/Nav";
 import '../../components/indexPadre';
 
 class AppProfile extends HTMLElement {
@@ -15,6 +16,10 @@ class AppProfile extends HTMLElement {
 
     render(){
         if(this.shadowRoot){
+
+            const navBar = this.ownerDocument.createElement('app-nav-bar') as NavBar;
+            this.shadowRoot.appendChild(navBar);
+
             const userProfile = this.ownerDocument.createElement('section-user-profile');
             const publicationsUser = this.ownerDocument.createElement('section-publications-user');
             const postComponent = this.ownerDocument.createElement('section-post');

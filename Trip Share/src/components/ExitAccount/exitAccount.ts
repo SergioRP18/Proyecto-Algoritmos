@@ -58,7 +58,6 @@ class ExitAccount extends HTMLElement {
                 this.logout(dialog);
             });
         }
-
     }
 }
 customElements.define("exit-account", ExitAccount);

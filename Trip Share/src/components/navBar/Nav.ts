@@ -2,8 +2,10 @@ import { Screens } from '../../types/navigation';
 import { dispatch } from '../../store';
 import { navigate } from '../../store/actions';
 import ExitAccount from '../ExitAccount/exitAccount';
+import { getUser, getFirebaseInstance } from '../../utils/Firebase';
+import { onAuthStateChanged } from "firebase/auth";
+import '../../components/indexPadre';
 import styles from './Nav.css';
-import Post from '../CreatePost/inputPost';
 
 export enum Attribute {
     'photo' = 'photo',
@@ -18,120 +20,178 @@ class NavBar extends HTMLElement {
     username?: string;
     uid?: number;
 
-    constructor(){
+    constructor() {
         super();
-        this.attachShadow({mode:'open'});
+        this.attachShadow({ mode: 'open' });
     }
 
-    static get observedAttributes(){
+    static get observedAttributes() {
         return Object.keys(Attribute);
     }
 
-    attributeChangedCallback(propName: Attribute, oldValue: string | undefined, newValue: string | undefined){
-        if (propName === Attribute.uid) {
-            this.uid = newValue ? Number(newValue) : undefined;
-        } else {
-            this[propName] = newValue;
-        }
-        this.render();
-    }
-
-    connectedCallback(){
-        if (!this.shadowRoot?.innerHTML) {
+    attributeChangedCallback(propName: Attribute, oldValue: string | undefined, newValue: string | undefined) {
+        if (newValue !== oldValue) {
+            if (propName === Attribute.uid) {
+                this.uid = newValue ? Number(newValue) : undefined;
+            } else {
+                this[propName] = newValue;
+            }
             this.render();
         }
     }
 
-    goNavigate(screen: Screens){
+    connectedCallback() {
+        if (!this.shadowRoot) {
+            this.attachShadow({ mode: 'open' });
+        }
+
+        this.photo = this.getAttribute(Attribute.photo) || 'default-photo.jpg';
+        this.name = this.getAttribute(Attribute.name) || 'No Name';
+        this.username = this.getAttribute(Attribute.username) || 'No Username';
+        this.uid = this.getAttribute(Attribute.uid) ? Number(this.getAttribute(Attribute.uid)) : undefined;
+
+        this.render();
+    }
+
+    goNavigate(screen: Screens) {
         dispatch(navigate(screen));
     }
 
-    render() {
-        if (this.shadowRoot) {
-            this.shadowRoot.innerHTML = ''; 
+    async renderNavProfile(userId: string) {
+        try {
+            const data = await getUser(userId);
+            console.log(data);
 
-            const aside = this.createAside();
-            const userBarExit = this.createUserBarExit();
+            if (data) {
+                this.photo = data.photo || 'default-photo.jpg';
+                this.name = data.name || 'No Name';
+                this.username = data.username || 'No Username';
+                this.uid = data.id;
 
-            // Coloca userBarExit dentro del nav
-            const nav = aside.querySelector("nav");
-            if (nav) {
-                nav.appendChild(userBarExit); // Aquí agregas el userBarExit dentro de nav
+                this.render();
             }
+        } catch (error) {
+            console.error('Error fetching user profile:', error);
+        }
+    }
 
-            this.shadowRoot.appendChild(aside);
+    async render() {
+        if (this.shadowRoot) {
+            this.shadowRoot.innerHTML = '';
+    
+            try {
+                const { auth } = await getFirebaseInstance();
+                onAuthStateChanged(auth, async (user) => {
+                    if (user) {
+                        const userId = user.uid;
 
-            const cssNav = this.ownerDocument.createElement("style");
+                        await Promise.allSettled([this.renderNavProfile(userId)]);
+
+                        const aside = this.createAside();
+                        this.shadowRoot?.appendChild(aside);
+                    } else {
+                        console.log("No authenticated user.");
+                    }
+                });
+            } catch (error) {
+                console.error('Error during render:', error);
+            }
+    
+            const cssNav = this.ownerDocument.createElement('style');
             cssNav.innerHTML = styles;
-            this.shadowRoot.appendChild(cssNav);
+            this.shadowRoot?.appendChild(cssNav);
         }
     }
 
     createAside() {
-        const aside = this.ownerDocument.createElement("aside");
-        const nav = this.ownerDocument.createElement("nav");
+        const aside = this.ownerDocument.createElement('aside');
+        const nav = this.ownerDocument.createElement('nav');
         aside.appendChild(nav);
-
+    
         const logoDiv = this.createLogo();
         nav.appendChild(logoDiv);
-
+    
         const inputsDiv = this.createNavLinks();
         nav.appendChild(inputsDiv);
-
+    
+        const userBar = this.ownerDocument.createElement('user-bar');
+        userBar.setAttribute(Attribute.photo, this.photo || 'default-photo.jpg');
+        userBar.setAttribute(Attribute.username, this.username || 'No Username');
+        userBar.setAttribute(Attribute.name, this.name || 'No Name');
+        userBar.setAttribute(Attribute.uid, this.uid?.toString() || '');
+    
+        nav.appendChild(userBar);
+    
         return aside;
     }
 
     createLogo() {
-        const logoDiv = this.ownerDocument.createElement("div");
-        logoDiv.className = "logo";
-        const logoImg = this.ownerDocument.createElement("img");
-        logoImg.src = "https://github.com/SergioRP18/logo-trip-share/raw/60425bb95745f5de7c7d5532dd68d7a04b4b7787/Logo.png";
-        logoImg.alt = "logo of brand";
+        const logoDiv = this.ownerDocument.createElement('div');
+        logoDiv.className = 'logo';
+        const logoImg = this.ownerDocument.createElement('img');
+        logoImg.src = 'https://github.com/SergioRP18/logo-trip-share/raw/60425bb95745f5de7c7d5532dd68d7a04b4b7787/Logo.png';
+        logoImg.alt = 'logo of brand';
         logoDiv.appendChild(logoImg);
         return logoDiv;
     }
 
     createNavLinks() {
-        const inputsDiv = this.ownerDocument.createElement("div");
-        inputsDiv.className = "inputs";
-        const ul = this.ownerDocument.createElement("ul");
-
+        const inputsDiv = this.ownerDocument.createElement('div');
+        inputsDiv.className = 'inputs';
+        const ul = this.ownerDocument.createElement('ul');
+    
         const links = [
-            {id: "home-screen", icon:'<svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 24 24"><path fill="#147AFF" d="M10 20v-6h4v6h5v-8h3L12 3L2 12h3v8z"/></svg>', text: 'Home' },
-            {id: "wish-list-screen", icon:'<svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 24 24"><path fill="#147AFF" d="m22 9.24l-7.19-.62L12 2L9.19 8.63L2 9.24l5.46 4.73L5.82 21L12 17.27L18.18 21l-1.63-7.03zM12 15.4l-3.76 2.27l1-4.28l-3.32-2.88l4.38-.38L12 6.1l1.71 4.04l4.38.38l-3.32 2.88l1 4.28z"/></svg>', text: 'My Wish List' },
-            {id: "create-screen", icon:'<svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 24 24"><path fill="#147AFF" d="M13 7h-2v4H7v2h4v4h2v-4h4v-2h-4zm-1-5C6.48 2 2 6.48 2 12s4.48 10 10 10s10-4.48 10-10S17.52 2 12 2m0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8s8 3.59 8 8s-3.59 8-8 8"/></svg>', text: 'Create' },
-            {id: "profile-screen", icon:'', text: 'Profile', imgSrc: this.photo }
+            { id: 'home-screen', icon: '<svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 24 24"><path fill="#147AFF" d="M10 20v-6h4v6h5v-8h3L12 3L2 12h3v8z"/></svg>', text: 'Home' },
+            { id: 'wish-list-screen', icon: '<svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 24 24"><path fill="#147AFF" d="m22 9.24l-7.19-.62L12 2L9.19 8.63L2 9.24l5.46 4.73L5.82 21L12 17.27L18.18 21l-1.63-7.03zM12 15.4l-3.76 2.27l1-4.28l-3.32-2.88l4.38-.38L12 6.1l1.71 4.04l4.38.38l-3.32 2.88l1 4.28z"/></svg>', text: 'My Wish List' },
+            { id: 'create-screen', icon: '<svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 24 24"><path fill="#147AFF" d="M13 7h-2v4H7v2h4v4h2v-4h4v-2h-4zm-1-5C6.48 2 2 6.48 2 12s4.48 10 10 10s10-4.48 10-10S17.52 2 12 2m0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8s8 3.59 8 8s-3.59 8-8 8"/></svg>', text: 'Create' },
+            { id: 'profile-screen', icon: '', text: 'Profile', imgSrc: this.photo }
         ];
-
+    
         links.forEach(link => {
             const li = this.createNavLink(link);
             ul.appendChild(li);
         });
-
+    
         inputsDiv.appendChild(ul);
+    
+        // Aquí agregamos el ícono de Exit fuera de la lista de enlaces
+        const exitDiv = this.createExitIcon();
+        inputsDiv.appendChild(exitDiv);
+    
         return inputsDiv;
     }
+    
 
     createNavLink(link: { id: string, icon?: string, imgSrc?: string, text: string }) {
         const li = this.ownerDocument.createElement('li');
         li.id = link.id;
 
+        const linkContainer = this.ownerDocument.createElement('div');
+        linkContainer.className = 'link-container';
+
         if (link.icon) {
-            const svg = this.ownerDocument.createElement('div');
-            svg.innerHTML = link.icon;
-            li.appendChild(svg);
+            const iconWrapper = this.ownerDocument.createElement('div');
+            iconWrapper.className = 'icon';
+            iconWrapper.innerHTML = link.icon;
+            linkContainer.appendChild(iconWrapper);
+        } else if (link.imgSrc) {
+            const imgWrapper = this.ownerDocument.createElement('div');
+            imgWrapper.className = 'user-photo';
+            const img = this.ownerDocument.createElement('img');
+            img.src = link.imgSrc;
+            img.alt = `${link.text} photo`;
+            imgWrapper.appendChild(img);
+            linkContainer.appendChild(imgWrapper);
         }
 
-        if (link.id === "create-screen") {
-            li.addEventListener('click', (event) => {
-                event.preventDefault();
-                const create = this.ownerDocument.createElement("section-post") as Post;
-                this.shadowRoot?.appendChild(create);
-                create.openDialog();
-            });
-        }
+        const textSpan = this.ownerDocument.createElement('span');
+        textSpan.className = 'link-text';
+        textSpan.textContent = link.text;
+        linkContainer.appendChild(textSpan);
 
-        li.addEventListener("click", (event) => {
+        li.appendChild(linkContainer);
+
+        li.addEventListener('click', (event) => {
             event.preventDefault();
             this.handleNavigation(link.id);
         });
@@ -139,73 +199,43 @@ class NavBar extends HTMLElement {
         return li;
     }
 
+    createExitIcon() {
+        const div = this.ownerDocument.createElement('div');
+        div.className = 'exit-container';
+        
+        const iconWrapper = this.ownerDocument.createElement('div');
+        iconWrapper.className = 'exit-icon';
+        iconWrapper.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 24 24"><g fill="none"><path d="m12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.018-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z"/><path fill="#147AFF" d="M12 3a1 1 0 0 1 .117 1.993L12 5H7a1 1 0 0 0-.993.883L6 6v12a1 1 0 0 0 .883.993L7 19h4.5a1 1 0 0 1 .117 1.993L11.5 21H7a3 3 0 0 1-2.995-2.824L4 18V6a3 3 0 0 1 2.824-2.995L7 3zm5.707 5.464l2.828 2.829a1 1 0 0 1 0 1.414l-2.828 2.829a1 1 0 1 1-1.414-1.415L17.414 13H12a1 1 0 1 1 0-2h5.414l-1.121-1.121a1 1 0 0 1 1.414-1.415"/></g></svg>';
+        
+        div.appendChild(iconWrapper);
+        div.addEventListener('click', this.handleExit.bind(this));
+    
+        return div;
+    }
+    
+
     handleNavigation(id: string) {
-        switch(id) {
-            case "home-screen":
+        switch (id) {
+            case 'home-screen':
                 this.goNavigate(Screens.DASHBOARD);
                 break;
-            case "wish-list-screen":
+            case 'wish-list-screen':
                 this.goNavigate(Screens.MY_WISH_LIST);
                 break;
-            case "profile-screen":
+            case 'profile-screen':
                 this.goNavigate(Screens.PROFILE);
+                break;
+            case 'exit':
+                this.handleExit();
                 break;
         }
     }
 
-    createUserBarExit() {
-        const userBarExit = this.ownerDocument.createElement("div");
-        userBarExit.className = 'userbar-exit';
-
-        const userbarBotDiv = this.ownerDocument.createElement('div');
-        userbarBotDiv.className = 'userbarbot';
-
-        if(this.photo && this.name && this.username){
-            const userBar = this.ownerDocument.createElement('user-bar');
-            userBar.setAttribute('photo', this.photo);  
-            userBar.setAttribute('name', this.name);    
-            userBar.setAttribute('username', this.username); 
-            userbarBotDiv.appendChild(userBar);
-        }
-
-        const exitDiv = this.createExitButton();
-        userBarExit.appendChild(userbarBotDiv);
-        userBarExit.appendChild(exitDiv);
-
-        return userBarExit;
-    }
-
-    createExitButton() {
-        const exitDiv = this.ownerDocument.createElement('div');
-        exitDiv.className = 'exit';
-
-        const svgExit = this.ownerDocument.createElement('svg');
-        svgExit.setAttribute('class', 'exit');
-        svgExit.setAttribute('width', '25');
-        svgExit.setAttribute('height', '25');
-        svgExit.setAttribute('viewBox', '0 0 24 24');
-
-        const path1 = this.ownerDocument.createElement('path');
-        path1.setAttribute('fill', '#147AFF');
-        path1.setAttribute('d', 'M6 2h9a2 2 0 0 1 2 2v2h-2V4H6v16h9v-2h2v2a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2');
-
-        const path2 = this.ownerDocument.createElement('path');
-        path2.setAttribute('fill', '#147AFF');
-        path2.setAttribute('d', 'M16.09 15.59L17.5 17l5-5l-5-5l-1.41 1.41L18.67 11H9v2h9.67z');
-
-        svgExit.appendChild(path1);
-        svgExit.appendChild(path2);
-
-        exitDiv.appendChild(svgExit);
-
-        exitDiv.addEventListener("click", () => {
-            const exitPopup = this.ownerDocument.createElement('exit-account') as ExitAccount;
-            this.shadowRoot?.appendChild(exitPopup);
-        });
-
-        return exitDiv;
+    handleExit() {
+        const exitModal = document.createElement('exit-account');
+        document.body.appendChild(exitModal);
     }
 }
 
-customElements.define('app-nav-bar', NavBar);
+customElements.define('nav-bar', NavBar);
 export default NavBar;
