@@ -7,23 +7,23 @@ import { navigate } from '../../store/actions';
 
 const credentials = {
     name: '',
-    lastName:'',
+    lastName: '',
     username: '',
-    email:  '',
+    email: '',
     password: '',
     day: '',
     month: '',
-    year:'',
+    year: '',
     region: '',
 };
 
 class AppRegister extends HTMLElement {
-    constructor(){
+    constructor() {
         super();
-        this.attachShadow({mode:'open'});
+        this.attachShadow({ mode: 'open' });
     }
 
-    connectedCallback(){
+    connectedCallback() {
         this.render();
         this.shadowRoot?.addEventListener('close-popup', this.closeDialog.bind(this));
     }
@@ -31,7 +31,6 @@ class AppRegister extends HTMLElement {
     changeEmail(e: any) {
         this.setAttribute('email', e.target.value);
         credentials.email = e.target.value;
-        
     }
 
     changePassword(e: any) {
@@ -74,19 +73,18 @@ class AppRegister extends HTMLElement {
         credentials.region = e.target.value;
     }
 
-
     async submitForm() {
         const resp = await registerUser(credentials);
-        if(resp){
+        if (resp) {
             dispatch(navigate(Screens.DASHBOARD));
         } else {
-            alert('User could not be created')
+            alert('User could not be created');
         }
     }
 
-    openDialog(){
-        const dialog =this.shadowRoot?.querySelector("#register-dialog") as HTMLDialogElement;
-        dialog?.showModal()
+    openDialog() {
+        const dialog = this.shadowRoot?.querySelector("#register-dialog") as HTMLDialogElement;
+        dialog?.showModal();
     }
 
     closeDialog() {
@@ -94,18 +92,35 @@ class AppRegister extends HTMLElement {
         dialog?.close();
     }
 
-    render(){
-        if(this.shadowRoot){
-
+    render() {
+        if (this.shadowRoot) {
             const dialog = this.ownerDocument.createElement('dialog');
             dialog.id = 'register-dialog';
+            dialog.className = 'modal-content';
 
-            const header = this.ownerDocument.createElement('section-header-register');
+            // Botón de cerrar
+            const closeButton = this.ownerDocument.createElement('button');
+            closeButton.className = 'close-button';
+            closeButton.innerHTML = '×'; // Usa × para la X de cerrar
+            closeButton.addEventListener('click', this.closeDialog.bind(this));
+            dialog.appendChild(closeButton);
+
+            const header = this.ownerDocument.createElement('h1');
+            header.className = 'header-register';
+            header.innerText = 'Register';
             dialog.appendChild(header);
+
+            const description = this.ownerDocument.createElement('p');
+            description.className = 'description-register';
+            description.innerText = 'Join our travel community! Sign up to share your adventures, discover new destinations, and connect with fellow travel enthusiasts. Start exploring the world today!';
+            dialog.appendChild(description);
 
             const inputsDiv = this.ownerDocument.createElement('div');
             inputsDiv.className = 'inputs-register';
 
+            // Contenedor para Name y Last Name
+            const nameLastNameContainer = this.ownerDocument.createElement('div');
+            nameLastNameContainer.className = 'name-lastname-container';
 
             const nameInput = this.ownerDocument.createElement('input');
             nameInput.type = 'text';
@@ -114,7 +129,7 @@ class AppRegister extends HTMLElement {
             nameInput.placeholder = 'Name';
             nameInput.required = true;
             nameInput.addEventListener('change', this.changeName.bind(this));
-            inputsDiv.appendChild(nameInput);
+            nameLastNameContainer.appendChild(nameInput);
 
             const lastNameInput = this.ownerDocument.createElement('input');
             lastNameInput.type = 'text';
@@ -123,7 +138,10 @@ class AppRegister extends HTMLElement {
             lastNameInput.placeholder = 'Last name';
             lastNameInput.required = true;
             lastNameInput.addEventListener('change', this.changeLastName.bind(this));
-            inputsDiv.appendChild(lastNameInput);
+            nameLastNameContainer.appendChild(lastNameInput);
+
+            // Añade el contenedor de Name y Last Name al div de inputs
+            inputsDiv.appendChild(nameLastNameContainer);
 
             const usernameInput = this.ownerDocument.createElement('input');
             usernameInput.type = 'text';
@@ -221,6 +239,7 @@ class AppRegister extends HTMLElement {
             const submitButton = this.ownerDocument.createElement('button');
             submitButton.id = 'submit-btn';
             submitButton.innerText = 'Register';
+            submitButton.className = 'register-button';
             submitButton.addEventListener('click', (event) => {
                 event.preventDefault();
                 this.submitForm();
@@ -228,12 +247,13 @@ class AppRegister extends HTMLElement {
             dialog.appendChild(submitButton);
 
             this.shadowRoot.appendChild(dialog);
-        };
+        }
+
         const cssLogin = this.ownerDocument.createElement("style");
         cssLogin.innerHTML = styles;
-        this.shadowRoot?.appendChild(cssLogin); 
+        this.shadowRoot?.appendChild(cssLogin);
     }
-};
+}
+
 customElements.define("app-register", AppRegister);
 export default AppRegister;
-

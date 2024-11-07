@@ -14,13 +14,11 @@
 
 /* Contenido del modal */
 .modal-content {
-    display: none;
-    position: absolute;
-    top: 10px;
-    left: 10px;
+    display: block;
+    position: relative;
     background-color: #ffffff;
     padding: 20px;
-    width: 400px;
+    width: 400px; /* Ajusta el ancho para que sea más compacto */
     border-radius: 10px;
     text-align: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -31,11 +29,15 @@
 .header-register h1 {
     font-size: 1.5rem;
     font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
 }
 
 .header-register p {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     color: #666;
+    margin-top: 5px;
+    margin-bottom: 15px; /* Reduce el espacio entre el texto y los campos de entrada */
 }
 
 /* Botón de cerrar */
@@ -47,17 +49,36 @@
     border: none;
     font-size: 1.5rem;
     cursor: pointer;
+    color: #007bff;
 }
 
-/* Input fields */
+/* Campos de entrada */
 .inputs-register input {
     width: 100%;
     padding: 10px;
-    margin: 10px 0;
+    margin: 8px 0; /* Reduce el espacio entre los campos */
     border: 2px solid #007bff;
     border-radius: 5px;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+}
+
+/* Selectores de fecha de nacimiento y región */
+.selectors {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.selectors select {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #007bff;
+    border-radius: 5px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
 }
 
 /* Botón de registro */
@@ -65,51 +86,29 @@
     background-color: #22BF0D;
     color: white;
     width: 100%;
-    padding: 10px;
+    padding: 12px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    font-size: 1rem;
+    margin-top: 15px;
 }
 .register-button:hover {
     background-color: #1e9e0b;
 }
-
-
-/*selector css*/
-.selectors {
+/* Contenedor para Name y Last Name */
+.name-lastname-container {
     display: flex;
-    flex-direction: column;
-    gap: 10px;
+    gap: 10px; /* Espacio entre los campos */
+    margin-bottom: 10px; /* Espacio debajo de estos inputs */
 }
 
-.selectors h1 {
-    font-size: 1rem;
-    color: #333;
-    margin-bottom: 5px;
-}
-
-.selectors select {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-family: 'Poppins', sans-serif;
-}
-
-/*inputs css*/
-.inputs-register {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin: 10px 0;
-}
-
-.inputs-register input {
-    width: 100%;
+.name-lastname-container input {
+    width: 50%; /* Hace que cada input ocupe la mitad del ancho del contenedor */
     padding: 10px;
     border: 2px solid #007bff;
     border-radius: 5px;
-    box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
     font-size: 1rem;
+    box-sizing: border-box;
 }
