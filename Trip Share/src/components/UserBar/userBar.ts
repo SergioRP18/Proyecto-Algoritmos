@@ -1,11 +1,13 @@
 import styles from './userBar.css';
+import { getUser, getFirebaseInstance } from '../../utils/Firebase';
+import { onAuthStateChanged } from "firebase/auth";
 
 export enum AttributeUser {
     'username' = 'username',
     'name' = 'name',
     'photo' = 'photo',
     'uid' = 'uid',
-};
+}
 
 class UserBar extends HTMLElement {
     username?: string;
@@ -24,77 +26,94 @@ class UserBar extends HTMLElement {
 
     attributeChangedCallback(propName: AttributeUser, oldValue: string | undefined, newValue: string | undefined) {
         if (newValue !== oldValue) {
-            switch (propName) {
-                case AttributeUser.uid:
-                    this.uid = newValue ? Number(newValue) : undefined;
-                    break;
-                default:
-                    this[propName] = newValue;
-                    break;
+            if (propName === AttributeUser.uid) {
+                this.uid = newValue ? Number(newValue) : undefined;
+            } else {
+                this[propName] = newValue;
             }
-            this.render();
+            this.render();  // Render sólo en cambios de atributo
         }
     }
 
     connectedCallback() {
-        this.render();
+        this.loadUserProfile();  // Cargar perfil de usuario sólo una vez al conectar el componente
+    }
+
+    private async loadUserProfile() {
+        try {
+            const { auth } = await getFirebaseInstance();
+            onAuthStateChanged(auth, async (user) => {
+                if (user) {
+                    const userId = user.uid;
+                    await this.renderNavProfile(userId);
+                } else {
+                    console.log("No authenticated user.");
+                }
+            });
+        } catch (error) {
+            console.error('Error during loadUserProfile:', error);
+        }
+    }
+
+    private async renderNavProfile(userId: string) {
+        try {
+            const data = await getUser(userId);
+            console.log(data);
+
+            if (data) {
+                this.photo = data.photo || 'default-photo.jpg';
+                this.name = data.name || 'No Name';
+                this.username = data.username || 'No Username';
+                this.uid = data.id;
+
+                this.render();
+            }
+        } catch (error) {
+            console.error('Error fetching user profile:', error);
+        }
     }
 
     private render() {
         if (!this.shadowRoot) return;
 
-        const aside = this.ownerDocument.createElement('aside');
-        const nav = this.ownerDocument.createElement('nav');
-        const userBar = this.createUserBar();
+        this.shadowRoot.innerHTML = '';  // Limpiar el shadow root antes de renderizar
 
-        nav.appendChild(userBar);
-        aside.appendChild(nav);
-        this.shadowRoot.appendChild(aside);
-
-        this.addStyles();
-    }
-
-    private createUserBar() {
-        const userBar = this.ownerDocument.createElement('div');
-        userBar.classList.add('user-bar-dashboard');
-
-        const img = this.createImage();
+        const userBar = document.createElement('div');
+        const userImage = this.createImage();
         const textContainer = this.createTextContainer();
 
-        userBar.appendChild(img);
+        userBar.appendChild(userImage);
         userBar.appendChild(textContainer);
 
-        return userBar;
+        this.shadowRoot.appendChild(userBar);
+
+        const cssUserAside = this.ownerDocument.createElement("style");
+        cssUserAside.innerHTML = styles;
+        this.shadowRoot.appendChild(cssUserAside);
     }
 
     private createImage() {
-        const img = this.ownerDocument.createElement('img');
+        const img = document.createElement('img');
         img.src = this.photo || 'default-photo.jpg';
-        img.alt = 'Profile picture';
-        img.setAttribute('class', 'profile-img');
+        img.alt = 'Foto de usuario';
+        img.className = 'profile-img';
         return img;
     }
 
     private createTextContainer() {
-        const textContainer = this.ownerDocument.createElement('div');
+        const textContainer = document.createElement('div');
         textContainer.classList.add('text-container');
 
-        const h6 = this.ownerDocument.createElement('h6');
-        h6.innerText = this.username || 'Username';
+        const userName = document.createElement('h6');
+        userName.innerText = this.username || 'Username';
 
-        const p = this.ownerDocument.createElement('p');
-        p.innerText = this.name || 'Real Name';
+        const userFullName = document.createElement('p');
+        userFullName.innerText = this.name || 'Real Name';
 
-        textContainer.appendChild(h6);
-        textContainer.appendChild(p);
+        textContainer.appendChild(userName);
+        textContainer.appendChild(userFullName);
 
         return textContainer;
-    }
-
-    private addStyles() {
-        const cssUserBar = this.ownerDocument.createElement('style');
-        cssUserBar.innerHTML = styles;
-        this.shadowRoot?.appendChild(cssUserBar);
     }
 }
 

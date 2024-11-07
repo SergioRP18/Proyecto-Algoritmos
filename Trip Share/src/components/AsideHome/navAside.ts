@@ -1,59 +1,48 @@
-import styles from './navAside.css'
-
-export enum AttributeAside {
-    'photo' = 'photo',
-    'uid' = 'uid',
-    'username' = 'username',
-    'name' = 'name',
-
-}
+import styles from './navAside.css';
+import '../../components/indexPadre';
 
 class navAside extends HTMLElement {
-    photo? : string;
-    name? : string;
-    username? : string;
-    uid? : number;
-
-    constructor(){
+    constructor() {
         super();
-        this.attachShadow({mode:'open'});
+        this.attachShadow({ mode: 'open' });
     }
-    static get observedAttributes(){
-        return Object.keys(AttributeAside);
-    }
-    attributeChangedCallback(propName: AttributeAside, oldValue: string | undefined, newValue: string | undefined){
-        switch(propName){
-            case AttributeAside.uid:
-                this.uid = newValue ? Number(newValue) : undefined;
-                break;
-                default:
-                    this[propName] = newValue;
-                    break;
-                }
-                this.render();
-    }
-    connectedCallback(){
+
+    connectedCallback() {
         this.render();
     }
-    render(){
-        if(this.shadowRoot){
-            this.shadowRoot.innerHTML = `
-                <aside>
-                    <nav>
-                        <user-bar photo= ${this.photo} name=${this.name} username=${this.username} ></user-bar>
-                        <div class="footer">
-                            <p>Information - Help - News - API - Privacity - Conditions - Lenguage - Trip Verified</p>
-                            <p>2024 TRIP SHARED FROM DMI</p>
-                        </div>
-                    </nav>
-                </aside>
-            `;
-        };
 
+    async render() {
+        if (this.shadowRoot) {
+            this.shadowRoot.innerHTML = ''; 
+
+            const userBar = document.createElement('user-bar'); 
+            const aside = document.createElement('aside');
+
+            const footer = document.createElement('div');
+            footer.classList.add('footer');
+            const footerText1 = document.createElement('p');
+            footerText1.innerText = 'Information - Help - News - API - Privacy - Conditions - Language - Trip Verified';
+            const footerText2 = document.createElement('p');
+            footerText2.innerText = '2024 TRIP SHARED FROM DMI';
+
+            footer.appendChild(footerText1);
+            footer.appendChild(footerText2);
+
+            aside.appendChild(userBar);
+            aside.appendChild(footer);
+
+            this.shadowRoot.appendChild(aside);
+
+            this.addStyles();
+        }
+    }
+
+    private addStyles() {
         const cssNavAside = this.ownerDocument.createElement("style");
         cssNavAside.innerHTML = styles;
         this.shadowRoot?.appendChild(cssNavAside);
     }
-};
+}
+
 customElements.define('app-nav-profile', navAside);
 export default navAside;
