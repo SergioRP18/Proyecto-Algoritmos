@@ -18,7 +18,7 @@
     position: relative;
     background-color: #ffffff;
     padding: 20px;
-    width: 400px; /* Ajusta el ancho para que sea más compacto */
+    width: 600px; /* Ajusta el ancho para que sea más compacto */
     border-radius: 10px;
     text-align: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -64,21 +64,56 @@
     font-size: 1rem;
 }
 
-/* Selectores de fecha de nacimiento y región */
+/* Contenedor de selectores de fecha y región */
 .selectors {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     gap: 10px;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+/* Estilo para el título "Birthday" */
+.selectors h1 {
+    grid-column: span 3;
+    text-align: left;
+    font-size: 1rem;
+    font-weight: normal;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+/* Selectores de día, mes y año */
+.selectors select {
+    padding: 8px;
+    border: 2px solid #007bff;
+    border-radius: 5px;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Contenedor de "Region" */
+.region-container {
+    grid-column: span 3;
+    display: flex;
+    flex-direction: column;
     margin-top: 10px;
 }
 
-.selectors select {
+/* Estilo del título "Region" */
+.region-container h1 {
+    font-size: 1rem;
+    color: #333;
+    margin-bottom: 5px;
+    text-align: left;
+}
+
+/* Selector de región */
+.region-container select {
     width: 100%;
     padding: 10px;
     border: 2px solid #007bff;
     border-radius: 5px;
     font-family: 'Poppins', sans-serif;
-    font-size: 1rem;
 }
 
 /* Botón de registro */
@@ -111,4 +146,7 @@
     font-family: 'Poppins', sans-serif;
     font-size: 1rem;
     box-sizing: border-box;
+}
+.hidden {
+    display: none !important;
 }

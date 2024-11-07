@@ -84,19 +84,25 @@ class AppRegister extends HTMLElement {
 
     openDialog() {
         const dialog = this.shadowRoot?.querySelector("#register-dialog") as HTMLDialogElement;
-        dialog?.showModal();
+        if (dialog) {
+            dialog.classList.remove('hidden'); // Remueve la clase para mostrar el modal
+            dialog.showModal();
+        }
     }
 
     closeDialog() {
         const dialog = this.shadowRoot?.querySelector("#register-dialog") as HTMLDialogElement;
-        dialog?.close();
+        if (dialog) {
+            dialog.close();
+            dialog.classList.add('hidden'); // Añade la clase para ocultar el modal
+        }
     }
 
     render() {
         if (this.shadowRoot) {
             const dialog = this.ownerDocument.createElement('dialog');
             dialog.id = 'register-dialog';
-            dialog.className = 'modal-content';
+            dialog.className = 'modal-content hidden'; // Añadir clase hidden para estar oculto al iniciar
 
             // Botón de cerrar
             const closeButton = this.ownerDocument.createElement('button');
@@ -172,12 +178,12 @@ class AppRegister extends HTMLElement {
 
             dialog.appendChild(inputsDiv);
 
-            const birthdayHeader = this.ownerDocument.createElement('h1');
-            birthdayHeader.innerText = 'Birthday';
-            dialog.appendChild(birthdayHeader);
-
             const selectorsDiv = this.ownerDocument.createElement('div');
             selectorsDiv.className = 'selectors';
+
+            const birthdayHeader = this.ownerDocument.createElement('h1');
+            birthdayHeader.innerText = 'Birthday';
+            selectorsDiv.appendChild(birthdayHeader);
 
             const daySelect = this.ownerDocument.createElement('select');
             daySelect.id = 'day';
@@ -217,9 +223,13 @@ class AppRegister extends HTMLElement {
             yearSelect.addEventListener('change', this.changeYear.bind(this));
             selectorsDiv.appendChild(yearSelect);
 
+            // Contenedor de Region
+            const regionContainer = this.ownerDocument.createElement('div');
+            regionContainer.className = 'region-container';
+
             const regionHeader = this.ownerDocument.createElement('h1');
             regionHeader.innerText = 'Region';
-            selectorsDiv.appendChild(regionHeader);
+            regionContainer.appendChild(regionHeader);
 
             const regionSelect = this.ownerDocument.createElement('select');
             regionSelect.id = 'region';
@@ -232,8 +242,10 @@ class AppRegister extends HTMLElement {
                 <option value="Orinoco Region">Orinoco Region</option>
             `;
             regionSelect.addEventListener('change', this.changeRegion.bind(this));
-            selectorsDiv.appendChild(regionSelect);
+            regionContainer.appendChild(regionSelect);
 
+            // Añadir los contenedores de birthday y region a selectorsDiv
+            selectorsDiv.appendChild(regionContainer);
             dialog.appendChild(selectorsDiv);
 
             const submitButton = this.ownerDocument.createElement('button');
