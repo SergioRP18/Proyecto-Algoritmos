@@ -29,7 +29,8 @@ class HeaderRegister extends HTMLElement {
             style.textContent = styles;
             this.shadowRoot.appendChild(style);
 
-            this.shadowRoot.getElementById("close-popup")?.addEventListener('click', (event) => {
+            const closePopupButton = this.shadowRoot.querySelector("#close-popup");
+            closePopupButton?.addEventListener('click', (event) => {
                 event.preventDefault();
                 this.dispatchEvent(new CustomEvent('close-popup', { bubbles: true, composed: true }));
             });

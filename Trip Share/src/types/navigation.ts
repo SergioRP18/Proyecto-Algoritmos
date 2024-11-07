@@ -5,4 +5,4 @@ export enum Screens {
     PROFILE = "PROFILE",
     MY_WISH_LIST = "MY_WISH_LIST",
     EDIT_PROFILE = "EDIT_PROFILE",
-}
+};

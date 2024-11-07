@@ -11,12 +11,15 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "@firebase/auth": "^1.8.0",
+    "@firebase/firestore": "^4.7.4",
+    "@types/firebase": "^3.2.3",
     "css-loader": "^7.1.2",
     "file-loader": "^6.2.0",
     "serve": "^14.2.3",
     "style-loader": "^4.0.0",
     "ts-loader": "^9.5.1",
-    "typescript": "^5.6.2",
+    "typescript": "^5.6.3",
     "webpack": "^5.94.0",
     "webpack-cli": "^5.1.4"
   },

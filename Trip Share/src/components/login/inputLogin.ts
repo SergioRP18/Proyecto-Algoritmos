@@ -1,102 +1,115 @@
 import styles from './inputLogin.css'; 
 import { addObserver, dispatch } from "../../store";
-import { navigate } from "../../store/actions";
-import { Screens } from "../../types/navigation";
 import { loginUser } from '../../utils/Firebase';
+import AppRegister from '../../components/Register/register';
 import "../../components/indexPadre";
-
-const credentials = {
-    email: '',
-    password: '',
-};
-
 class InputLogin extends HTMLElement {
-    private showPopup: boolean;
 
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
         addObserver(this);
-        this.showPopup = false;
     }
 
     connectedCallback() {
         this.render();
-        this.shadowRoot?.addEventListener('close-popup', () => this.togglePopup());
     }
 
-    changeEmail(e: Event) {
-        const target = e.target as HTMLInputElement;
-        credentials.email = target.value;
-    }
+    submitForm() {
+        const emailInput = this.shadowRoot?.querySelector('#user-email') as HTMLInputElement;
+        const passwordInput = this.shadowRoot?.querySelector('#user-password') as HTMLInputElement;
+        
+        const credentials = {
+            email: emailInput?.value?.trim(),
+            password: passwordInput?.value,
+        };
 
-    changePassword(e: Event) {
-        const target = e.target as HTMLInputElement;
-        credentials.password = target.value;
-    }
+		loginUser(credentials.email, credentials.password).then(userId => {
+            console.log("Successful login");
+            alert("Successful login");
+            this.resetForm();
+        })
+        .catch(error => {
+            console.error("Error during login:", error);
+            alert("Please verify your credentials.");
+        });
+	}
 
-    async submitForm(event: Event) {
-        event.preventDefault();
-
-        // Verificar si los campos están vacíos
-        if (!credentials.email || !credentials.password) {
-            alert("Por favor, completa todos los campos.");
-            return; // Detener la ejecución si hay campos vacíos
-        }
-
-        try {
-            // Intenta hacer login
-            await loginUser(credentials.email, credentials.password);
-            
-            // Si el login es exitoso, navega al dashboard
-            this.GoToDashboard();
-        } catch (error) {
-            console.error("Error de inicio de sesión:", error);
-            
-            // Muestra una alerta si las credenciales no son correctas
-            alert("Credenciales incorrectas. Por favor, verifica tu email y contraseña.");
-        }
-    }
-
-    GoToDashboard() {
-        dispatch(navigate(Screens.DASHBOARD));
-    }
-
-    togglePopup() {
-        this.showPopup = !this.showPopup;
-        this.render();
+    resetForm() {
+        const form = this.shadowRoot?.querySelector("#form-user") as HTMLFormElement;
+        form?.reset();
     }
 
     render() {
         if (this.shadowRoot) {
-            this.shadowRoot.innerHTML = `
-                <link rel="stylesheet" href="./inputLogin.css">
-                <form id="user-form" class="login-container">
-                    <input type="email" id="email" name="email" placeholder="E-mail">
-                    <input type="password" id="password" name="password" placeholder="Password">
-                    <button type="submit" id="login-btn">Log In</button>
-                    <div class="forgot-password">
-                        <button type="button" id="forgotpassword-btn">¿Forgot your password?</button>
-                    </div>
-                    <div class="social-login">
-                        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMSIgaGVpZ2h0PSIyMSIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBmaWxsPSIjMDAwMDAwIiBkPSJNNiAxMmE2IDYgMCAwIDAgMTEuNjU5IDJIMTJ2LTRoOS44MDV2NEgyMS44Yy0uOTI3IDQuNTY0LTQuOTYyIDgtOS44IDhjLTUuNTIzIDAtMTAtNC40NzctMTAtMTBTNi40NzcgMiAxMiAyYTkuOTkgOS45OSAwIDAgMSA4LjI4MiA0LjM5M2wtMy4yNzggMi4yOTVBNiA2IDAgMCAwIDYgMTIiLz48L3N2Zz4=">
-                        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMSIgaGVpZ2h0PSIyMSIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBmaWxsPSIjMDAwMDAwIiBkPSJNMTIgMi4wNGMtNS41IDAtMTAgNC40OS0xMCAxMC4wMmMwIDUgMy42NiA5LjE1IDguNDQgOS45di03SDcuOXYtMi45aDIuNTRWOS44NWMwLTIuNTEgMS40OS0zLjg5IDMuNzgtMy44OWMxLjA5IDAgMi4yMy4xOSAyLjIzLjE5djIuNDdoLTEuMjZjLTEuMjQgMC0xLjYzLjc3LTEuNjMgMS41NnYxLjg4aDIuNzhsLS40NSAyLjloLTIuMzN2N2ExMCAxMCAwIDAgMCA4LjQ0LTkuOWMwLTUuNTMtNC41LTEwLjAyLTEwLTEwLjAyIi8+PC9zdmc+">
-                    </div>
-                    <a id="btn-register" class="create-account">Create new account</a>
-                </form>
-                <div class="overlay" style="display: ${this.showPopup ? 'block' : 'none'};" @click="${() => this.togglePopup()}"></div>
-                <div class="popup" style="display: ${this.showPopup ? 'block' : 'none'};">
-                    <app-register></app-register>
-                </div>
-            `;
+            const form = this.ownerDocument.createElement('form');
+            form.id = 'user-form';
+            form.className = 'login-container';
 
-            this.shadowRoot.getElementById("email")?.addEventListener('input', this.changeEmail.bind(this));
-            this.shadowRoot.getElementById("password")?.addEventListener('input', this.changePassword.bind(this));
-            this.shadowRoot.getElementById("login-btn")?.addEventListener('click', this.submitForm.bind(this));
-            this.shadowRoot.getElementById("btn-register")?.addEventListener('click', (event) => {
+            const pName = this.ownerDocument.createElement('input');
+            pName.type = 'email'; 
+            pName.placeholder = 'Email';
+            pName.id = 'user-email';
+            pName.autofocus = true;
+            form.appendChild(pName);
+
+            const pPass = this.ownerDocument.createElement('input');
+            pPass.type = 'password';
+            pPass.placeholder = 'Password';
+            pPass.id = 'user-password';
+            form.appendChild(pPass);
+
+            const save = this.ownerDocument.createElement('button');
+            save.type = 'submit';
+			save.innerText = 'Log In';
+            save.id = 'login-btn';
+			save.addEventListener('click', async (event) => {
                 event.preventDefault();
-                this.togglePopup();
+                this.submitForm();
             });
+			form.appendChild(save);
+
+            //Div para el bottom de forgot
+            const forgotDiv = this.ownerDocument.createElement('div');
+            forgotDiv.className = 'forgot-password';    
+
+            const forgot = this.ownerDocument.createElement('button');
+			forgot.innerText = 'Forgot your password?';
+            forgot.id = 'forgotpassword-btn';
+			forgotDiv.appendChild(forgot);
+            form.appendChild(forgotDiv);
+
+            // Crear el div para los íconos sociales
+            const socialLoginDiv = this.ownerDocument.createElement('div');
+            socialLoginDiv.className = 'social-login';
+
+            const imgGoogle = this.ownerDocument.createElement('img');
+            imgGoogle.src = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMSIgaGVpZ2h0PSIyMSIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBmaWxsPSIjMDAwMDAwIiBkPSJNNiAxMmE2IDYgMCAwIDAgMTEuNjU5IDJIMTJ2LTRoOS44MDV2NEgyMS44Yy0uOTI3IDQuNTY0LTQuOTYyIDgtOS44IDhjLTUuNTIzIDAtMTAtNC40NzctMTAtMTBTNi40NzcgMiAxMiAyYTkuOTkgOS45OSAwIDAgMSA4LjI4MiA0LjM5M2wtMy4yNzggMi4yOTVBNiA2IDAgMCAwIDYgMTIiLz48L3N2Zz4=';
+            imgGoogle.alt = 'google icon';
+            imgGoogle.className = 'social-login';
+            socialLoginDiv.appendChild(imgGoogle);
+
+            const imgFacebook = this.ownerDocument.createElement('img');
+            imgFacebook.src = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMSIgaGVpZ2h0PSIyMSIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBmaWxsPSIjMDAwMDAwIiBkPSJNMTIgMi4wNGMtNS41IDAtMTAgNC40OS0xMCAxMC4wMmMwIDUgMy42NiA5LjE1IDguNDQgOS45di03SDcuOXYtMi45aDIuNTRWOS44NWMwLTIuNTEgMS40OS0zLjg5IDMuNzgtMy44OWMxLjA5IDAgMi4yMy4xOSAyLjIzLjE5djIuNDdoLTEuMjZjLTEuMjQgMC0xLjYzLjc3LTEuNjMgMS41NnYxLjg4aDIuNzhsLS40NSAyLjloLTIuMzN2N2ExMCAxMCAwIDAgMCA4LjQ0LTkuOWMwLTUuNTMtNC41LTEwLjAyLTEwLTEwLjAyIi8+PC9zdmc+';
+            imgFacebook.alt = 'google icon';
+            imgFacebook.className = 'social-login';
+            socialLoginDiv.appendChild(imgFacebook);
+
+            form.appendChild(socialLoginDiv);
+
+            const registerLink = this.ownerDocument.createElement('a');
+            registerLink.id = 'btn-register';
+            registerLink.className = 'create-account';
+            registerLink.innerText = 'Create new account';
+            registerLink.addEventListener('click', (event) => {
+                event.preventDefault();
+                const register = this.ownerDocument.createElement("app-register") as AppRegister;
+                this.shadowRoot?.appendChild(register);
+                register.openDialog();
+            });
+            form.appendChild(registerLink);
+
+            this.shadowRoot.appendChild(form);
         };
         const cssLogin = this.ownerDocument.createElement("style");
         cssLogin.innerHTML = styles;
