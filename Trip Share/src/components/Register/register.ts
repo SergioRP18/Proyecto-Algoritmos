@@ -8,6 +8,7 @@ import { navigate } from '../../store/actions';
 const credentials = {
     name: '',
     lastName:'',
+    username: '',
     email:  '',
     password: '',
     day: '',
@@ -46,6 +47,11 @@ class AppRegister extends HTMLElement {
     changeLastName(e: any) {
         this.setAttribute('lastName', e.target.value);
         credentials.lastName = e.target.value;
+    }
+
+    changeUsername(e: any) {
+        this.setAttribute('username', e.target.value);
+        credentials.username = e.target.value;
     }
 
     changeDay(e: any) {
@@ -118,6 +124,15 @@ class AppRegister extends HTMLElement {
             lastNameInput.required = true;
             lastNameInput.addEventListener('change', this.changeLastName.bind(this));
             inputsDiv.appendChild(lastNameInput);
+
+            const usernameInput = this.ownerDocument.createElement('input');
+            usernameInput.type = 'text';
+            usernameInput.id = 'username';
+            usernameInput.name = 'username';
+            usernameInput.placeholder = 'Username';
+            usernameInput.required = true;
+            usernameInput.addEventListener('change', this.changeUsername.bind(this));
+            inputsDiv.appendChild(usernameInput);
 
             const emailInput = this.ownerDocument.createElement('input');
             emailInput.type = 'email';

@@ -1,4 +1,5 @@
 import { addObserver } from "../../store";
+import '../../components/indexPadre';
 
 class AppProfile extends HTMLElement {
 
@@ -13,7 +14,21 @@ class AppProfile extends HTMLElement {
     }
 
     render(){
-        
+        if(this.shadowRoot){
+            const userProfile = this.ownerDocument.createElement('section-user-profile');
+            const publicationsUser = this.ownerDocument.createElement('section-publications-user');
+            const postComponent = this.ownerDocument.createElement('section-post');
+
+            userProfile.setAttribute('username', 'john_doe');
+            userProfile.setAttribute('name', 'John Doe');
+            userProfile.setAttribute('photo', 'user-photo.jpg');
+            userProfile.setAttribute('description', 'Traveler and photographer');
+            userProfile.setAttribute('uid', '12345');
+
+            this.shadowRoot.appendChild(userProfile);
+            this.shadowRoot.appendChild(publicationsUser);
+            this.shadowRoot.appendChild(postComponent);
+        }
     }
 };
 customElements.define("app-profile", AppProfile);

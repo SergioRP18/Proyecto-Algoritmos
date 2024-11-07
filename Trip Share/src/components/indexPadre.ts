@@ -12,6 +12,6 @@ export { default as FooterLogin } from './login/footerLogin';
 export { default as HeaderRegister } from './Register/headerRegister';
 export { default as AppRegister } from './Register/register';
 export { default as ExitAccount } from './ExitAccount/exitAccount';
-export {  } from '';
-export {  } from '';
+export { default as PublicationsUser } from './Profile/publications';
+export { default as UserProfile } from './Profile/user';
 export {  } from '';
