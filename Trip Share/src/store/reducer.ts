@@ -3,7 +3,7 @@ import { ScreenActions } from "../types/store";
 export const reducer = (currentAction: any, currentState: any) => {
     const { action, payload } = currentAction;
 
-    switch(action.type){
+    switch(action){
         case ScreenActions.NAVIGATE:
 				return {
                     ...currentState,

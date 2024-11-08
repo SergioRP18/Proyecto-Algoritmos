@@ -21,7 +21,7 @@ const onAuth = async () => {
 onAuth();
 
 const initialState: AppState = {
-	screen: Screens.DASHBOARD,
+	screen: 'LOGIN',
 	posts: [],
 	user: '',
 	postsByUser: [],
