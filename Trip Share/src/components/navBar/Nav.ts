@@ -1,11 +1,12 @@
 import { Screens } from '../../types/navigation';
-import { dispatch } from '../../store';
+import { appState, dispatch } from '../../store';
 import { navigate } from '../../store/actions';
 import ExitAccount from '../ExitAccount/exitAccount';
 import { getUser, getFirebaseInstance } from '../../utils/Firebase';
 import { onAuthStateChanged } from "firebase/auth";
 import '../../components/indexPadre';
 import styles from './Nav.css';
+import { Post } from '../../components/indexPadre';
 
 export enum Attribute {
     'photo' = 'photo',
@@ -53,21 +54,18 @@ class NavBar extends HTMLElement {
         this.render();
     }
 
-    goNavigate(screen: Screens) {
-        dispatch(navigate(screen));
-    }
 
     async renderNavProfile(userId: string) {
         try {
             const data = await getUser(userId);
             console.log(data);
-
+    
             if (data) {
-                this.photo = data.photo || 'default-photo.jpg';
-                this.name = data.name || 'No Name';
-                this.username = data.username || 'No Username';
-                this.uid = data.id;
-
+                this.setAttribute(Attribute.photo, data.photo || 'default-photo.jpg');
+                this.setAttribute(Attribute.name, data.name || 'No Name');
+                this.setAttribute(Attribute.username, data.username || 'No Username');
+                this.setAttribute(Attribute.uid, data.id.toString());
+    
                 this.render();
             }
         } catch (error) {
@@ -78,7 +76,7 @@ class NavBar extends HTMLElement {
     async render() {
         if (this.shadowRoot) {
             this.shadowRoot.innerHTML = '';
-   
+
             try {
                 const { auth } = await getFirebaseInstance();
                 onAuthStateChanged(auth, async (user) => {
@@ -96,7 +94,7 @@ class NavBar extends HTMLElement {
             } catch (error) {
                 console.error('Error during render:', error);
             }
-   
+
             const cssNav = this.ownerDocument.createElement('style');
             cssNav.innerHTML = styles;
             this.shadowRoot?.appendChild(cssNav);
@@ -114,11 +112,9 @@ class NavBar extends HTMLElement {
         const inputsDiv = this.createNavLinks();
         nav.appendChild(inputsDiv);
 
-        // Contenedor para la foto de perfil, nombre y logout
         const userbarExit = this.ownerDocument.createElement('div');
         userbarExit.className = 'userbar-exit';
 
-        // Imagen de perfil
         const profileImg = this.ownerDocument.createElement('img');
         profileImg.src = this.photo || 'default-photo.jpg';
         profileImg.alt = 'Profile Picture';
@@ -181,16 +177,21 @@ class NavBar extends HTMLElement {
 
         inputsDiv.appendChild(ul);
 
+    
+        const exitDiv = this.createExitIcon();
+        inputsDiv.appendChild(exitDiv);
+    
         return inputsDiv;
     }
 
     createNavLink(link: { id: string, icon?: string, imgSrc?: string, text: string }) {
+        
         const li = this.ownerDocument.createElement('li');
         li.id = link.id;
-
+    
         const linkContainer = this.ownerDocument.createElement('div');
         linkContainer.className = 'link-container';
-
+    
         if (link.icon) {
             const iconWrapper = this.ownerDocument.createElement('div');
             iconWrapper.className = 'icon';
@@ -205,19 +206,32 @@ class NavBar extends HTMLElement {
             imgWrapper.appendChild(img);
             linkContainer.appendChild(imgWrapper);
         }
-
+    
         const textSpan = this.ownerDocument.createElement('span');
         textSpan.className = 'link-text';
         textSpan.textContent = link.text;
         linkContainer.appendChild(textSpan);
 
+        li.addEventListener('click', (event) => {
+            console.log('click en', link.id);
+            
+            event.preventDefault();
+            if (link.id === 'create-screen') {
+                this.handleCreateDialog(); 
+            } else {
+                this.handleNavigation(link.id);
+                console.log('Navegando a handle', link.id);
+                
+            }
+        });
+    
         li.appendChild(linkContainer);
-
+    
         li.addEventListener('click', (event) => {
             event.preventDefault();
             this.handleNavigation(link.id);
         });
-
+    
         return li;
     }
 
@@ -238,16 +252,18 @@ class NavBar extends HTMLElement {
     handleNavigation(id: string) {
         switch (id) {
             case 'home-screen':
-                this.goNavigate(Screens.DASHBOARD);
+                dispatch(navigate(Screens.DASHBOARD));
                 break;
             case 'wish-list-screen':
-                this.goNavigate(Screens.MY_WISH_LIST);
+                dispatch(navigate(Screens.MY_WISH_LIST));
                 break;
             case 'profile-screen':
-                this.goNavigate(Screens.PROFILE);
+                dispatch(navigate(Screens.PROFILE));
+                console.log('appstate screen', appState.screen);
+                
                 break;
             case 'create-screen':
-                this.handleCreate(); //esto lo agregue para el create post
+                this.handleCreateDialog(); 
                 break;
             case 'exit':
                 this.handleExit();
@@ -255,9 +271,19 @@ class NavBar extends HTMLElement {
         }
     }
 
-    handleCreate() {
-        const createModal = document.createElement('section-post');
-        document.body.appendChild(createModal);
+    handleCreateDialog() {
+        let createDialog = this.ownerDocument.querySelector('section-post') as Post;
+        
+        if (!createDialog) {
+            createDialog = document.createElement('section-post') as Post;
+            document.body.appendChild(createDialog);
+        }
+    
+        const dialog = createDialog.shadowRoot?.getElementById('create-dialog') as HTMLDialogElement;
+        
+        if (dialog && !dialog.open) {
+            dialog.showModal();
+        }
     }
 
     handleExit() {

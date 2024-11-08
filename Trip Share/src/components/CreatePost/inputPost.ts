@@ -1,27 +1,37 @@
 import '../../components/indexPadre';
 
 class Post extends HTMLElement {
+    private dialog!: HTMLDialogElement;
+
     constructor(){
         super();
+        this.attachShadow({mode: 'open'});
     }
 
     connectedCallback(){
+        window.addEventListener('beforeunload', this.closeOnNavigation);
+
         this.render()
     }
 
-    openDialog(){
-        const dialog = this.shadowRoot?.querySelector('#create-dialog') as HTMLDialogElement;
-        dialog?.showModal()
+    disconnectedCallback() {
+        window.removeEventListener('beforeunload', this.closeOnNavigation);
     }
 
-    closeDialog(){
-        const dialog = this.shadowRoot?.querySelector('#create-dialog') as HTMLDialogElement;
-        dialog?.close();
+    close(dialog: HTMLDialogElement){
+        dialog.close();
+        this.remove(); 
+    }
+
+    closeOnNavigation() {
+        this.close(this.dialog);
     }
 
     render(){
         if(this.shadowRoot){
-            const dialog = this.ownerDocument.createElement('dialog');
+            this.shadowRoot.innerHTML = '';
+
+            const dialog = this.ownerDocument.createElement('dialog') as HTMLDialogElement;
             dialog.id = 'create-dialog';
 
             const photoComponent = this.ownerDocument.createElement('header-photo-create');
