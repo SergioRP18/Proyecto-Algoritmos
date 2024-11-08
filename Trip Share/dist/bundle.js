@@ -43210,14 +43210,17 @@ class NavAside extends HTMLElement {
     }
     async renderNavProfile(userId) {
         try {
-            const data = await (0, Firebase_1.getUser)(userId); // Asegúrate de que `getUser` esté bien implementado
+            const data = await (0, Firebase_1.getUser)(userId);
+            console.log('data user', data);
+            // Asegúrate de que `getUser` esté bien implementado
             if (data) {
                 this.photo = data.photo || 'default-photo.jpg';
                 this.name = data.name || 'No Name';
                 this.username = data.username || 'No Username';
                 this.uid = data.id;
-                this.render(); // Renderiza nuevamente con los datos actualizados
+                // Renderiza nuevamente con los datos actualizados
             }
+            return;
         }
         catch (error) {
             console.error('Error fetching user profile:', error);
@@ -43338,15 +43341,12 @@ class Post extends HTMLElement {
         (0, store_1.addObserver)(this);
     }
     async connectedCallback() {
-        this.render();
         window.addEventListener('beforeunload', this.closeOnNavigation);
         if (store_1.appState.postsByUser.length === 0) {
             const action = await (0, Firebase_1.getPostsByUser)();
             (0, store_1.dispatch)(action);
         }
-        else {
-            this.render();
-        }
+        this.render();
     }
     async submitPublish() {
     }
@@ -43405,7 +43405,6 @@ class Post extends HTMLElement {
             inputsDiv.appendChild(save);
             dialog.appendChild(inputsDiv);
             this.shadowRoot.appendChild(dialog);
-            console.log('Contenido del shadowRoot:', this.shadowRoot.innerHTML);
         }
     }
 }
@@ -44620,9 +44619,6 @@ class NavBar extends HTMLElement {
         this.uid = this.getAttribute(Attribute.uid) ? Number(this.getAttribute(Attribute.uid)) : undefined;
         this.render();
     }
-    goNavigate(screen) {
-        (0, store_1.dispatch)((0, actions_1.navigate)(screen));
-    }
     async renderNavProfile(userId) {
         try {
             const data = await (0, Firebase_1.getUser)(userId);
@@ -44751,12 +44747,14 @@ class NavBar extends HTMLElement {
         textSpan.textContent = link.text;
         linkContainer.appendChild(textSpan);
         li.addEventListener('click', (event) => {
+            console.log('click en', link.id);
             event.preventDefault();
             if (link.id === 'create-screen') {
                 this.handleCreateDialog();
             }
             else {
                 this.handleNavigation(link.id);
+                console.log('Navegando a handle', link.id);
             }
         });
         li.appendChild(linkContainer);
@@ -44779,13 +44777,14 @@ class NavBar extends HTMLElement {
     handleNavigation(id) {
         switch (id) {
             case 'home-screen':
-                this.goNavigate(navigation_1.Screens.DASHBOARD);
+                (0, store_1.dispatch)((0, actions_1.navigate)(navigation_1.Screens.DASHBOARD));
                 break;
             case 'wish-list-screen':
-                this.goNavigate(navigation_1.Screens.MY_WISH_LIST);
+                (0, store_1.dispatch)((0, actions_1.navigate)(navigation_1.Screens.MY_WISH_LIST));
                 break;
             case 'profile-screen':
-                this.goNavigate(navigation_1.Screens.PROFILE);
+                (0, store_1.dispatch)((0, actions_1.navigate)(navigation_1.Screens.PROFILE));
+                console.log('appstate screen', store_1.appState.screen);
                 break;
             case 'create-screen':
                 this.handleCreateDialog();
@@ -44989,16 +44988,18 @@ class AppProfile extends HTMLElement {
         (0, store_1.addObserver)(this);
     }
     async connectedCallback() {
+        console.log('in profile screen');
+        console.log('screen app', store_2.appState.screen);
+        console.log('posts', store_2.appState.postsByUser);
+        this.render();
         if (store_2.appState.postsByUser.length === 0) {
             const action = await (0, actions_1.getPostsByUserAction)();
             (0, store_3.dispatch)(action);
         }
-        else {
-            this.render();
-        }
     }
     render() {
         if (this.shadowRoot) {
+            console.log('render profile');
             const nav = this.ownerDocument.createElement('nav-bar');
             this.shadowRoot?.appendChild(nav);
             const userProfile = this.ownerDocument.createElement('section-user-profile');
@@ -45073,6 +45074,7 @@ const store_1 = __webpack_require__(155);
 const Firebase_1 = __webpack_require__(8293);
 const Firebase_2 = __webpack_require__(8293);
 const navigate = (screen) => {
+    console.log('screen in action', screen);
     return {
         action: store_1.ScreenActions.NAVIGATE,
         payload: screen,
@@ -45166,6 +45168,7 @@ const reducer = (currentAction, currentState) => {
     const { action, payload } = currentAction;
     switch (action) {
         case store_1.ScreenActions.NAVIGATE:
+            console.log('payload in screen', payload);
             return {
                 ...currentState,
                 screen: payload,

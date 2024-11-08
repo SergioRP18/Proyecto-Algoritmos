@@ -5,6 +5,8 @@ export const reducer = (currentAction: any, currentState: any) => {
 
     switch(action){
         case ScreenActions.NAVIGATE:
+            console.log('payload in screen', payload);
+            
 				return {
                     ...currentState,
                     screen: payload,

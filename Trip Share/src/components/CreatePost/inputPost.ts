@@ -12,16 +12,15 @@ class Post extends HTMLElement {
     }
 
     async connectedCallback(){
-        this.render();
+        
 
         window.addEventListener('beforeunload', this.closeOnNavigation);
 
         if(appState.postsByUser.length === 0){
             const action = await getPostsByUser();
             dispatch(action);
-        } else {
-            this.render();
-        }
+        } 
+        this.render();
     }
 
     async submitPublish() {
@@ -98,8 +97,7 @@ class Post extends HTMLElement {
             dialog.appendChild(inputsDiv);
     
             this.shadowRoot.appendChild(dialog);
-    
-            console.log('Contenido del shadowRoot:', this.shadowRoot.innerHTML);
+
         }
     }
     

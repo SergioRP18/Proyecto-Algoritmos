@@ -14,16 +14,23 @@ class AppProfile extends HTMLElement {
     }
 
     async connectedCallback() {
+        console.log('in profile screen');
+        console.log('screen app', appState.screen);
+        
+        console.log('posts', appState.postsByUser);
+        this.render()
+        
 		if (appState.postsByUser.length === 0) {
 			const action = await getPostsByUserAction();
 			dispatch(action);
-		} else {
-			this.render();
-		}
+        }
+            
 	}
 
     render(){
         if(this.shadowRoot){
+            console.log('render profile');
+            
 
             const nav = this.ownerDocument.createElement('nav-bar') as NavBar;
             this.shadowRoot?.appendChild(nav);

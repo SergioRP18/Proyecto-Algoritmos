@@ -4,6 +4,8 @@ import { getPosts } from "../utils/Firebase";
 import { getPostsByUser } from "../utils/Firebase";
 
 export const navigate = (screen: Screens) => {
+    console.log('screen in action', screen);
+    
     return{
         action: ScreenActions.NAVIGATE,
         payload: screen,
