@@ -1,4 +1,6 @@
 import '../../components/indexPadre';
+import { addObserver, appState, dispatch } from '../../store';
+import { addPost, getPostsByUser, getFile } from '../../utils/Firebase';
 
 class Post extends HTMLElement {
     private dialog!: HTMLDialogElement;
@@ -6,13 +8,26 @@ class Post extends HTMLElement {
     constructor(){
         super();
         this.attachShadow({ mode: 'open' });
+        addObserver(this);
     }
 
-    connectedCallback(){
+    async connectedCallback(){
         this.render();
 
         window.addEventListener('beforeunload', this.closeOnNavigation);
+
+        if(appState.postsByUser.length === 0){
+            const action = await getPostsByUser();
+            dispatch(action);
+        } else {
+            this.render();
+        }
     }
+
+    async submitPublish() {
+        
+    }
+    
 
     disconnectedCallback() {
         window.removeEventListener('beforeunload', this.closeOnNavigation);
@@ -30,44 +45,55 @@ class Post extends HTMLElement {
         if (this.shadowRoot) {
             this.shadowRoot.innerHTML = '';
     
-            const dialog = document.createElement('dialog') as HTMLDialogElement;
+            const dialog = this.ownerDocument.createElement('dialog') as HTMLDialogElement;
             dialog.id = 'create-dialog';
     
-            const photoComponent = document.createElement('header-photo-create');
+            const photoComponent = this.ownerDocument.createElement('header-photo-create');
             dialog.appendChild(photoComponent);
     
-            const inputsDiv = document.createElement('div');
+            const inputsDiv = this.ownerDocument.createElement('div');
             inputsDiv.className = 'inputs-create';
     
-            const descriptionHeader = document.createElement('h1');
+            const descriptionHeader = this.ownerDocument.createElement('h1');
             descriptionHeader.innerText = 'Write your review';
             dialog.appendChild(descriptionHeader);
     
-            const description = document.createElement('input');
+            const description = this.ownerDocument.createElement('input');
             description.type = 'text';
             description.id = 'post-description';
             description.required = true;
             inputsDiv.appendChild(description);
     
-            const descriptionHashtags = document.createElement('h1');
+            const descriptionHashtags = this.ownerDocument.createElement('h1');
             descriptionHashtags.innerText = 'Your Hashtags';
             dialog.appendChild(descriptionHashtags);
     
-            const hashtags = document.createElement('input');
+            const hashtags = this.ownerDocument.createElement('input');
             hashtags.type = 'text';
             hashtags.id = 'post-hashtags';
             hashtags.required = true;
             inputsDiv.appendChild(hashtags);
     
-            const descriptionLocation = document.createElement('h1');
+            const descriptionLocation = this.ownerDocument.createElement('h1');
             descriptionLocation.innerText = 'Your Location';
             dialog.appendChild(descriptionLocation);
     
-            const location = document.createElement('input');
+            const location = this.ownerDocument.createElement('input');
             location.type = 'text';
             location.id = 'post-location';
             location.required = true;
             inputsDiv.appendChild(location);
+
+            const save = this.ownerDocument.createElement('button');
+            save.type = 'submit';
+            save.id = 'publish-btn';
+            save.innerText = 'Publish';
+            save.className = 'submit-publish';
+            save.addEventListener('click', (event) => {
+                event.preventDefault();
+                this.submitPublish();
+            })
+            inputsDiv.appendChild(save);
     
             dialog.appendChild(inputsDiv);
     

@@ -190,7 +190,7 @@ class NavBar extends HTMLElement {
 
     createNavLink(link: { id: string, icon?: string, imgSrc?: string, text: string }) {
         const li = this.ownerDocument.createElement('li');
-        li.id = link.id;  // Asignación del ID único
+        li.id = link.id;
     
         const linkContainer = this.ownerDocument.createElement('div');
         linkContainer.className = 'link-container';

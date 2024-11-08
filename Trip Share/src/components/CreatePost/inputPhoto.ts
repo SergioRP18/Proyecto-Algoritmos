@@ -35,22 +35,14 @@ class Photo extends HTMLElement {
             uploadPhoto.addEventListener('change', () => {
                 const file = uploadPhoto.files?.[0];
                 if(file) uploadFileCloudinary(file, appState.user);
-            })
-
-            const uploadButtonLabel = this.ownerDocument.createElement("label");
-            uploadButtonLabel.setAttribute("for", "upload-photo");
-            uploadButtonLabel.innerText = "Select from device";
-            uploadButtonLabel.className = "upload-button"; 
+            }) 
 
             this.ownerDocument.body.appendChild(uploadPhoto);
-            this.ownerDocument.body.appendChild(uploadButtonLabel);
 
             header.appendChild(uploadPhoto);
-            header.appendChild(uploadButtonLabel);
 
             this.shadowRoot.appendChild(header);
             this.shadowRoot.appendChild(uploadPhoto);
-            this.shadowRoot.appendChild(uploadButtonLabel);
         }
     }
 }

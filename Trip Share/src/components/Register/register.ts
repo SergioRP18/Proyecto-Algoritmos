@@ -85,7 +85,7 @@ class AppRegister extends HTMLElement {
     openDialog() {
         const dialog = this.shadowRoot?.querySelector("#register-dialog") as HTMLDialogElement;
         if (dialog) {
-            dialog.classList.remove('hidden'); // Remueve la clase para mostrar el modal
+            dialog.classList.remove('hidden');
             dialog.showModal();
         }
     }
@@ -94,7 +94,7 @@ class AppRegister extends HTMLElement {
         const dialog = this.shadowRoot?.querySelector("#register-dialog") as HTMLDialogElement;
         if (dialog) {
             dialog.close();
-            dialog.classList.add('hidden'); // Añade la clase para ocultar el modal
+            dialog.classList.add('hidden');
         }
     }
 
@@ -102,12 +102,11 @@ class AppRegister extends HTMLElement {
         if (this.shadowRoot) {
             const dialog = this.ownerDocument.createElement('dialog');
             dialog.id = 'register-dialog';
-            dialog.className = 'modal-content hidden'; // Añadir clase hidden para estar oculto al iniciar
+            dialog.className = 'modal-content hidden';
 
-            // Botón de cerrar
             const closeButton = this.ownerDocument.createElement('button');
             closeButton.className = 'close-button';
-            closeButton.innerHTML = '×'; // Usa × para la X de cerrar
+            closeButton.innerHTML = '×';
             closeButton.addEventListener('click', this.closeDialog.bind(this));
             dialog.appendChild(closeButton);
 
@@ -124,7 +123,6 @@ class AppRegister extends HTMLElement {
             const inputsDiv = this.ownerDocument.createElement('div');
             inputsDiv.className = 'inputs-register';
 
-            // Contenedor para Name y Last Name
             const nameLastNameContainer = this.ownerDocument.createElement('div');
             nameLastNameContainer.className = 'name-lastname-container';
 
