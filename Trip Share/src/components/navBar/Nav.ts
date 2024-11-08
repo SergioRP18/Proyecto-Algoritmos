@@ -6,6 +6,7 @@ import { getUser, getFirebaseInstance } from '../../utils/Firebase';
 import { onAuthStateChanged } from "firebase/auth";
 import '../../components/indexPadre';
 import styles from './Nav.css';
+import { Post } from '../../components/indexPadre';
 
 export enum Attribute {
     'photo' = 'photo',
@@ -53,6 +54,7 @@ class NavBar extends HTMLElement {
         this.render();
     }
 
+
     goNavigate(screen: Screens) {
         dispatch(navigate(screen));
     }
@@ -61,13 +63,13 @@ class NavBar extends HTMLElement {
         try {
             const data = await getUser(userId);
             console.log(data);
-
+    
             if (data) {
-                this.photo = data.photo || 'default-photo.jpg';
-                this.name = data.name || 'No Name';
-                this.username = data.username || 'No Username';
-                this.uid = data.id;
-
+                this.setAttribute(Attribute.photo, data.photo || 'default-photo.jpg');
+                this.setAttribute(Attribute.name, data.name || 'No Name');
+                this.setAttribute(Attribute.username, data.username || 'No Username');
+                this.setAttribute(Attribute.uid, data.id.toString());
+    
                 this.render();
             }
         } catch (error) {
@@ -188,11 +190,11 @@ class NavBar extends HTMLElement {
 
     createNavLink(link: { id: string, icon?: string, imgSrc?: string, text: string }) {
         const li = this.ownerDocument.createElement('li');
-        li.id = link.id;
-
+        li.id = link.id;  // Asignación del ID único
+    
         const linkContainer = this.ownerDocument.createElement('div');
         linkContainer.className = 'link-container';
-
+    
         if (link.icon) {
             const iconWrapper = this.ownerDocument.createElement('div');
             iconWrapper.className = 'icon';
@@ -207,19 +209,28 @@ class NavBar extends HTMLElement {
             imgWrapper.appendChild(img);
             linkContainer.appendChild(imgWrapper);
         }
-
+    
         const textSpan = this.ownerDocument.createElement('span');
         textSpan.className = 'link-text';
         textSpan.textContent = link.text;
         linkContainer.appendChild(textSpan);
 
+        li.addEventListener('click', (event) => {
+            event.preventDefault();
+            if (link.id === 'create-screen') {
+                this.handleCreateDialog(); 
+            } else {
+                this.handleNavigation(link.id);
+            }
+        });
+    
         li.appendChild(linkContainer);
-
+    
         li.addEventListener('click', (event) => {
             event.preventDefault();
             this.handleNavigation(link.id);
         });
-
+    
         return li;
     }
 
@@ -249,16 +260,27 @@ class NavBar extends HTMLElement {
                 this.goNavigate(Screens.PROFILE);
                 break;
             case 'create-screen':
-                this.handleCreate();
+                this.handleCreateDialog(); 
+                break;
             case 'exit':
                 this.handleExit();
                 break;
         }
     }
 
-    handleCreate() {
-        const createModal = document.createElement('section-post');
-        document.body.appendChild(createModal);
+    handleCreateDialog() {
+        let createDialog = this.ownerDocument.querySelector('section-post') as Post;
+        
+        if (!createDialog) {
+            createDialog = document.createElement('section-post') as Post;
+            document.body.appendChild(createDialog);
+        }
+    
+        const dialog = createDialog.shadowRoot?.getElementById('create-dialog') as HTMLDialogElement;
+        
+        if (dialog && !dialog.open) {
+            dialog.showModal();
+        }
     }
 
     handleExit() {

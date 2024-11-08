@@ -3,7 +3,7 @@ import { ScreenActions } from "../types/store";
 export const reducer = (currentAction: any, currentState: any) => {
     const { action, payload } = currentAction;
 
-    switch(action){
+    switch(action.type){
         case ScreenActions.NAVIGATE:
 				return {
                     ...currentState,
@@ -15,6 +15,18 @@ export const reducer = (currentAction: any, currentState: any) => {
                     ...currentState,
                     user: payload,
                 };
+        
+        case ScreenActions.GET_POSTS:
+            return {
+                ...currentState,
+                posts: payload,
+            };
+
+        case ScreenActions.GET_POSTS_BY_USER:
+            return {
+                ...currentState,
+                getPostsByUser: payload,
+            };
                 
                 default:
                     return currentState;

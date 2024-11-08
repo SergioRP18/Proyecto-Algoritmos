@@ -1,70 +1,83 @@
 import '../../components/indexPadre';
 
 class Post extends HTMLElement {
+    private dialog!: HTMLDialogElement;
+
     constructor(){
         super();
+        this.attachShadow({ mode: 'open' });
     }
 
     connectedCallback(){
-        this.render()
+        this.render();
+
+        window.addEventListener('beforeunload', this.closeOnNavigation);
     }
 
-    openDialog(){
-        const dialog = this.shadowRoot?.querySelector('#create-dialog') as HTMLDialogElement;
-        dialog?.showModal()
+    disconnectedCallback() {
+        window.removeEventListener('beforeunload', this.closeOnNavigation);
+    }
+    close(dialog: HTMLDialogElement){
+        dialog.close();
+        this.remove(); 
     }
 
-    closeDialog(){
-        const dialog = this.shadowRoot?.querySelector('#create-dialog') as HTMLDialogElement;
-        dialog?.close();
+    closeOnNavigation() {
+        this.close(this.dialog);
     }
 
-    render(){
-        if(this.shadowRoot){
-            const dialog = this.ownerDocument.createElement('dialog');
+    render() {
+        if (this.shadowRoot) {
+            this.shadowRoot.innerHTML = '';
+    
+            const dialog = document.createElement('dialog') as HTMLDialogElement;
             dialog.id = 'create-dialog';
-
-            const photoComponent = this.ownerDocument.createElement('header-photo-create');
+    
+            const photoComponent = document.createElement('header-photo-create');
             dialog.appendChild(photoComponent);
-
-            const inputsDiv = this.ownerDocument.createElement('div');
+    
+            const inputsDiv = document.createElement('div');
             inputsDiv.className = 'inputs-create';
-
-            const descriptionHeader = this.ownerDocument.createElement('h1');
+    
+            const descriptionHeader = document.createElement('h1');
             descriptionHeader.innerText = 'Write your review';
             dialog.appendChild(descriptionHeader);
-
-            const description = this.ownerDocument.createElement('input');
+    
+            const description = document.createElement('input');
             description.type = 'text';
             description.id = 'post-description';
             description.required = true;
             inputsDiv.appendChild(description);
-
-            const descriptionHashtags = this.ownerDocument.createElement('h1');
+    
+            const descriptionHashtags = document.createElement('h1');
             descriptionHashtags.innerText = 'Your Hashtags';
             dialog.appendChild(descriptionHashtags);
-
-            const hashtags = this.ownerDocument.createElement('input');
+    
+            const hashtags = document.createElement('input');
             hashtags.type = 'text';
             hashtags.id = 'post-hashtags';
             hashtags.required = true;
             inputsDiv.appendChild(hashtags);
-
-            const descriptionLocation = this.ownerDocument.createElement('h1');
+    
+            const descriptionLocation = document.createElement('h1');
             descriptionLocation.innerText = 'Your Location';
             dialog.appendChild(descriptionLocation);
-
-            const location = this.ownerDocument.createElement('input');
+    
+            const location = document.createElement('input');
             location.type = 'text';
             location.id = 'post-location';
             location.required = true;
             inputsDiv.appendChild(location);
-
+    
             dialog.appendChild(inputsDiv);
-
+    
             this.shadowRoot.appendChild(dialog);
+    
+            console.log('Contenido del shadowRoot:', this.shadowRoot.innerHTML);
         }
     }
-};
+    
+}
+
 customElements.define("section-post", Post);
 export default Post;

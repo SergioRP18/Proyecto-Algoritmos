@@ -1,4 +1,7 @@
 import { addObserver } from "../../store";
+import { appState } from "../../store";
+import { dispatch } from "../../store";
+import { getPostsByUserAction } from "../../store/actions";
 import '../../components/indexPadre';
 import { NavBar, Post, PublicationsUser, UserProfile } from "../../components/indexPadre";
 
@@ -10,9 +13,14 @@ class AppProfile extends HTMLElement {
         addObserver(this);
     }
 
-    async connectedCallback(){
-        this.render();
-    }
+    async connectedCallback() {
+		if (appState.postsByUser.length === 0) {
+			const action = await getPostsByUserAction();
+			dispatch(action);
+		} else {
+			this.render();
+		}
+	}
 
     render(){
         if(this.shadowRoot){

@@ -22,4 +22,8 @@ export const uploadFileCloudinary = async (file: File, id: string) => {
     } catch(error){
         console.error(error);
     }
-}
+};
+
+export const getFileCloudinary = (id: string) => {
+	return `https://res.cloudinary.com/${CLOUD_NAME}/image/upload/v1/${id}`;
+};

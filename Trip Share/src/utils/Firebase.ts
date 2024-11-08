@@ -1,4 +1,6 @@
 import { initializeApp } from "firebase/app";
+import { getStorage } from "firebase/storage";
+import { appState } from "../store";
 import { getFirestore, doc, getDoc, collection, getDocs, addDoc, setDoc } from "firebase/firestore";
 import { browserLocalPersistence, createUserWithEmailAndPassword, getAuth, setPersistence, signInWithEmailAndPassword, signOut } from "firebase/auth";
 
@@ -14,19 +16,22 @@ const firebaseConfig = {
 // Variables para almacenar las instancias de Firestore y Auth
 let db: any;
 let auth: any;
+let storage: any;
 
 export const getFirebaseInstance = async () => {
     if (!db) {
         const app = initializeApp(firebaseConfig);
         db = getFirestore(app);
         auth = getAuth(app);
-    }
-    return { db, auth };
-};
+		storage = getStorage();
 
+    }
+    return { db, auth, storage };
+};
 export const addPost = async (post: any) => {
     try {
-        const { auth, db } = await getFirebaseInstance();
+        const { db } = await getFirebaseInstance();
+		const { collection, addDoc } = await import('firebase/firestore');
         
         const currentUser = auth.currentUser;
         if (!currentUser) {
@@ -45,19 +50,21 @@ export const addPost = async (post: any) => {
 
 export const getPosts = async () => {
     try {
-        const {db} = await getFirebaseInstance();
-        const postsCollection = collection(db, 'posts');
-        const querySnapshot = await getDocs(postsCollection);
-        
-        const data: any[] = [];
-        querySnapshot.forEach((doc) => {
-            data.push(doc.data());
-        });
-        
-        return data;
-    } catch (error){
-        console.error('Error getting posts:', error);
-    }
+		const { db } = await getFirebaseInstance();
+		const { collection, getDocs } = await import('firebase/firestore');
+
+		const postsCollection = collection(db, 'posts');
+		const querySnapshot = await getDocs(postsCollection);
+		const data: any[] = [];
+
+		querySnapshot.forEach((doc) => {
+			data.push(doc.data());
+		});
+
+		return data;
+	} catch (error) {
+		console.error('Error getting documents', error);
+	}
 }
 
 export const getUser = async (userId: string) => {
@@ -122,27 +129,57 @@ export const registerUser = async (credentials: any) => {
 		await setDoc(where, data);
 		return true;
 	} catch (error) {
-		console.error("Error de Firebase:", error);
-		return false;
+		if (!credentials.email || !credentials.password) {
+			console.error("Email or password missing.");
+			return false;
+		}
 	}
 };
 
-export const getUserToken = async () => {
-    const { auth } = await getFirebaseInstance();
-    const currentUser = auth.currentUser;
+export const uploadFile = async (file: File, id: string) => {
+	const { storage } = await getFirebaseInstance();
+	const { ref, uploadBytes } = await import('firebase/storage');
 
-    if (!currentUser) {
-        console.error("No user authenticated");
-        return Promise.reject("No user authenticated");
-    }
+	const storageRef = ref(storage, 'imagesProfile/' + id);
+	uploadBytes(storageRef, file)
+    .then((snapshot) => {
+        console.log('File uploaded');
+    })
+    .catch((error) => {
+        console.error('Error uploading file:', error);
+    });
+};
 
+export const getFile = async (id: string) => {
+    const { storage } = await getFirebaseInstance();
+    const { ref, getDownloadURL } = await import('firebase/storage');
+
+    const storageRef = ref(storage, 'imagesProfile/' + id);
     try {
-        const idToken = await currentUser.getIdToken(true);
-        console.log("ID Token:", idToken);
-
-        return idToken;
+        const urlImg = await getDownloadURL(storageRef);
+        return urlImg;
     } catch (error) {
-        console.error("Error fetching ID token:", error);
-        return Promise.reject("Error fetching ID token");
+        console.error('Error fetching file:', error);
+        return null;
     }
+};
+
+export const getPostsByUser = async () => {
+	try {
+		const { db } = await getFirebaseInstance();
+		const { collection, getDocs, query, where } = await import('firebase/firestore');
+
+		const ref = collection(db, 'posts');
+		const q = query(ref, where('userUid', '==', appState.user));
+		const querySnapshot = await getDocs(q);
+		const data: any[] = [];
+
+		querySnapshot.forEach((doc) => {
+			data.push(doc.data());
+		});
+
+		return data;
+	} catch (error) {
+		console.error('Error getting documents', error);
+	}
 };

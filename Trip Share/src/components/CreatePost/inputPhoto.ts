@@ -1,3 +1,6 @@
+import { appState } from "../../store";
+import { uploadFileCloudinary } from "../../utils/storageImage";
+
 class Photo extends HTMLElement {
     constructor(){
         super();
@@ -29,6 +32,10 @@ class Photo extends HTMLElement {
             uploadPhoto.type = 'file';
             uploadPhoto.id = 'upload-photo';
             uploadPhoto.accept = 'image/*';
+            uploadPhoto.addEventListener('change', () => {
+                const file = uploadPhoto.files?.[0];
+                if(file) uploadFileCloudinary(file, appState.user);
+            })
 
             const uploadButtonLabel = this.ownerDocument.createElement("label");
             uploadButtonLabel.setAttribute("for", "upload-photo");
