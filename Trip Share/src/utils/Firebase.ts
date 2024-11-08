@@ -1,8 +1,8 @@
 import { initializeApp } from "firebase/app";
-import { getStorage } from "firebase/storage";
+import { FirebaseStorage, getStorage } from "firebase/storage";
 import { appState } from "../store";
-import { getFirestore, doc, getDoc, collection, getDocs, addDoc, setDoc } from "firebase/firestore";
-import { browserLocalPersistence, createUserWithEmailAndPassword, getAuth, setPersistence, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { getFirestore, doc, getDoc, collection, getDocs, addDoc, setDoc, Firestore } from "firebase/firestore";
+import { Auth, browserLocalPersistence, createUserWithEmailAndPassword, getAuth, setPersistence, signInWithEmailAndPassword, signOut } from "firebase/auth";
 
 const firebaseConfig = {
     apiKey: "AIzaSyA8b5kXUDZUVrpOz4JmOBoSeLtypGP5k-Y",
@@ -14,9 +14,9 @@ const firebaseConfig = {
 };
 
 // Variables para almacenar las instancias de Firestore y Auth
-let db: any;
-let auth: any;
-let storage: any;
+let db: Firestore;
+let auth: Auth;
+let storage: FirebaseStorage;
 
 export const getFirebaseInstance = async () => {
     if (!db) {

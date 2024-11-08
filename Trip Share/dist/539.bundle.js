@@ -1,2 +1,3673 @@
-/*! For license information please see 539.bundle.js.LICENSE.txt */
-"use strict";(self.webpackChunktrip_share=self.webpackChunktrip_share||[]).push([[539],{2539:(e,t,n)=>{n.r(t),n.d(t,{StorageError:()=>u,StorageErrorCode:()=>c,StringFormat:()=>D,_FbsBlob:()=>H,_Location:()=>w,_TaskEvent:()=>fe,_TaskState:()=>ge,_UploadTask:()=>Ce,_dataFromString:()=>B,_getChild:()=>nt,_invalidArgument:()=>g,_invalidRootOperation:()=>b,connectStorageEmulator:()=>rt,deleteObject:()=>et,getBlob:()=>ot,getBytes:()=>Ge,getDownloadURL:()=>Qe,getMetadata:()=>Xe,getStorage:()=>st,getStream:()=>it,list:()=>Je,listAll:()=>Ye,ref:()=>tt,updateMetadata:()=>Ze,uploadBytes:()=>$e,uploadBytesResumable:()=>We,uploadString:()=>Ve});var s=n(8461),r=n(6743),o=n(5125);const i="firebasestorage.googleapis.com",a="storageBucket";class u extends r.g{constructor(e,t,n=0){super(h(e),`Firebase Storage: ${t} (${h(e)})`),this.status_=n,this.customData={serverResponse:null},this._baseMessage=this.message,Object.setPrototypeOf(this,u.prototype)}get status(){return this.status_}set status(e){this.status_=e}_codeEquals(e){return h(e)===this.code}get serverResponse(){return this.customData.serverResponse}set serverResponse(e){this.customData.serverResponse=e,this.customData.serverResponse?this.message=`${this._baseMessage}\n${this.customData.serverResponse}`:this.message=this._baseMessage}}var c,l;function h(e){return"storage/"+e}function d(){return new u(c.UNKNOWN,"An unknown error occurred, please check the error payload for server response.")}function _(){return new u(c.RETRY_LIMIT_EXCEEDED,"Max retry time for operation exceeded, please try again.")}function p(){return new u(c.CANCELED,"User canceled the upload/download.")}function f(){return new u(c.CANNOT_SLICE_BLOB,"Cannot slice blob for upload. Please retry the upload.")}function g(e){return new u(c.INVALID_ARGUMENT,e)}function m(){return new u(c.APP_DELETED,"The Firebase app was deleted.")}function b(e){return new u(c.INVALID_ROOT_OPERATION,"The operation '"+e+"' cannot be performed on a root reference, create a non-root reference using child, such as .child('file.png').")}function T(e,t){return new u(c.INVALID_FORMAT,"String does not match format '"+e+"': "+t)}function R(e){throw new u(c.INTERNAL_ERROR,"Internal error: "+e)}!function(e){e.UNKNOWN="unknown",e.OBJECT_NOT_FOUND="object-not-found",e.BUCKET_NOT_FOUND="bucket-not-found",e.PROJECT_NOT_FOUND="project-not-found",e.QUOTA_EXCEEDED="quota-exceeded",e.UNAUTHENTICATED="unauthenticated",e.UNAUTHORIZED="unauthorized",e.UNAUTHORIZED_APP="unauthorized-app",e.RETRY_LIMIT_EXCEEDED="retry-limit-exceeded",e.INVALID_CHECKSUM="invalid-checksum",e.CANCELED="canceled",e.INVALID_EVENT_NAME="invalid-event-name",e.INVALID_URL="invalid-url",e.INVALID_DEFAULT_BUCKET="invalid-default-bucket",e.NO_DEFAULT_BUCKET="no-default-bucket",e.CANNOT_SLICE_BLOB="cannot-slice-blob",e.SERVER_FILE_WRONG_SIZE="server-file-wrong-size",e.NO_DOWNLOAD_URL="no-download-url",e.INVALID_ARGUMENT="invalid-argument",e.INVALID_ARGUMENT_COUNT="invalid-argument-count",e.APP_DELETED="app-deleted",e.INVALID_ROOT_OPERATION="invalid-root-operation",e.INVALID_FORMAT="invalid-format",e.INTERNAL_ERROR="internal-error",e.UNSUPPORTED_ENVIRONMENT="unsupported-environment"}(c||(c={}));class w{constructor(e,t){this.bucket=e,this.path_=t}get path(){return this.path_}get isRoot(){return 0===this.path.length}fullServerUrl(){const e=encodeURIComponent;return"/b/"+e(this.bucket)+"/o/"+e(this.path)}bucketOnlyServerUrl(){return"/b/"+encodeURIComponent(this.bucket)+"/o"}static makeFromBucketSpec(e,t){let n;try{n=w.makeFromUrl(e,t)}catch(t){return new w(e,"")}if(""===n.path)return n;throw s=e,new u(c.INVALID_DEFAULT_BUCKET,"Invalid default bucket '"+s+"'.");var s}static makeFromUrl(e,t){let n=null;const s="([A-Za-z0-9.\\-_]+)";const r=new RegExp("^gs://"+s+"(/(.*))?$","i");function o(e){e.path_=decodeURIComponent(e.path)}const a=t.replace(/[.]/g,"\\."),l=[{regex:r,indices:{bucket:1,path:3},postModify:function(e){"/"===e.path.charAt(e.path.length-1)&&(e.path_=e.path_.slice(0,-1))}},{regex:new RegExp(`^https?://${a}/v[A-Za-z0-9_]+/b/${s}/o(/([^?#]*).*)?$`,"i"),indices:{bucket:1,path:3},postModify:o},{regex:new RegExp(`^https?://${t===i?"(?:storage.googleapis.com|storage.cloud.google.com)":t}/${s}/([^?#]*)`,"i"),indices:{bucket:1,path:2},postModify:o}];for(let t=0;t<l.length;t++){const s=l[t],r=s.regex.exec(e);if(r){const e=r[s.indices.bucket];let t=r[s.indices.path];t||(t=""),n=new w(e,t),s.postModify(n);break}}if(null==n)throw function(e){return new u(c.INVALID_URL,"Invalid URL '"+e+"'.")}(e);return n}}class k{constructor(e){this.promise_=Promise.reject(e)}getPromise(){return this.promise_}cancel(e=!1){}}function v(e){return"string"==typeof e||e instanceof String}function E(e){return y()&&e instanceof Blob}function y(){return"undefined"!=typeof Blob}function O(e,t,n,s){if(s<t)throw g(`Invalid value for '${e}'. Expected ${t} or greater.`);if(s>n)throw g(`Invalid value for '${e}'. Expected ${n} or less.`)}function U(e,t,n){let s=t;return null==n&&(s=`https://${t}`),`${n}://${s}/v0${e}`}function C(e){const t=encodeURIComponent;let n="?";for(const s in e)if(e.hasOwnProperty(s)){n=n+(t(s)+"="+t(e[s]))+"&"}return n=n.slice(0,-1),n}function A(e,t){const n=e>=500&&e<600,s=-1!==[408,429].indexOf(e),r=-1!==t.indexOf(e);return n||s||r}!function(e){e[e.NO_ERROR=0]="NO_ERROR",e[e.NETWORK_ERROR=1]="NETWORK_ERROR",e[e.ABORT=2]="ABORT"}(l||(l={}));class x{constructor(e,t,n,s,r,o,i,a,u,c,l,h=!0){this.url_=e,this.method_=t,this.headers_=n,this.body_=s,this.successCodes_=r,this.additionalRetryCodes_=o,this.callback_=i,this.errorCallback_=a,this.timeout_=u,this.progressCallback_=c,this.connectionFactory_=l,this.retry=h,this.pendingConnection_=null,this.backoffId_=null,this.canceled_=!1,this.appDelete_=!1,this.promise_=new Promise(((e,t)=>{this.resolve_=e,this.reject_=t,this.start_()}))}start_(){const e=(e,t)=>{if(t)return void e(!1,new S(!1,null,!0));const n=this.connectionFactory_();this.pendingConnection_=n;const s=e=>{const t=e.loaded,n=e.lengthComputable?e.total:-1;null!==this.progressCallback_&&this.progressCallback_(t,n)};null!==this.progressCallback_&&n.addUploadProgressListener(s),n.send(this.url_,this.method_,this.body_,this.headers_).then((()=>{null!==this.progressCallback_&&n.removeUploadProgressListener(s),this.pendingConnection_=null;const t=n.getErrorCode()===l.NO_ERROR,r=n.getStatus();if(!t||A(r,this.additionalRetryCodes_)&&this.retry){const t=n.getErrorCode()===l.ABORT;return void e(!1,new S(!1,null,t))}const o=-1!==this.successCodes_.indexOf(r);e(!0,new S(o,n))}))},t=(e,t)=>{const n=this.resolve_,s=this.reject_,r=t.connection;if(t.wasSuccessCode)try{const e=this.callback_(r,r.getResponse());void 0!==e?n(e):n()}catch(e){s(e)}else if(null!==r){const e=d();e.serverResponse=r.getErrorText(),this.errorCallback_?s(this.errorCallback_(r,e)):s(e)}else if(t.canceled){s(this.appDelete_?m():p())}else{s(_())}};this.canceled_?t(0,new S(!1,null,!0)):this.backoffId_=function(e,t,n){let s=1,r=null,o=null,i=!1,a=0;function u(){return 2===a}let c=!1;function l(...e){c||(c=!0,t.apply(null,e))}function h(t){r=setTimeout((()=>{r=null,e(_,u())}),t)}function d(){o&&clearTimeout(o)}function _(e,...t){if(c)return void d();if(e)return d(),void l.call(null,e,...t);if(u()||i)return d(),void l.call(null,e,...t);let n;s<64&&(s*=2),1===a?(a=2,n=0):n=1e3*(s+Math.random()),h(n)}let p=!1;function f(e){p||(p=!0,d(),c||(null!==r?(e||(a=2),clearTimeout(r),h(0)):e||(a=1)))}return h(0),o=setTimeout((()=>{i=!0,f(!0)}),n),f}(e,t,this.timeout_)}getPromise(){return this.promise_}cancel(e){this.canceled_=!0,this.appDelete_=e||!1,null!==this.backoffId_&&(0,this.backoffId_)(!1),null!==this.pendingConnection_&&this.pendingConnection_.abort()}}class S{constructor(e,t,n){this.wasSuccessCode=e,this.connection=t,this.canceled=!!n}}function N(){return"undefined"!=typeof BlobBuilder?BlobBuilder:"undefined"!=typeof WebKitBlobBuilder?WebKitBlobBuilder:void 0}function I(...e){const t=N();if(void 0!==t){const n=new t;for(let t=0;t<e.length;t++)n.append(e[t]);return n.getBlob()}if(y())return new Blob(e);throw new u(c.UNSUPPORTED_ENVIRONMENT,"This browser doesn't seem to support creating Blobs")}function P(e){if("undefined"==typeof atob)throw t="base-64",new u(c.UNSUPPORTED_ENVIRONMENT,`${t} is missing. Make sure to install the required polyfills. See https://firebase.google.com/docs/web/environments-js-sdk#polyfills for more information.`);var t;return atob(e)}const D={RAW:"raw",BASE64:"base64",BASE64URL:"base64url",DATA_URL:"data_url"};class L{constructor(e,t){this.data=e,this.contentType=t||null}}function B(e,t){switch(e){case D.RAW:return new L(M(t));case D.BASE64:case D.BASE64URL:return new L(q(e,t));case D.DATA_URL:return new L(function(e){const t=new F(e);return t.base64?q(D.BASE64,t.rest):function(e){let t;try{t=decodeURIComponent(e)}catch(e){throw T(D.DATA_URL,"Malformed data URL.")}return M(t)}(t.rest)}(t),new F(t).contentType)}throw d()}function M(e){const t=[];for(let n=0;n<e.length;n++){let s=e.charCodeAt(n);if(s<=127)t.push(s);else if(s<=2047)t.push(192|s>>6,128|63&s);else if(55296==(64512&s)){if(n<e.length-1&&56320==(64512&e.charCodeAt(n+1))){s=65536|(1023&s)<<10|1023&e.charCodeAt(++n),t.push(240|s>>18,128|s>>12&63,128|s>>6&63,128|63&s)}else t.push(239,191,189)}else 56320==(64512&s)?t.push(239,191,189):t.push(224|s>>12,128|s>>6&63,128|63&s)}return new Uint8Array(t)}function q(e,t){switch(e){case D.BASE64:{const n=-1!==t.indexOf("-"),s=-1!==t.indexOf("_");if(n||s){throw T(e,"Invalid character '"+(n?"-":"_")+"' found: is it base64url encoded?")}break}case D.BASE64URL:{const n=-1!==t.indexOf("+"),s=-1!==t.indexOf("/");if(n||s){throw T(e,"Invalid character '"+(n?"+":"/")+"' found: is it base64 encoded?")}t=t.replace(/-/g,"+").replace(/_/g,"/");break}}let n;try{n=P(t)}catch(t){if(t.message.includes("polyfill"))throw t;throw T(e,"Invalid character found")}const s=new Uint8Array(n.length);for(let e=0;e<n.length;e++)s[e]=n.charCodeAt(e);return s}class F{constructor(e){this.base64=!1,this.contentType=null;const t=e.match(/^data:([^,]+)?,/);if(null===t)throw T(D.DATA_URL,"Must be formatted 'data:[<mediatype>][;base64],<data>");const n=t[1]||null;null!=n&&(this.base64=function(e,t){if(!(e.length>=t.length))return!1;return e.substring(e.length-t.length)===t}(n,";base64"),this.contentType=this.base64?n.substring(0,n.length-7):n),this.rest=e.substring(e.indexOf(",")+1)}}class H{constructor(e,t){let n=0,s="";E(e)?(this.data_=e,n=e.size,s=e.type):e instanceof ArrayBuffer?(t?this.data_=new Uint8Array(e):(this.data_=new Uint8Array(e.byteLength),this.data_.set(new Uint8Array(e))),n=this.data_.length):e instanceof Uint8Array&&(t?this.data_=e:(this.data_=new Uint8Array(e.length),this.data_.set(e)),n=e.length),this.size_=n,this.type_=s}size(){return this.size_}type(){return this.type_}slice(e,t){if(E(this.data_)){const n=function(e,t,n){return e.webkitSlice?e.webkitSlice(t,n):e.mozSlice?e.mozSlice(t,n):e.slice?e.slice(t,n):null}(this.data_,e,t);return null===n?null:new H(n)}{const n=new Uint8Array(this.data_.buffer,e,t-e);return new H(n,!0)}}static getBlob(...e){if(y()){const t=e.map((e=>e instanceof H?e.data_:e));return new H(I.apply(null,t))}{const t=e.map((e=>v(e)?B(D.RAW,e).data:e.data_));let n=0;t.forEach((e=>{n+=e.byteLength}));const s=new Uint8Array(n);let r=0;return t.forEach((e=>{for(let t=0;t<e.length;t++)s[r++]=e[t]})),new H(s,!0)}}uploadData(){return this.data_}}function z(e){let t;try{t=JSON.parse(e)}catch(e){return null}return"object"!=typeof(n=t)||Array.isArray(n)?null:t;var n}function K(e){const t=e.lastIndexOf("/",e.length-2);return-1===t?e:e.slice(t+1)}function j(e,t){return t}class G{constructor(e,t,n,s){this.server=e,this.local=t||e,this.writable=!!n,this.xform=s||j}}let $=null;function V(){if($)return $;const e=[];e.push(new G("bucket")),e.push(new G("generation")),e.push(new G("metageneration")),e.push(new G("name","fullPath",!0));const t=new G("name");t.xform=function(e,t){return function(e){return!v(e)||e.length<2?e:K(e)}(t)},e.push(t);const n=new G("size");return n.xform=function(e,t){return void 0!==t?Number(t):t},e.push(n),e.push(new G("timeCreated")),e.push(new G("updated")),e.push(new G("md5Hash",null,!0)),e.push(new G("cacheControl",null,!0)),e.push(new G("contentDisposition",null,!0)),e.push(new G("contentEncoding",null,!0)),e.push(new G("contentLanguage",null,!0)),e.push(new G("contentType",null,!0)),e.push(new G("metadata","customMetadata",!0)),$=e,$}function W(e,t,n){const s={type:"file"},r=n.length;for(let e=0;e<r;e++){const r=n[e];s[r.local]=r.xform(s,t[r.server])}return function(e,t){Object.defineProperty(e,"ref",{get:function(){const n=e.bucket,s=e.fullPath,r=new w(n,s);return t._makeStorageReference(r)}})}(s,e),s}function X(e,t,n){const s=z(t);if(null===s)return null;return W(e,s,n)}function Z(e,t){const n={},s=t.length;for(let r=0;r<s;r++){const s=t[r];s.writable&&(n[s.server]=e[s.local])}return JSON.stringify(n)}const J="prefixes",Y="items";function Q(e,t,n){const s=z(n);if(null===s)return null;return function(e,t,n){const s={prefixes:[],items:[],nextPageToken:n.nextPageToken};if(n[J])for(const r of n[J]){const n=r.replace(/\/$/,""),o=e._makeStorageReference(new w(t,n));s.prefixes.push(o)}if(n[Y])for(const r of n[Y]){const n=e._makeStorageReference(new w(t,r.name));s.items.push(n)}return s}(e,t,s)}class ee{constructor(e,t,n,s){this.url=e,this.method=t,this.handler=n,this.timeout=s,this.urlParams={},this.headers={},this.body=null,this.errorHandler=null,this.progressCallback=null,this.successCodes=[200],this.additionalRetryCodes=[]}}function te(e){if(!e)throw d()}function ne(e,t){return function(n,s){const r=X(e,s,t);return te(null!==r),r}}function se(e,t){return function(n,s){const r=X(e,s,t);return te(null!==r),function(e,t,n,s){const r=z(t);if(null===r)return null;if(!v(r.downloadTokens))return null;const o=r.downloadTokens;if(0===o.length)return null;const i=encodeURIComponent;return o.split(",").map((t=>{const r=e.bucket,o=e.fullPath;return U("/b/"+i(r)+"/o/"+i(o),n,s)+C({alt:"media",token:t})}))[0]}(r,s,e.host,e._protocol)}}function re(e){return function(t,n){let s;var r,o;return 401===t.getStatus()?s=t.getErrorText().includes("Firebase App Check token is invalid")?new u(c.UNAUTHORIZED_APP,"This app does not have permission to access Firebase Storage on this project."):new u(c.UNAUTHENTICATED,"User is not authenticated, please authenticate using Firebase Authentication and try again."):402===t.getStatus()?(o=e.bucket,s=new u(c.QUOTA_EXCEEDED,"Quota for bucket '"+o+"' exceeded, please view quota on https://firebase.google.com/pricing/.")):403===t.getStatus()?(r=e.path,s=new u(c.UNAUTHORIZED,"User does not have permission to access '"+r+"'.")):s=n,s.status=t.getStatus(),s.serverResponse=n.serverResponse,s}}function oe(e){const t=re(e);return function(n,s){let r=t(n,s);var o;return 404===n.getStatus()&&(o=e.path,r=new u(c.OBJECT_NOT_FOUND,"Object '"+o+"' does not exist.")),r.serverResponse=s.serverResponse,r}}function ie(e,t,n){const s=U(t.fullServerUrl(),e.host,e._protocol),r=e.maxOperationRetryTime,o=new ee(s,"GET",ne(e,n),r);return o.errorHandler=oe(t),o}function ae(e,t,n,s,r){const o={};t.isRoot?o.prefix="":o.prefix=t.path+"/",n&&n.length>0&&(o.delimiter=n),s&&(o.pageToken=s),r&&(o.maxResults=r);const i=U(t.bucketOnlyServerUrl(),e.host,e._protocol),a=e.maxOperationRetryTime,u=new ee(i,"GET",function(e,t){return function(n,s){const r=Q(e,t,s);return te(null!==r),r}}(e,t.bucket),a);return u.urlParams=o,u.errorHandler=re(t),u}function ue(e,t,n){const s=U(t.fullServerUrl(),e.host,e._protocol)+"?alt=media",r=e.maxOperationRetryTime,o=new ee(s,"GET",((e,t)=>t),r);return o.errorHandler=oe(t),void 0!==n&&(o.headers.Range=`bytes=0-${n}`,o.successCodes=[200,206]),o}function ce(e,t,n){const s=Object.assign({},n);return s.fullPath=e.path,s.size=t.size(),s.contentType||(s.contentType=function(e,t){return e&&e.contentType||t&&t.type()||"application/octet-stream"}(null,t)),s}function le(e,t,n,s,r){const o=t.bucketOnlyServerUrl(),i={"X-Goog-Upload-Protocol":"multipart"};const a=function(){let e="";for(let t=0;t<2;t++)e+=Math.random().toString().slice(2);return e}();i["Content-Type"]="multipart/related; boundary="+a;const u=ce(t,s,r),c="--"+a+"\r\nContent-Type: application/json; charset=utf-8\r\n\r\n"+Z(u,n)+"\r\n--"+a+"\r\nContent-Type: "+u.contentType+"\r\n\r\n",l="\r\n--"+a+"--",h=H.getBlob(c,s,l);if(null===h)throw f();const d={name:u.fullPath},_=U(o,e.host,e._protocol),p=e.maxUploadRetryTime,g=new ee(_,"POST",ne(e,n),p);return g.urlParams=d,g.headers=i,g.body=h.uploadData(),g.errorHandler=re(t),g}class he{constructor(e,t,n,s){this.current=e,this.total=t,this.finalized=!!n,this.metadata=s||null}}function de(e,t){let n=null;try{n=e.getResponseHeader("X-Goog-Upload-Status")}catch(e){te(!1)}return te(!!n&&-1!==(t||["active"]).indexOf(n)),n}const _e=262144;function pe(e,t,n,s,r,o,i,a){const l=new he(0,0);if(i?(l.current=i.current,l.total=i.total):(l.current=0,l.total=s.size()),s.size()!==l.total)throw new u(c.SERVER_FILE_WRONG_SIZE,"Server recorded incorrect upload file size, please retry the upload.");const h=l.total-l.current;let d=h;r>0&&(d=Math.min(d,r));const _=l.current,p=_+d;let g="";g=0===d?"finalize":h===d?"upload, finalize":"upload";const m={"X-Goog-Upload-Command":g,"X-Goog-Upload-Offset":`${l.current}`},b=s.slice(_,p);if(null===b)throw f();const T=t.maxUploadRetryTime,R=new ee(n,"POST",(function(e,n){const r=de(e,["active","final"]),i=l.current+d,a=s.size();let u;return u="final"===r?ne(t,o)(e,n):null,new he(i,a,"final"===r,u)}),T);return R.headers=m,R.body=b.uploadData(),R.progressCallback=a||null,R.errorHandler=re(e),R}const fe={STATE_CHANGED:"state_changed"},ge={RUNNING:"running",PAUSED:"paused",SUCCESS:"success",CANCELED:"canceled",ERROR:"error"};function me(e){switch(e){case"running":case"pausing":case"canceling":return ge.RUNNING;case"paused":return ge.PAUSED;case"success":return ge.SUCCESS;case"canceled":return ge.CANCELED;default:return ge.ERROR}}class be{constructor(e,t,n){if("function"==typeof e||null!=t||null!=n)this.next=e,this.error=null!=t?t:void 0,this.complete=null!=n?n:void 0;else{const t=e;this.next=t.next,this.error=t.error,this.complete=t.complete}}}function Te(e){return(...t)=>{Promise.resolve().then((()=>e(...t)))}}let Re=null;class we{constructor(){this.sent_=!1,this.xhr_=new XMLHttpRequest,this.initXhr(),this.errorCode_=l.NO_ERROR,this.sendPromise_=new Promise((e=>{this.xhr_.addEventListener("abort",(()=>{this.errorCode_=l.ABORT,e()})),this.xhr_.addEventListener("error",(()=>{this.errorCode_=l.NETWORK_ERROR,e()})),this.xhr_.addEventListener("load",(()=>{e()}))}))}send(e,t,n,s){if(this.sent_)throw R("cannot .send() more than once");if(this.sent_=!0,this.xhr_.open(t,e,!0),void 0!==s)for(const e in s)s.hasOwnProperty(e)&&this.xhr_.setRequestHeader(e,s[e].toString());return void 0!==n?this.xhr_.send(n):this.xhr_.send(),this.sendPromise_}getErrorCode(){if(!this.sent_)throw R("cannot .getErrorCode() before sending");return this.errorCode_}getStatus(){if(!this.sent_)throw R("cannot .getStatus() before sending");try{return this.xhr_.status}catch(e){return-1}}getResponse(){if(!this.sent_)throw R("cannot .getResponse() before sending");return this.xhr_.response}getErrorText(){if(!this.sent_)throw R("cannot .getErrorText() before sending");return this.xhr_.statusText}abort(){this.xhr_.abort()}getResponseHeader(e){return this.xhr_.getResponseHeader(e)}addUploadProgressListener(e){null!=this.xhr_.upload&&this.xhr_.upload.addEventListener("progress",e)}removeUploadProgressListener(e){null!=this.xhr_.upload&&this.xhr_.upload.removeEventListener("progress",e)}}class ke extends we{initXhr(){this.xhr_.responseType="text"}}function ve(){return Re?Re():new ke}class Ee extends we{initXhr(){this.xhr_.responseType="arraybuffer"}}function ye(){return new Ee}class Oe extends we{initXhr(){this.xhr_.responseType="blob"}}function Ue(){return new Oe}class Ce{constructor(e,t,n=null){this._transferred=0,this._needToFetchStatus=!1,this._needToFetchMetadata=!1,this._observers=[],this._error=void 0,this._uploadUrl=void 0,this._request=void 0,this._chunkMultiplier=1,this._resolve=void 0,this._reject=void 0,this._ref=e,this._blob=t,this._metadata=n,this._mappings=V(),this._resumable=this._shouldDoResumable(this._blob),this._state="running",this._errorHandler=e=>{if(this._request=void 0,this._chunkMultiplier=1,e._codeEquals(c.CANCELED))this._needToFetchStatus=!0,this.completeTransitions_();else{const t=this.isExponentialBackoffExpired();if(A(e.status,[])){if(!t)return this.sleepTime=Math.max(2*this.sleepTime,1e3),this._needToFetchStatus=!0,void this.completeTransitions_();e=_()}this._error=e,this._transition("error")}},this._metadataErrorHandler=e=>{this._request=void 0,e._codeEquals(c.CANCELED)?this.completeTransitions_():(this._error=e,this._transition("error"))},this.sleepTime=0,this.maxSleepTime=this._ref.storage.maxUploadRetryTime,this._promise=new Promise(((e,t)=>{this._resolve=e,this._reject=t,this._start()})),this._promise.then(null,(()=>{}))}isExponentialBackoffExpired(){return this.sleepTime>this.maxSleepTime}_makeProgressCallback(){const e=this._transferred;return t=>this._updateProgress(e+t)}_shouldDoResumable(e){return e.size()>262144}_start(){"running"===this._state&&void 0===this._request&&(this._resumable?void 0===this._uploadUrl?this._createResumable():this._needToFetchStatus?this._fetchStatus():this._needToFetchMetadata?this._fetchMetadata():this.pendingTimeout=setTimeout((()=>{this.pendingTimeout=void 0,this._continueUpload()}),this.sleepTime):this._oneShotUpload())}_resolveToken(e){Promise.all([this._ref.storage._getAuthToken(),this._ref.storage._getAppCheckToken()]).then((([t,n])=>{switch(this._state){case"running":e(t,n);break;case"canceling":this._transition("canceled");break;case"pausing":this._transition("paused")}}))}_createResumable(){this._resolveToken(((e,t)=>{const n=function(e,t,n,s,r){const o=t.bucketOnlyServerUrl(),i=ce(t,s,r),a={name:i.fullPath},u=U(o,e.host,e._protocol),c={"X-Goog-Upload-Protocol":"resumable","X-Goog-Upload-Command":"start","X-Goog-Upload-Header-Content-Length":`${s.size()}`,"X-Goog-Upload-Header-Content-Type":i.contentType,"Content-Type":"application/json; charset=utf-8"},l=Z(i,n),h=e.maxUploadRetryTime,d=new ee(u,"POST",(function(e){let t;de(e);try{t=e.getResponseHeader("X-Goog-Upload-URL")}catch(e){te(!1)}return te(v(t)),t}),h);return d.urlParams=a,d.headers=c,d.body=l,d.errorHandler=re(t),d}(this._ref.storage,this._ref._location,this._mappings,this._blob,this._metadata),s=this._ref.storage._makeRequest(n,ve,e,t);this._request=s,s.getPromise().then((e=>{this._request=void 0,this._uploadUrl=e,this._needToFetchStatus=!1,this.completeTransitions_()}),this._errorHandler)}))}_fetchStatus(){const e=this._uploadUrl;this._resolveToken(((t,n)=>{const s=function(e,t,n,s){const r=e.maxUploadRetryTime,o=new ee(n,"POST",(function(e){const t=de(e,["active","final"]);let n=null;try{n=e.getResponseHeader("X-Goog-Upload-Size-Received")}catch(e){te(!1)}n||te(!1);const r=Number(n);return te(!isNaN(r)),new he(r,s.size(),"final"===t)}),r);return o.headers={"X-Goog-Upload-Command":"query"},o.errorHandler=re(t),o}(this._ref.storage,this._ref._location,e,this._blob),r=this._ref.storage._makeRequest(s,ve,t,n);this._request=r,r.getPromise().then((e=>{this._request=void 0,this._updateProgress(e.current),this._needToFetchStatus=!1,e.finalized&&(this._needToFetchMetadata=!0),this.completeTransitions_()}),this._errorHandler)}))}_continueUpload(){const e=_e*this._chunkMultiplier,t=new he(this._transferred,this._blob.size()),n=this._uploadUrl;this._resolveToken(((s,r)=>{let o;try{o=pe(this._ref._location,this._ref.storage,n,this._blob,e,this._mappings,t,this._makeProgressCallback())}catch(e){return this._error=e,void this._transition("error")}const i=this._ref.storage._makeRequest(o,ve,s,r,!1);this._request=i,i.getPromise().then((e=>{this._increaseMultiplier(),this._request=void 0,this._updateProgress(e.current),e.finalized?(this._metadata=e.metadata,this._transition("success")):this.completeTransitions_()}),this._errorHandler)}))}_increaseMultiplier(){2*(_e*this._chunkMultiplier)<33554432&&(this._chunkMultiplier*=2)}_fetchMetadata(){this._resolveToken(((e,t)=>{const n=ie(this._ref.storage,this._ref._location,this._mappings),s=this._ref.storage._makeRequest(n,ve,e,t);this._request=s,s.getPromise().then((e=>{this._request=void 0,this._metadata=e,this._transition("success")}),this._metadataErrorHandler)}))}_oneShotUpload(){this._resolveToken(((e,t)=>{const n=le(this._ref.storage,this._ref._location,this._mappings,this._blob,this._metadata),s=this._ref.storage._makeRequest(n,ve,e,t);this._request=s,s.getPromise().then((e=>{this._request=void 0,this._metadata=e,this._updateProgress(this._blob.size()),this._transition("success")}),this._errorHandler)}))}_updateProgress(e){const t=this._transferred;this._transferred=e,this._transferred!==t&&this._notifyObservers()}_transition(e){if(this._state!==e)switch(e){case"canceling":case"pausing":this._state=e,void 0!==this._request?this._request.cancel():this.pendingTimeout&&(clearTimeout(this.pendingTimeout),this.pendingTimeout=void 0,this.completeTransitions_());break;case"running":const t="paused"===this._state;this._state=e,t&&(this._notifyObservers(),this._start());break;case"paused":case"error":case"success":this._state=e,this._notifyObservers();break;case"canceled":this._error=p(),this._state=e,this._notifyObservers()}}completeTransitions_(){switch(this._state){case"pausing":this._transition("paused");break;case"canceling":this._transition("canceled");break;case"running":this._start()}}get snapshot(){const e=me(this._state);return{bytesTransferred:this._transferred,totalBytes:this._blob.size(),state:e,metadata:this._metadata,task:this,ref:this._ref}}on(e,t,n,s){const r=new be(t||void 0,n||void 0,s||void 0);return this._addObserver(r),()=>{this._removeObserver(r)}}then(e,t){return this._promise.then(e,t)}catch(e){return this.then(null,e)}_addObserver(e){this._observers.push(e),this._notifyObserver(e)}_removeObserver(e){const t=this._observers.indexOf(e);-1!==t&&this._observers.splice(t,1)}_notifyObservers(){this._finishPromise();this._observers.slice().forEach((e=>{this._notifyObserver(e)}))}_finishPromise(){if(void 0!==this._resolve){let e=!0;switch(me(this._state)){case ge.SUCCESS:Te(this._resolve.bind(null,this.snapshot))();break;case ge.CANCELED:case ge.ERROR:Te(this._reject.bind(null,this._error))();break;default:e=!1}e&&(this._resolve=void 0,this._reject=void 0)}}_notifyObserver(e){switch(me(this._state)){case ge.RUNNING:case ge.PAUSED:e.next&&Te(e.next.bind(e,this.snapshot))();break;case ge.SUCCESS:e.complete&&Te(e.complete.bind(e))();break;case ge.CANCELED:case ge.ERROR:default:e.error&&Te(e.error.bind(e,this._error))()}}resume(){const e="paused"===this._state||"pausing"===this._state;return e&&this._transition("running"),e}pause(){const e="running"===this._state;return e&&this._transition("pausing"),e}cancel(){const e="running"===this._state||"pausing"===this._state;return e&&this._transition("canceling"),e}}class Ae{constructor(e,t){this._service=e,this._location=t instanceof w?t:w.makeFromUrl(t,e.host)}toString(){return"gs://"+this._location.bucket+"/"+this._location.path}_newRef(e,t){return new Ae(e,t)}get root(){const e=new w(this._location.bucket,"");return this._newRef(this._service,e)}get bucket(){return this._location.bucket}get fullPath(){return this._location.path}get name(){return K(this._location.path)}get storage(){return this._service}get parent(){const e=function(e){if(0===e.length)return null;const t=e.lastIndexOf("/");return-1===t?"":e.slice(0,t)}(this._location.path);if(null===e)return null;const t=new w(this._location.bucket,e);return new Ae(this._service,t)}_throwIfRoot(e){if(""===this._location.path)throw b(e)}}function xe(e,t,n){e._throwIfRoot("uploadBytes");const s=le(e.storage,e._location,V(),new H(t,!0),n);return e.storage.makeRequestWithTokens(s,ve).then((t=>({metadata:t,ref:e})))}function Se(e){const t={prefixes:[],items:[]};return Ne(e,t).then((()=>t))}async function Ne(e,t,n){const s={pageToken:n},r=await Ie(e,s);t.prefixes.push(...r.prefixes),t.items.push(...r.items),null!=r.nextPageToken&&await Ne(e,t,r.nextPageToken)}function Ie(e,t){null!=t&&"number"==typeof t.maxResults&&O("options.maxResults",1,1e3,t.maxResults);const n=t||{},s=ae(e.storage,e._location,"/",n.pageToken,n.maxResults);return e.storage.makeRequestWithTokens(s,ve)}function Pe(e,t){e._throwIfRoot("updateMetadata");const n=function(e,t,n,s){const r=U(t.fullServerUrl(),e.host,e._protocol),o=Z(n,s),i=e.maxOperationRetryTime,a=new ee(r,"PATCH",ne(e,s),i);return a.headers={"Content-Type":"application/json; charset=utf-8"},a.body=o,a.errorHandler=oe(t),a}(e.storage,e._location,t,V());return e.storage.makeRequestWithTokens(n,ve)}function De(e){e._throwIfRoot("getDownloadURL");const t=function(e,t,n){const s=U(t.fullServerUrl(),e.host,e._protocol),r=e.maxOperationRetryTime,o=new ee(s,"GET",se(e,n),r);return o.errorHandler=oe(t),o}(e.storage,e._location,V());return e.storage.makeRequestWithTokens(t,ve).then((e=>{if(null===e)throw new u(c.NO_DOWNLOAD_URL,"The given file does not have any download URLs.");return e}))}function Le(e){e._throwIfRoot("deleteObject");const t=function(e,t){const n=U(t.fullServerUrl(),e.host,e._protocol),s=e.maxOperationRetryTime,r=new ee(n,"DELETE",(function(e,t){}),s);return r.successCodes=[200,204],r.errorHandler=oe(t),r}(e.storage,e._location);return e.storage.makeRequestWithTokens(t,ve)}function Be(e,t){const n=function(e,t){const n=t.split("/").filter((e=>e.length>0)).join("/");return 0===e.length?n:e+"/"+n}(e._location.path,t),s=new w(e._location.bucket,n);return new Ae(e.storage,s)}function Me(e,t){if(e instanceof He){const n=e;if(null==n._bucket)throw new u(c.NO_DEFAULT_BUCKET,"No default bucket found. Did you set the '"+a+"' property when initializing the app?");const s=new Ae(n,n._bucket);return null!=t?Me(s,t):s}return void 0!==t?Be(e,t):e}function qe(e,t){if(t&&/^[A-Za-z]+:\/\//.test(t)){if(e instanceof He)return new Ae(e,t);throw g("To use ref(service, url), the first argument must be a Storage instance.")}return Me(e,t)}function Fe(e,t){const n=null==t?void 0:t[a];return null==n?null:w.makeFromBucketSpec(n,e)}class He{constructor(e,t,n,s,r){this.app=e,this._authProvider=t,this._appCheckProvider=n,this._url=s,this._firebaseVersion=r,this._bucket=null,this._host=i,this._protocol="https",this._appId=null,this._deleted=!1,this._maxOperationRetryTime=12e4,this._maxUploadRetryTime=6e5,this._requests=new Set,this._bucket=null!=s?w.makeFromBucketSpec(s,this._host):Fe(this._host,this.app.options)}get host(){return this._host}set host(e){this._host=e,null!=this._url?this._bucket=w.makeFromBucketSpec(this._url,e):this._bucket=Fe(e,this.app.options)}get maxUploadRetryTime(){return this._maxUploadRetryTime}set maxUploadRetryTime(e){O("time",0,Number.POSITIVE_INFINITY,e),this._maxUploadRetryTime=e}get maxOperationRetryTime(){return this._maxOperationRetryTime}set maxOperationRetryTime(e){O("time",0,Number.POSITIVE_INFINITY,e),this._maxOperationRetryTime=e}async _getAuthToken(){if(this._overrideAuthToken)return this._overrideAuthToken;const e=this._authProvider.getImmediate({optional:!0});if(e){const t=await e.getToken();if(null!==t)return t.accessToken}return null}async _getAppCheckToken(){const e=this._appCheckProvider.getImmediate({optional:!0});if(e){return(await e.getToken()).token}return null}_delete(){return this._deleted||(this._deleted=!0,this._requests.forEach((e=>e.cancel())),this._requests.clear()),Promise.resolve()}_makeStorageReference(e){return new Ae(this,e)}_makeRequest(e,t,n,s,r=!0){if(this._deleted)return new k(m());{const o=function(e,t,n,s,r,o,i=!0){const a=C(e.urlParams),u=e.url+a,c=Object.assign({},e.headers);return function(e,t){t&&(e["X-Firebase-GMPID"]=t)}(c,t),function(e,t){null!==t&&t.length>0&&(e.Authorization="Firebase "+t)}(c,n),function(e,t){e["X-Firebase-Storage-Version"]="webjs/"+(null!=t?t:"AppManager")}(c,o),function(e,t){null!==t&&(e["X-Firebase-AppCheck"]=t)}(c,s),new x(u,e.method,c,e.body,e.successCodes,e.additionalRetryCodes,e.handler,e.errorHandler,e.timeout,e.progressCallback,r,i)}(e,this._appId,n,s,t,this._firebaseVersion,r);return this._requests.add(o),o.getPromise().then((()=>this._requests.delete(o)),(()=>this._requests.delete(o))),o}}async makeRequestWithTokens(e,t){const[n,s]=await Promise.all([this._getAuthToken(),this._getAppCheckToken()]);return this._makeRequest(e,t,n,s).getPromise()}}const ze="@firebase/storage",Ke="0.13.2",je="storage";function Ge(e,t){return function(e,t){e._throwIfRoot("getBytes");const n=ue(e.storage,e._location,t);return e.storage.makeRequestWithTokens(n,ye).then((e=>void 0!==t?e.slice(0,t):e))}(e=(0,r.Ku)(e),t)}function $e(e,t,n){return xe(e=(0,r.Ku)(e),t,n)}function Ve(e,t,n,s){return function(e,t,n=D.RAW,s){e._throwIfRoot("uploadString");const r=B(n,t),o=Object.assign({},s);return null==o.contentType&&null!=r.contentType&&(o.contentType=r.contentType),xe(e,r.data,o)}(e=(0,r.Ku)(e),t,n,s)}function We(e,t,n){return function(e,t,n){return e._throwIfRoot("uploadBytesResumable"),new Ce(e,new H(t),n)}(e=(0,r.Ku)(e),t,n)}function Xe(e){return function(e){e._throwIfRoot("getMetadata");const t=ie(e.storage,e._location,V());return e.storage.makeRequestWithTokens(t,ve)}(e=(0,r.Ku)(e))}function Ze(e,t){return Pe(e=(0,r.Ku)(e),t)}function Je(e,t){return Ie(e=(0,r.Ku)(e),t)}function Ye(e){return Se(e=(0,r.Ku)(e))}function Qe(e){return De(e=(0,r.Ku)(e))}function et(e){return Le(e=(0,r.Ku)(e))}function tt(e,t){return qe(e=(0,r.Ku)(e),t)}function nt(e,t){return Be(e,t)}function st(e=(0,s.Sx)(),t){e=(0,r.Ku)(e);const n=(0,s.j6)(e,je).getImmediate({identifier:t}),o=(0,r.yU)("storage");return o&&rt(n,...o),n}function rt(e,t,n,s={}){!function(e,t,n,s={}){e.host=`${t}:${n}`,e._protocol="http";const{mockUserToken:o}=s;o&&(e._overrideAuthToken="string"==typeof o?o:(0,r.Fy)(o,e.app.options.projectId))}(e,t,n,s)}function ot(e,t){return function(e,t){e._throwIfRoot("getBlob");const n=ue(e.storage,e._location,t);return e.storage.makeRequestWithTokens(n,Ue).then((e=>void 0!==t?e.slice(0,t):e))}(e=(0,r.Ku)(e),t)}function it(e,t){throw new Error("getStream() is only supported by NodeJS builds")}function at(e,{instanceIdentifier:t}){const n=e.getProvider("app").getImmediate(),r=e.getProvider("auth-internal"),o=e.getProvider("app-check-internal");return new He(n,r,o,t,s.MF)}(0,s.om)(new o.uA(je,at,"PUBLIC").setMultipleInstances(!0)),(0,s.KO)(ze,Ke,""),(0,s.KO)(ze,Ke,"esm2017")}}]);
+"use strict";
+(self["webpackChunktrip_share"] = self["webpackChunktrip_share"] || []).push([[539],{
+
+/***/ 2539:
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  getDownloadURL: () => (/* reexport */ getDownloadURL),
+  ref: () => (/* reexport */ ref),
+  uploadBytes: () => (/* reexport */ uploadBytes)
+});
+
+// UNUSED EXPORTS: StorageError, StorageErrorCode, StringFormat, _FbsBlob, _Location, _TaskEvent, _TaskState, _UploadTask, _dataFromString, _getChild, _invalidArgument, _invalidRootOperation, connectStorageEmulator, deleteObject, getBlob, getBytes, getMetadata, getStorage, getStream, list, listAll, updateMetadata, uploadBytesResumable, uploadString
+
+// EXTERNAL MODULE: ./node_modules/@firebase/app/dist/esm/index.esm2017.js
+var index_esm2017 = __webpack_require__(8461);
+// EXTERNAL MODULE: ./node_modules/@firebase/util/dist/index.esm2017.js
+var dist_index_esm2017 = __webpack_require__(6743);
+// EXTERNAL MODULE: ./node_modules/@firebase/component/dist/esm/index.esm2017.js
+var esm_index_esm2017 = __webpack_require__(5125);
+;// CONCATENATED MODULE: ./node_modules/@firebase/storage/dist/index.esm2017.js
+
+
+
+
+/**
+ * @license
+ * Copyright 2017 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/**
+ * @fileoverview Constants used in the Firebase Storage library.
+ */
+/**
+ * Domain name for firebase storage.
+ */
+const DEFAULT_HOST = 'firebasestorage.googleapis.com';
+/**
+ * The key in Firebase config json for the storage bucket.
+ */
+const CONFIG_STORAGE_BUCKET_KEY = 'storageBucket';
+/**
+ * 2 minutes
+ *
+ * The timeout for all operations except upload.
+ */
+const DEFAULT_MAX_OPERATION_RETRY_TIME = 2 * 60 * 1000;
+/**
+ * 10 minutes
+ *
+ * The timeout for upload.
+ */
+const DEFAULT_MAX_UPLOAD_RETRY_TIME = 10 * 60 * 1000;
+/**
+ * 1 second
+ */
+const DEFAULT_MIN_SLEEP_TIME_MILLIS = 1000;
+
+/**
+ * @license
+ * Copyright 2017 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/**
+ * An error returned by the Firebase Storage SDK.
+ * @public
+ */
+class StorageError extends dist_index_esm2017/* FirebaseError */.g {
+    /**
+     * @param code - A `StorageErrorCode` string to be prefixed with 'storage/' and
+     *  added to the end of the message.
+     * @param message  - Error message.
+     * @param status_ - Corresponding HTTP Status Code
+     */
+    constructor(code, message, status_ = 0) {
+        super(prependCode(code), `Firebase Storage: ${message} (${prependCode(code)})`);
+        this.status_ = status_;
+        /**
+         * Stores custom error data unique to the `StorageError`.
+         */
+        this.customData = { serverResponse: null };
+        this._baseMessage = this.message;
+        // Without this, `instanceof StorageError`, in tests for example,
+        // returns false.
+        Object.setPrototypeOf(this, StorageError.prototype);
+    }
+    get status() {
+        return this.status_;
+    }
+    set status(status) {
+        this.status_ = status;
+    }
+    /**
+     * Compares a `StorageErrorCode` against this error's code, filtering out the prefix.
+     */
+    _codeEquals(code) {
+        return prependCode(code) === this.code;
+    }
+    /**
+     * Optional response message that was added by the server.
+     */
+    get serverResponse() {
+        return this.customData.serverResponse;
+    }
+    set serverResponse(serverResponse) {
+        this.customData.serverResponse = serverResponse;
+        if (this.customData.serverResponse) {
+            this.message = `${this._baseMessage}\n${this.customData.serverResponse}`;
+        }
+        else {
+            this.message = this._baseMessage;
+        }
+    }
+}
+/**
+ * @public
+ * Error codes that can be attached to `StorageError` objects.
+ */
+var StorageErrorCode;
+(function (StorageErrorCode) {
+    // Shared between all platforms
+    StorageErrorCode["UNKNOWN"] = "unknown";
+    StorageErrorCode["OBJECT_NOT_FOUND"] = "object-not-found";
+    StorageErrorCode["BUCKET_NOT_FOUND"] = "bucket-not-found";
+    StorageErrorCode["PROJECT_NOT_FOUND"] = "project-not-found";
+    StorageErrorCode["QUOTA_EXCEEDED"] = "quota-exceeded";
+    StorageErrorCode["UNAUTHENTICATED"] = "unauthenticated";
+    StorageErrorCode["UNAUTHORIZED"] = "unauthorized";
+    StorageErrorCode["UNAUTHORIZED_APP"] = "unauthorized-app";
+    StorageErrorCode["RETRY_LIMIT_EXCEEDED"] = "retry-limit-exceeded";
+    StorageErrorCode["INVALID_CHECKSUM"] = "invalid-checksum";
+    StorageErrorCode["CANCELED"] = "canceled";
+    // JS specific
+    StorageErrorCode["INVALID_EVENT_NAME"] = "invalid-event-name";
+    StorageErrorCode["INVALID_URL"] = "invalid-url";
+    StorageErrorCode["INVALID_DEFAULT_BUCKET"] = "invalid-default-bucket";
+    StorageErrorCode["NO_DEFAULT_BUCKET"] = "no-default-bucket";
+    StorageErrorCode["CANNOT_SLICE_BLOB"] = "cannot-slice-blob";
+    StorageErrorCode["SERVER_FILE_WRONG_SIZE"] = "server-file-wrong-size";
+    StorageErrorCode["NO_DOWNLOAD_URL"] = "no-download-url";
+    StorageErrorCode["INVALID_ARGUMENT"] = "invalid-argument";
+    StorageErrorCode["INVALID_ARGUMENT_COUNT"] = "invalid-argument-count";
+    StorageErrorCode["APP_DELETED"] = "app-deleted";
+    StorageErrorCode["INVALID_ROOT_OPERATION"] = "invalid-root-operation";
+    StorageErrorCode["INVALID_FORMAT"] = "invalid-format";
+    StorageErrorCode["INTERNAL_ERROR"] = "internal-error";
+    StorageErrorCode["UNSUPPORTED_ENVIRONMENT"] = "unsupported-environment";
+})(StorageErrorCode || (StorageErrorCode = {}));
+function prependCode(code) {
+    return 'storage/' + code;
+}
+function unknown() {
+    const message = 'An unknown error occurred, please check the error payload for ' +
+        'server response.';
+    return new StorageError(StorageErrorCode.UNKNOWN, message);
+}
+function objectNotFound(path) {
+    return new StorageError(StorageErrorCode.OBJECT_NOT_FOUND, "Object '" + path + "' does not exist.");
+}
+function quotaExceeded(bucket) {
+    return new StorageError(StorageErrorCode.QUOTA_EXCEEDED, "Quota for bucket '" +
+        bucket +
+        "' exceeded, please view quota on " +
+        'https://firebase.google.com/pricing/.');
+}
+function unauthenticated() {
+    const message = 'User is not authenticated, please authenticate using Firebase ' +
+        'Authentication and try again.';
+    return new StorageError(StorageErrorCode.UNAUTHENTICATED, message);
+}
+function unauthorizedApp() {
+    return new StorageError(StorageErrorCode.UNAUTHORIZED_APP, 'This app does not have permission to access Firebase Storage on this project.');
+}
+function unauthorized(path) {
+    return new StorageError(StorageErrorCode.UNAUTHORIZED, "User does not have permission to access '" + path + "'.");
+}
+function retryLimitExceeded() {
+    return new StorageError(StorageErrorCode.RETRY_LIMIT_EXCEEDED, 'Max retry time for operation exceeded, please try again.');
+}
+function canceled() {
+    return new StorageError(StorageErrorCode.CANCELED, 'User canceled the upload/download.');
+}
+function invalidUrl(url) {
+    return new StorageError(StorageErrorCode.INVALID_URL, "Invalid URL '" + url + "'.");
+}
+function invalidDefaultBucket(bucket) {
+    return new StorageError(StorageErrorCode.INVALID_DEFAULT_BUCKET, "Invalid default bucket '" + bucket + "'.");
+}
+function noDefaultBucket() {
+    return new StorageError(StorageErrorCode.NO_DEFAULT_BUCKET, 'No default bucket ' +
+        "found. Did you set the '" +
+        CONFIG_STORAGE_BUCKET_KEY +
+        "' property when initializing the app?");
+}
+function cannotSliceBlob() {
+    return new StorageError(StorageErrorCode.CANNOT_SLICE_BLOB, 'Cannot slice blob for upload. Please retry the upload.');
+}
+function serverFileWrongSize() {
+    return new StorageError(StorageErrorCode.SERVER_FILE_WRONG_SIZE, 'Server recorded incorrect upload file size, please retry the upload.');
+}
+function noDownloadURL() {
+    return new StorageError(StorageErrorCode.NO_DOWNLOAD_URL, 'The given file does not have any download URLs.');
+}
+function missingPolyFill(polyFill) {
+    return new StorageError(StorageErrorCode.UNSUPPORTED_ENVIRONMENT, `${polyFill} is missing. Make sure to install the required polyfills. See https://firebase.google.com/docs/web/environments-js-sdk#polyfills for more information.`);
+}
+/**
+ * @internal
+ */
+function invalidArgument(message) {
+    return new StorageError(StorageErrorCode.INVALID_ARGUMENT, message);
+}
+function appDeleted() {
+    return new StorageError(StorageErrorCode.APP_DELETED, 'The Firebase app was deleted.');
+}
+/**
+ * @param name - The name of the operation that was invalid.
+ *
+ * @internal
+ */
+function invalidRootOperation(name) {
+    return new StorageError(StorageErrorCode.INVALID_ROOT_OPERATION, "The operation '" +
+        name +
+        "' cannot be performed on a root reference, create a non-root " +
+        "reference using child, such as .child('file.png').");
+}
+/**
+ * @param format - The format that was not valid.
+ * @param message - A message describing the format violation.
+ */
+function invalidFormat(format, message) {
+    return new StorageError(StorageErrorCode.INVALID_FORMAT, "String does not match format '" + format + "': " + message);
+}
+/**
+ * @param message - A message describing the internal error.
+ */
+function internalError(message) {
+    throw new StorageError(StorageErrorCode.INTERNAL_ERROR, 'Internal error: ' + message);
+}
+
+/**
+ * @license
+ * Copyright 2017 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/**
+ * Firebase Storage location data.
+ *
+ * @internal
+ */
+class Location {
+    constructor(bucket, path) {
+        this.bucket = bucket;
+        this.path_ = path;
+    }
+    get path() {
+        return this.path_;
+    }
+    get isRoot() {
+        return this.path.length === 0;
+    }
+    fullServerUrl() {
+        const encode = encodeURIComponent;
+        return '/b/' + encode(this.bucket) + '/o/' + encode(this.path);
+    }
+    bucketOnlyServerUrl() {
+        const encode = encodeURIComponent;
+        return '/b/' + encode(this.bucket) + '/o';
+    }
+    static makeFromBucketSpec(bucketString, host) {
+        let bucketLocation;
+        try {
+            bucketLocation = Location.makeFromUrl(bucketString, host);
+        }
+        catch (e) {
+            // Not valid URL, use as-is. This lets you put bare bucket names in
+            // config.
+            return new Location(bucketString, '');
+        }
+        if (bucketLocation.path === '') {
+            return bucketLocation;
+        }
+        else {
+            throw invalidDefaultBucket(bucketString);
+        }
+    }
+    static makeFromUrl(url, host) {
+        let location = null;
+        const bucketDomain = '([A-Za-z0-9.\\-_]+)';
+        function gsModify(loc) {
+            if (loc.path.charAt(loc.path.length - 1) === '/') {
+                loc.path_ = loc.path_.slice(0, -1);
+            }
+        }
+        const gsPath = '(/(.*))?$';
+        const gsRegex = new RegExp('^gs://' + bucketDomain + gsPath, 'i');
+        const gsIndices = { bucket: 1, path: 3 };
+        function httpModify(loc) {
+            loc.path_ = decodeURIComponent(loc.path);
+        }
+        const version = 'v[A-Za-z0-9_]+';
+        const firebaseStorageHost = host.replace(/[.]/g, '\\.');
+        const firebaseStoragePath = '(/([^?#]*).*)?$';
+        const firebaseStorageRegExp = new RegExp(`^https?://${firebaseStorageHost}/${version}/b/${bucketDomain}/o${firebaseStoragePath}`, 'i');
+        const firebaseStorageIndices = { bucket: 1, path: 3 };
+        const cloudStorageHost = host === DEFAULT_HOST
+            ? '(?:storage.googleapis.com|storage.cloud.google.com)'
+            : host;
+        const cloudStoragePath = '([^?#]*)';
+        const cloudStorageRegExp = new RegExp(`^https?://${cloudStorageHost}/${bucketDomain}/${cloudStoragePath}`, 'i');
+        const cloudStorageIndices = { bucket: 1, path: 2 };
+        const groups = [
+            { regex: gsRegex, indices: gsIndices, postModify: gsModify },
+            {
+                regex: firebaseStorageRegExp,
+                indices: firebaseStorageIndices,
+                postModify: httpModify
+            },
+            {
+                regex: cloudStorageRegExp,
+                indices: cloudStorageIndices,
+                postModify: httpModify
+            }
+        ];
+        for (let i = 0; i < groups.length; i++) {
+            const group = groups[i];
+            const captures = group.regex.exec(url);
+            if (captures) {
+                const bucketValue = captures[group.indices.bucket];
+                let pathValue = captures[group.indices.path];
+                if (!pathValue) {
+                    pathValue = '';
+                }
+                location = new Location(bucketValue, pathValue);
+                group.postModify(location);
+                break;
+            }
+        }
+        if (location == null) {
+            throw invalidUrl(url);
+        }
+        return location;
+    }
+}
+
+/**
+ * A request whose promise always fails.
+ */
+class FailRequest {
+    constructor(error) {
+        this.promise_ = Promise.reject(error);
+    }
+    /** @inheritDoc */
+    getPromise() {
+        return this.promise_;
+    }
+    /** @inheritDoc */
+    cancel(_appDelete = false) { }
+}
+
+/**
+ * @license
+ * Copyright 2017 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/**
+ * Accepts a callback for an action to perform (`doRequest`),
+ * and then a callback for when the backoff has completed (`backoffCompleteCb`).
+ * The callback sent to start requires an argument to call (`onRequestComplete`).
+ * When `start` calls `doRequest`, it passes a callback for when the request has
+ * completed, `onRequestComplete`. Based on this, the backoff continues, with
+ * another call to `doRequest` and the above loop continues until the timeout
+ * is hit, or a successful response occurs.
+ * @description
+ * @param doRequest Callback to perform request
+ * @param backoffCompleteCb Callback to call when backoff has been completed
+ */
+function start(doRequest, 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+backoffCompleteCb, timeout) {
+    // TODO(andysoto): make this code cleaner (probably refactor into an actual
+    // type instead of a bunch of functions with state shared in the closure)
+    let waitSeconds = 1;
+    // Would type this as "number" but that doesn't work for Node so ¯\_(ツ)_/¯
+    // TODO: find a way to exclude Node type definition for storage because storage only works in browser
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let retryTimeoutId = null;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let globalTimeoutId = null;
+    let hitTimeout = false;
+    let cancelState = 0;
+    function canceled() {
+        return cancelState === 2;
+    }
+    let triggeredCallback = false;
+    function triggerCallback(...args) {
+        if (!triggeredCallback) {
+            triggeredCallback = true;
+            backoffCompleteCb.apply(null, args);
+        }
+    }
+    function callWithDelay(millis) {
+        retryTimeoutId = setTimeout(() => {
+            retryTimeoutId = null;
+            doRequest(responseHandler, canceled());
+        }, millis);
+    }
+    function clearGlobalTimeout() {
+        if (globalTimeoutId) {
+            clearTimeout(globalTimeoutId);
+        }
+    }
+    function responseHandler(success, ...args) {
+        if (triggeredCallback) {
+            clearGlobalTimeout();
+            return;
+        }
+        if (success) {
+            clearGlobalTimeout();
+            triggerCallback.call(null, success, ...args);
+            return;
+        }
+        const mustStop = canceled() || hitTimeout;
+        if (mustStop) {
+            clearGlobalTimeout();
+            triggerCallback.call(null, success, ...args);
+            return;
+        }
+        if (waitSeconds < 64) {
+            /* TODO(andysoto): don't back off so quickly if we know we're offline. */
+            waitSeconds *= 2;
+        }
+        let waitMillis;
+        if (cancelState === 1) {
+            cancelState = 2;
+            waitMillis = 0;
+        }
+        else {
+            waitMillis = (waitSeconds + Math.random()) * 1000;
+        }
+        callWithDelay(waitMillis);
+    }
+    let stopped = false;
+    function stop(wasTimeout) {
+        if (stopped) {
+            return;
+        }
+        stopped = true;
+        clearGlobalTimeout();
+        if (triggeredCallback) {
+            return;
+        }
+        if (retryTimeoutId !== null) {
+            if (!wasTimeout) {
+                cancelState = 2;
+            }
+            clearTimeout(retryTimeoutId);
+            callWithDelay(0);
+        }
+        else {
+            if (!wasTimeout) {
+                cancelState = 1;
+            }
+        }
+    }
+    callWithDelay(0);
+    globalTimeoutId = setTimeout(() => {
+        hitTimeout = true;
+        stop(true);
+    }, timeout);
+    return stop;
+}
+/**
+ * Stops the retry loop from repeating.
+ * If the function is currently "in between" retries, it is invoked immediately
+ * with the second parameter as "true". Otherwise, it will be invoked once more
+ * after the current invocation finishes iff the current invocation would have
+ * triggered another retry.
+ */
+function stop(id) {
+    id(false);
+}
+
+/**
+ * @license
+ * Copyright 2017 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+function isJustDef(p) {
+    return p !== void 0;
+}
+// eslint-disable-next-line @typescript-eslint/ban-types
+function isFunction(p) {
+    return typeof p === 'function';
+}
+function isNonArrayObject(p) {
+    return typeof p === 'object' && !Array.isArray(p);
+}
+function isString(p) {
+    return typeof p === 'string' || p instanceof String;
+}
+function isNativeBlob(p) {
+    return isNativeBlobDefined() && p instanceof Blob;
+}
+function isNativeBlobDefined() {
+    return typeof Blob !== 'undefined';
+}
+function validateNumber(argument, minValue, maxValue, value) {
+    if (value < minValue) {
+        throw invalidArgument(`Invalid value for '${argument}'. Expected ${minValue} or greater.`);
+    }
+    if (value > maxValue) {
+        throw invalidArgument(`Invalid value for '${argument}'. Expected ${maxValue} or less.`);
+    }
+}
+
+/**
+ * @license
+ * Copyright 2017 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+function makeUrl(urlPart, host, protocol) {
+    let origin = host;
+    if (protocol == null) {
+        origin = `https://${host}`;
+    }
+    return `${protocol}://${origin}/v0${urlPart}`;
+}
+function makeQueryString(params) {
+    const encode = encodeURIComponent;
+    let queryPart = '?';
+    for (const key in params) {
+        if (params.hasOwnProperty(key)) {
+            const nextPart = encode(key) + '=' + encode(params[key]);
+            queryPart = queryPart + nextPart + '&';
+        }
+    }
+    // Chop off the extra '&' or '?' on the end
+    queryPart = queryPart.slice(0, -1);
+    return queryPart;
+}
+
+/**
+ * Error codes for requests made by the XhrIo wrapper.
+ */
+var ErrorCode;
+(function (ErrorCode) {
+    ErrorCode[ErrorCode["NO_ERROR"] = 0] = "NO_ERROR";
+    ErrorCode[ErrorCode["NETWORK_ERROR"] = 1] = "NETWORK_ERROR";
+    ErrorCode[ErrorCode["ABORT"] = 2] = "ABORT";
+})(ErrorCode || (ErrorCode = {}));
+
+/**
+ * @license
+ * Copyright 2022 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/**
+ * Checks the status code to see if the action should be retried.
+ *
+ * @param status Current HTTP status code returned by server.
+ * @param additionalRetryCodes additional retry codes to check against
+ */
+function isRetryStatusCode(status, additionalRetryCodes) {
+    // The codes for which to retry came from this page:
+    // https://cloud.google.com/storage/docs/exponential-backoff
+    const isFiveHundredCode = status >= 500 && status < 600;
+    const extraRetryCodes = [
+        // Request Timeout: web server didn't receive full request in time.
+        408,
+        // Too Many Requests: you're getting rate-limited, basically.
+        429
+    ];
+    const isExtraRetryCode = extraRetryCodes.indexOf(status) !== -1;
+    const isAdditionalRetryCode = additionalRetryCodes.indexOf(status) !== -1;
+    return isFiveHundredCode || isExtraRetryCode || isAdditionalRetryCode;
+}
+
+/**
+ * @license
+ * Copyright 2017 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/**
+ * Handles network logic for all Storage Requests, including error reporting and
+ * retries with backoff.
+ *
+ * @param I - the type of the backend's network response.
+ * @param - O the output type used by the rest of the SDK. The conversion
+ * happens in the specified `callback_`.
+ */
+class NetworkRequest {
+    constructor(url_, method_, headers_, body_, successCodes_, additionalRetryCodes_, callback_, errorCallback_, timeout_, progressCallback_, connectionFactory_, retry = true) {
+        this.url_ = url_;
+        this.method_ = method_;
+        this.headers_ = headers_;
+        this.body_ = body_;
+        this.successCodes_ = successCodes_;
+        this.additionalRetryCodes_ = additionalRetryCodes_;
+        this.callback_ = callback_;
+        this.errorCallback_ = errorCallback_;
+        this.timeout_ = timeout_;
+        this.progressCallback_ = progressCallback_;
+        this.connectionFactory_ = connectionFactory_;
+        this.retry = retry;
+        this.pendingConnection_ = null;
+        this.backoffId_ = null;
+        this.canceled_ = false;
+        this.appDelete_ = false;
+        this.promise_ = new Promise((resolve, reject) => {
+            this.resolve_ = resolve;
+            this.reject_ = reject;
+            this.start_();
+        });
+    }
+    /**
+     * Actually starts the retry loop.
+     */
+    start_() {
+        const doTheRequest = (backoffCallback, canceled) => {
+            if (canceled) {
+                backoffCallback(false, new RequestEndStatus(false, null, true));
+                return;
+            }
+            const connection = this.connectionFactory_();
+            this.pendingConnection_ = connection;
+            const progressListener = progressEvent => {
+                const loaded = progressEvent.loaded;
+                const total = progressEvent.lengthComputable ? progressEvent.total : -1;
+                if (this.progressCallback_ !== null) {
+                    this.progressCallback_(loaded, total);
+                }
+            };
+            if (this.progressCallback_ !== null) {
+                connection.addUploadProgressListener(progressListener);
+            }
+            // connection.send() never rejects, so we don't need to have a error handler or use catch on the returned promise.
+            // eslint-disable-next-line @typescript-eslint/no-floating-promises
+            connection
+                .send(this.url_, this.method_, this.body_, this.headers_)
+                .then(() => {
+                if (this.progressCallback_ !== null) {
+                    connection.removeUploadProgressListener(progressListener);
+                }
+                this.pendingConnection_ = null;
+                const hitServer = connection.getErrorCode() === ErrorCode.NO_ERROR;
+                const status = connection.getStatus();
+                if (!hitServer ||
+                    (isRetryStatusCode(status, this.additionalRetryCodes_) &&
+                        this.retry)) {
+                    const wasCanceled = connection.getErrorCode() === ErrorCode.ABORT;
+                    backoffCallback(false, new RequestEndStatus(false, null, wasCanceled));
+                    return;
+                }
+                const successCode = this.successCodes_.indexOf(status) !== -1;
+                backoffCallback(true, new RequestEndStatus(successCode, connection));
+            });
+        };
+        /**
+         * @param requestWentThrough - True if the request eventually went
+         *     through, false if it hit the retry limit or was canceled.
+         */
+        const backoffDone = (requestWentThrough, status) => {
+            const resolve = this.resolve_;
+            const reject = this.reject_;
+            const connection = status.connection;
+            if (status.wasSuccessCode) {
+                try {
+                    const result = this.callback_(connection, connection.getResponse());
+                    if (isJustDef(result)) {
+                        resolve(result);
+                    }
+                    else {
+                        resolve();
+                    }
+                }
+                catch (e) {
+                    reject(e);
+                }
+            }
+            else {
+                if (connection !== null) {
+                    const err = unknown();
+                    err.serverResponse = connection.getErrorText();
+                    if (this.errorCallback_) {
+                        reject(this.errorCallback_(connection, err));
+                    }
+                    else {
+                        reject(err);
+                    }
+                }
+                else {
+                    if (status.canceled) {
+                        const err = this.appDelete_ ? appDeleted() : canceled();
+                        reject(err);
+                    }
+                    else {
+                        const err = retryLimitExceeded();
+                        reject(err);
+                    }
+                }
+            }
+        };
+        if (this.canceled_) {
+            backoffDone(false, new RequestEndStatus(false, null, true));
+        }
+        else {
+            this.backoffId_ = start(doTheRequest, backoffDone, this.timeout_);
+        }
+    }
+    /** @inheritDoc */
+    getPromise() {
+        return this.promise_;
+    }
+    /** @inheritDoc */
+    cancel(appDelete) {
+        this.canceled_ = true;
+        this.appDelete_ = appDelete || false;
+        if (this.backoffId_ !== null) {
+            stop(this.backoffId_);
+        }
+        if (this.pendingConnection_ !== null) {
+            this.pendingConnection_.abort();
+        }
+    }
+}
+/**
+ * A collection of information about the result of a network request.
+ * @param opt_canceled - Defaults to false.
+ */
+class RequestEndStatus {
+    constructor(wasSuccessCode, connection, canceled) {
+        this.wasSuccessCode = wasSuccessCode;
+        this.connection = connection;
+        this.canceled = !!canceled;
+    }
+}
+function addAuthHeader_(headers, authToken) {
+    if (authToken !== null && authToken.length > 0) {
+        headers['Authorization'] = 'Firebase ' + authToken;
+    }
+}
+function addVersionHeader_(headers, firebaseVersion) {
+    headers['X-Firebase-Storage-Version'] =
+        'webjs/' + (firebaseVersion !== null && firebaseVersion !== void 0 ? firebaseVersion : 'AppManager');
+}
+function addGmpidHeader_(headers, appId) {
+    if (appId) {
+        headers['X-Firebase-GMPID'] = appId;
+    }
+}
+function addAppCheckHeader_(headers, appCheckToken) {
+    if (appCheckToken !== null) {
+        headers['X-Firebase-AppCheck'] = appCheckToken;
+    }
+}
+function makeRequest(requestInfo, appId, authToken, appCheckToken, requestFactory, firebaseVersion, retry = true) {
+    const queryPart = makeQueryString(requestInfo.urlParams);
+    const url = requestInfo.url + queryPart;
+    const headers = Object.assign({}, requestInfo.headers);
+    addGmpidHeader_(headers, appId);
+    addAuthHeader_(headers, authToken);
+    addVersionHeader_(headers, firebaseVersion);
+    addAppCheckHeader_(headers, appCheckToken);
+    return new NetworkRequest(url, requestInfo.method, headers, requestInfo.body, requestInfo.successCodes, requestInfo.additionalRetryCodes, requestInfo.handler, requestInfo.errorHandler, requestInfo.timeout, requestInfo.progressCallback, requestFactory, retry);
+}
+
+/**
+ * @license
+ * Copyright 2017 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+function getBlobBuilder() {
+    if (typeof BlobBuilder !== 'undefined') {
+        return BlobBuilder;
+    }
+    else if (typeof WebKitBlobBuilder !== 'undefined') {
+        return WebKitBlobBuilder;
+    }
+    else {
+        return undefined;
+    }
+}
+/**
+ * Concatenates one or more values together and converts them to a Blob.
+ *
+ * @param args The values that will make up the resulting blob.
+ * @return The blob.
+ */
+function getBlob$1(...args) {
+    const BlobBuilder = getBlobBuilder();
+    if (BlobBuilder !== undefined) {
+        const bb = new BlobBuilder();
+        for (let i = 0; i < args.length; i++) {
+            bb.append(args[i]);
+        }
+        return bb.getBlob();
+    }
+    else {
+        if (isNativeBlobDefined()) {
+            return new Blob(args);
+        }
+        else {
+            throw new StorageError(StorageErrorCode.UNSUPPORTED_ENVIRONMENT, "This browser doesn't seem to support creating Blobs");
+        }
+    }
+}
+/**
+ * Slices the blob. The returned blob contains data from the start byte
+ * (inclusive) till the end byte (exclusive). Negative indices cannot be used.
+ *
+ * @param blob The blob to be sliced.
+ * @param start Index of the starting byte.
+ * @param end Index of the ending byte.
+ * @return The blob slice or null if not supported.
+ */
+function sliceBlob(blob, start, end) {
+    if (blob.webkitSlice) {
+        return blob.webkitSlice(start, end);
+    }
+    else if (blob.mozSlice) {
+        return blob.mozSlice(start, end);
+    }
+    else if (blob.slice) {
+        return blob.slice(start, end);
+    }
+    return null;
+}
+
+/**
+ * @license
+ * Copyright 2021 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/** Converts a Base64 encoded string to a binary string. */
+function decodeBase64(encoded) {
+    if (typeof atob === 'undefined') {
+        throw missingPolyFill('base-64');
+    }
+    return atob(encoded);
+}
+
+/**
+ * @license
+ * Copyright 2017 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/**
+ * An enumeration of the possible string formats for upload.
+ * @public
+ */
+const StringFormat = {
+    /**
+     * Indicates the string should be interpreted "raw", that is, as normal text.
+     * The string will be interpreted as UTF-16, then uploaded as a UTF-8 byte
+     * sequence.
+     * Example: The string 'Hello! \\ud83d\\ude0a' becomes the byte sequence
+     * 48 65 6c 6c 6f 21 20 f0 9f 98 8a
+     */
+    RAW: 'raw',
+    /**
+     * Indicates the string should be interpreted as base64-encoded data.
+     * Padding characters (trailing '='s) are optional.
+     * Example: The string 'rWmO++E6t7/rlw==' becomes the byte sequence
+     * ad 69 8e fb e1 3a b7 bf eb 97
+     */
+    BASE64: 'base64',
+    /**
+     * Indicates the string should be interpreted as base64url-encoded data.
+     * Padding characters (trailing '='s) are optional.
+     * Example: The string 'rWmO--E6t7_rlw==' becomes the byte sequence
+     * ad 69 8e fb e1 3a b7 bf eb 97
+     */
+    BASE64URL: 'base64url',
+    /**
+     * Indicates the string is a data URL, such as one obtained from
+     * canvas.toDataURL().
+     * Example: the string 'data:application/octet-stream;base64,aaaa'
+     * becomes the byte sequence
+     * 69 a6 9a
+     * (the content-type "application/octet-stream" is also applied, but can
+     * be overridden in the metadata object).
+     */
+    DATA_URL: 'data_url'
+};
+class StringData {
+    constructor(data, contentType) {
+        this.data = data;
+        this.contentType = contentType || null;
+    }
+}
+/**
+ * @internal
+ */
+function dataFromString(format, stringData) {
+    switch (format) {
+        case StringFormat.RAW:
+            return new StringData(utf8Bytes_(stringData));
+        case StringFormat.BASE64:
+        case StringFormat.BASE64URL:
+            return new StringData(base64Bytes_(format, stringData));
+        case StringFormat.DATA_URL:
+            return new StringData(dataURLBytes_(stringData), dataURLContentType_(stringData));
+        // do nothing
+    }
+    // assert(false);
+    throw unknown();
+}
+function utf8Bytes_(value) {
+    const b = [];
+    for (let i = 0; i < value.length; i++) {
+        let c = value.charCodeAt(i);
+        if (c <= 127) {
+            b.push(c);
+        }
+        else {
+            if (c <= 2047) {
+                b.push(192 | (c >> 6), 128 | (c & 63));
+            }
+            else {
+                if ((c & 64512) === 55296) {
+                    // The start of a surrogate pair.
+                    const valid = i < value.length - 1 && (value.charCodeAt(i + 1) & 64512) === 56320;
+                    if (!valid) {
+                        // The second surrogate wasn't there.
+                        b.push(239, 191, 189);
+                    }
+                    else {
+                        const hi = c;
+                        const lo = value.charCodeAt(++i);
+                        c = 65536 | ((hi & 1023) << 10) | (lo & 1023);
+                        b.push(240 | (c >> 18), 128 | ((c >> 12) & 63), 128 | ((c >> 6) & 63), 128 | (c & 63));
+                    }
+                }
+                else {
+                    if ((c & 64512) === 56320) {
+                        // Invalid low surrogate.
+                        b.push(239, 191, 189);
+                    }
+                    else {
+                        b.push(224 | (c >> 12), 128 | ((c >> 6) & 63), 128 | (c & 63));
+                    }
+                }
+            }
+        }
+    }
+    return new Uint8Array(b);
+}
+function percentEncodedBytes_(value) {
+    let decoded;
+    try {
+        decoded = decodeURIComponent(value);
+    }
+    catch (e) {
+        throw invalidFormat(StringFormat.DATA_URL, 'Malformed data URL.');
+    }
+    return utf8Bytes_(decoded);
+}
+function base64Bytes_(format, value) {
+    switch (format) {
+        case StringFormat.BASE64: {
+            const hasMinus = value.indexOf('-') !== -1;
+            const hasUnder = value.indexOf('_') !== -1;
+            if (hasMinus || hasUnder) {
+                const invalidChar = hasMinus ? '-' : '_';
+                throw invalidFormat(format, "Invalid character '" +
+                    invalidChar +
+                    "' found: is it base64url encoded?");
+            }
+            break;
+        }
+        case StringFormat.BASE64URL: {
+            const hasPlus = value.indexOf('+') !== -1;
+            const hasSlash = value.indexOf('/') !== -1;
+            if (hasPlus || hasSlash) {
+                const invalidChar = hasPlus ? '+' : '/';
+                throw invalidFormat(format, "Invalid character '" + invalidChar + "' found: is it base64 encoded?");
+            }
+            value = value.replace(/-/g, '+').replace(/_/g, '/');
+            break;
+        }
+        // do nothing
+    }
+    let bytes;
+    try {
+        bytes = decodeBase64(value);
+    }
+    catch (e) {
+        if (e.message.includes('polyfill')) {
+            throw e;
+        }
+        throw invalidFormat(format, 'Invalid character found');
+    }
+    const array = new Uint8Array(bytes.length);
+    for (let i = 0; i < bytes.length; i++) {
+        array[i] = bytes.charCodeAt(i);
+    }
+    return array;
+}
+class DataURLParts {
+    constructor(dataURL) {
+        this.base64 = false;
+        this.contentType = null;
+        const matches = dataURL.match(/^data:([^,]+)?,/);
+        if (matches === null) {
+            throw invalidFormat(StringFormat.DATA_URL, "Must be formatted 'data:[<mediatype>][;base64],<data>");
+        }
+        const middle = matches[1] || null;
+        if (middle != null) {
+            this.base64 = endsWith(middle, ';base64');
+            this.contentType = this.base64
+                ? middle.substring(0, middle.length - ';base64'.length)
+                : middle;
+        }
+        this.rest = dataURL.substring(dataURL.indexOf(',') + 1);
+    }
+}
+function dataURLBytes_(dataUrl) {
+    const parts = new DataURLParts(dataUrl);
+    if (parts.base64) {
+        return base64Bytes_(StringFormat.BASE64, parts.rest);
+    }
+    else {
+        return percentEncodedBytes_(parts.rest);
+    }
+}
+function dataURLContentType_(dataUrl) {
+    const parts = new DataURLParts(dataUrl);
+    return parts.contentType;
+}
+function endsWith(s, end) {
+    const longEnough = s.length >= end.length;
+    if (!longEnough) {
+        return false;
+    }
+    return s.substring(s.length - end.length) === end;
+}
+
+/**
+ * @license
+ * Copyright 2017 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/**
+ * @param opt_elideCopy - If true, doesn't copy mutable input data
+ *     (e.g. Uint8Arrays). Pass true only if you know the objects will not be
+ *     modified after this blob's construction.
+ *
+ * @internal
+ */
+class FbsBlob {
+    constructor(data, elideCopy) {
+        let size = 0;
+        let blobType = '';
+        if (isNativeBlob(data)) {
+            this.data_ = data;
+            size = data.size;
+            blobType = data.type;
+        }
+        else if (data instanceof ArrayBuffer) {
+            if (elideCopy) {
+                this.data_ = new Uint8Array(data);
+            }
+            else {
+                this.data_ = new Uint8Array(data.byteLength);
+                this.data_.set(new Uint8Array(data));
+            }
+            size = this.data_.length;
+        }
+        else if (data instanceof Uint8Array) {
+            if (elideCopy) {
+                this.data_ = data;
+            }
+            else {
+                this.data_ = new Uint8Array(data.length);
+                this.data_.set(data);
+            }
+            size = data.length;
+        }
+        this.size_ = size;
+        this.type_ = blobType;
+    }
+    size() {
+        return this.size_;
+    }
+    type() {
+        return this.type_;
+    }
+    slice(startByte, endByte) {
+        if (isNativeBlob(this.data_)) {
+            const realBlob = this.data_;
+            const sliced = sliceBlob(realBlob, startByte, endByte);
+            if (sliced === null) {
+                return null;
+            }
+            return new FbsBlob(sliced);
+        }
+        else {
+            const slice = new Uint8Array(this.data_.buffer, startByte, endByte - startByte);
+            return new FbsBlob(slice, true);
+        }
+    }
+    static getBlob(...args) {
+        if (isNativeBlobDefined()) {
+            const blobby = args.map((val) => {
+                if (val instanceof FbsBlob) {
+                    return val.data_;
+                }
+                else {
+                    return val;
+                }
+            });
+            return new FbsBlob(getBlob$1.apply(null, blobby));
+        }
+        else {
+            const uint8Arrays = args.map((val) => {
+                if (isString(val)) {
+                    return dataFromString(StringFormat.RAW, val).data;
+                }
+                else {
+                    // Blobs don't exist, so this has to be a Uint8Array.
+                    return val.data_;
+                }
+            });
+            let finalLength = 0;
+            uint8Arrays.forEach((array) => {
+                finalLength += array.byteLength;
+            });
+            const merged = new Uint8Array(finalLength);
+            let index = 0;
+            uint8Arrays.forEach((array) => {
+                for (let i = 0; i < array.length; i++) {
+                    merged[index++] = array[i];
+                }
+            });
+            return new FbsBlob(merged, true);
+        }
+    }
+    uploadData() {
+        return this.data_;
+    }
+}
+
+/**
+ * @license
+ * Copyright 2017 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/**
+ * Returns the Object resulting from parsing the given JSON, or null if the
+ * given string does not represent a JSON object.
+ */
+function jsonObjectOrNull(s) {
+    let obj;
+    try {
+        obj = JSON.parse(s);
+    }
+    catch (e) {
+        return null;
+    }
+    if (isNonArrayObject(obj)) {
+        return obj;
+    }
+    else {
+        return null;
+    }
+}
+
+/**
+ * @license
+ * Copyright 2017 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/**
+ * @fileoverview Contains helper methods for manipulating paths.
+ */
+/**
+ * @return Null if the path is already at the root.
+ */
+function index_esm2017_parent(path) {
+    if (path.length === 0) {
+        return null;
+    }
+    const index = path.lastIndexOf('/');
+    if (index === -1) {
+        return '';
+    }
+    const newPath = path.slice(0, index);
+    return newPath;
+}
+function child(path, childPath) {
+    const canonicalChildPath = childPath
+        .split('/')
+        .filter(component => component.length > 0)
+        .join('/');
+    if (path.length === 0) {
+        return canonicalChildPath;
+    }
+    else {
+        return path + '/' + canonicalChildPath;
+    }
+}
+/**
+ * Returns the last component of a path.
+ * '/foo/bar' -> 'bar'
+ * '/foo/bar/baz/' -> 'baz/'
+ * '/a' -> 'a'
+ */
+function lastComponent(path) {
+    const index = path.lastIndexOf('/', path.length - 2);
+    if (index === -1) {
+        return path;
+    }
+    else {
+        return path.slice(index + 1);
+    }
+}
+
+/**
+ * @license
+ * Copyright 2017 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+function noXform_(metadata, value) {
+    return value;
+}
+class Mapping {
+    constructor(server, local, writable, xform) {
+        this.server = server;
+        this.local = local || server;
+        this.writable = !!writable;
+        this.xform = xform || noXform_;
+    }
+}
+let mappings_ = null;
+function xformPath(fullPath) {
+    if (!isString(fullPath) || fullPath.length < 2) {
+        return fullPath;
+    }
+    else {
+        return lastComponent(fullPath);
+    }
+}
+function getMappings() {
+    if (mappings_) {
+        return mappings_;
+    }
+    const mappings = [];
+    mappings.push(new Mapping('bucket'));
+    mappings.push(new Mapping('generation'));
+    mappings.push(new Mapping('metageneration'));
+    mappings.push(new Mapping('name', 'fullPath', true));
+    function mappingsXformPath(_metadata, fullPath) {
+        return xformPath(fullPath);
+    }
+    const nameMapping = new Mapping('name');
+    nameMapping.xform = mappingsXformPath;
+    mappings.push(nameMapping);
+    /**
+     * Coerces the second param to a number, if it is defined.
+     */
+    function xformSize(_metadata, size) {
+        if (size !== undefined) {
+            return Number(size);
+        }
+        else {
+            return size;
+        }
+    }
+    const sizeMapping = new Mapping('size');
+    sizeMapping.xform = xformSize;
+    mappings.push(sizeMapping);
+    mappings.push(new Mapping('timeCreated'));
+    mappings.push(new Mapping('updated'));
+    mappings.push(new Mapping('md5Hash', null, true));
+    mappings.push(new Mapping('cacheControl', null, true));
+    mappings.push(new Mapping('contentDisposition', null, true));
+    mappings.push(new Mapping('contentEncoding', null, true));
+    mappings.push(new Mapping('contentLanguage', null, true));
+    mappings.push(new Mapping('contentType', null, true));
+    mappings.push(new Mapping('metadata', 'customMetadata', true));
+    mappings_ = mappings;
+    return mappings_;
+}
+function addRef(metadata, service) {
+    function generateRef() {
+        const bucket = metadata['bucket'];
+        const path = metadata['fullPath'];
+        const loc = new Location(bucket, path);
+        return service._makeStorageReference(loc);
+    }
+    Object.defineProperty(metadata, 'ref', { get: generateRef });
+}
+function fromResource(service, resource, mappings) {
+    const metadata = {};
+    metadata['type'] = 'file';
+    const len = mappings.length;
+    for (let i = 0; i < len; i++) {
+        const mapping = mappings[i];
+        metadata[mapping.local] = mapping.xform(metadata, resource[mapping.server]);
+    }
+    addRef(metadata, service);
+    return metadata;
+}
+function fromResourceString(service, resourceString, mappings) {
+    const obj = jsonObjectOrNull(resourceString);
+    if (obj === null) {
+        return null;
+    }
+    const resource = obj;
+    return fromResource(service, resource, mappings);
+}
+function downloadUrlFromResourceString(metadata, resourceString, host, protocol) {
+    const obj = jsonObjectOrNull(resourceString);
+    if (obj === null) {
+        return null;
+    }
+    if (!isString(obj['downloadTokens'])) {
+        // This can happen if objects are uploaded through GCS and retrieved
+        // through list, so we don't want to throw an Error.
+        return null;
+    }
+    const tokens = obj['downloadTokens'];
+    if (tokens.length === 0) {
+        return null;
+    }
+    const encode = encodeURIComponent;
+    const tokensList = tokens.split(',');
+    const urls = tokensList.map((token) => {
+        const bucket = metadata['bucket'];
+        const path = metadata['fullPath'];
+        const urlPart = '/b/' + encode(bucket) + '/o/' + encode(path);
+        const base = makeUrl(urlPart, host, protocol);
+        const queryString = makeQueryString({
+            alt: 'media',
+            token
+        });
+        return base + queryString;
+    });
+    return urls[0];
+}
+function toResourceString(metadata, mappings) {
+    const resource = {};
+    const len = mappings.length;
+    for (let i = 0; i < len; i++) {
+        const mapping = mappings[i];
+        if (mapping.writable) {
+            resource[mapping.server] = metadata[mapping.local];
+        }
+    }
+    return JSON.stringify(resource);
+}
+
+/**
+ * @license
+ * Copyright 2019 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+const PREFIXES_KEY = 'prefixes';
+const ITEMS_KEY = 'items';
+function fromBackendResponse(service, bucket, resource) {
+    const listResult = {
+        prefixes: [],
+        items: [],
+        nextPageToken: resource['nextPageToken']
+    };
+    if (resource[PREFIXES_KEY]) {
+        for (const path of resource[PREFIXES_KEY]) {
+            const pathWithoutTrailingSlash = path.replace(/\/$/, '');
+            const reference = service._makeStorageReference(new Location(bucket, pathWithoutTrailingSlash));
+            listResult.prefixes.push(reference);
+        }
+    }
+    if (resource[ITEMS_KEY]) {
+        for (const item of resource[ITEMS_KEY]) {
+            const reference = service._makeStorageReference(new Location(bucket, item['name']));
+            listResult.items.push(reference);
+        }
+    }
+    return listResult;
+}
+function fromResponseString(service, bucket, resourceString) {
+    const obj = jsonObjectOrNull(resourceString);
+    if (obj === null) {
+        return null;
+    }
+    const resource = obj;
+    return fromBackendResponse(service, bucket, resource);
+}
+
+/**
+ * Contains a fully specified request.
+ *
+ * @param I - the type of the backend's network response.
+ * @param O - the output response type used by the rest of the SDK.
+ */
+class RequestInfo {
+    constructor(url, method, 
+    /**
+     * Returns the value with which to resolve the request's promise. Only called
+     * if the request is successful. Throw from this function to reject the
+     * returned Request's promise with the thrown error.
+     * Note: The XhrIo passed to this function may be reused after this callback
+     * returns. Do not keep a reference to it in any way.
+     */
+    handler, timeout) {
+        this.url = url;
+        this.method = method;
+        this.handler = handler;
+        this.timeout = timeout;
+        this.urlParams = {};
+        this.headers = {};
+        this.body = null;
+        this.errorHandler = null;
+        /**
+         * Called with the current number of bytes uploaded and total size (-1 if not
+         * computable) of the request body (i.e. used to report upload progress).
+         */
+        this.progressCallback = null;
+        this.successCodes = [200];
+        this.additionalRetryCodes = [];
+    }
+}
+
+/**
+ * @license
+ * Copyright 2017 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/**
+ * Throws the UNKNOWN StorageError if cndn is false.
+ */
+function handlerCheck(cndn) {
+    if (!cndn) {
+        throw unknown();
+    }
+}
+function metadataHandler(service, mappings) {
+    function handler(xhr, text) {
+        const metadata = fromResourceString(service, text, mappings);
+        handlerCheck(metadata !== null);
+        return metadata;
+    }
+    return handler;
+}
+function listHandler(service, bucket) {
+    function handler(xhr, text) {
+        const listResult = fromResponseString(service, bucket, text);
+        handlerCheck(listResult !== null);
+        return listResult;
+    }
+    return handler;
+}
+function downloadUrlHandler(service, mappings) {
+    function handler(xhr, text) {
+        const metadata = fromResourceString(service, text, mappings);
+        handlerCheck(metadata !== null);
+        return downloadUrlFromResourceString(metadata, text, service.host, service._protocol);
+    }
+    return handler;
+}
+function sharedErrorHandler(location) {
+    function errorHandler(xhr, err) {
+        let newErr;
+        if (xhr.getStatus() === 401) {
+            if (
+            // This exact message string is the only consistent part of the
+            // server's error response that identifies it as an App Check error.
+            xhr.getErrorText().includes('Firebase App Check token is invalid')) {
+                newErr = unauthorizedApp();
+            }
+            else {
+                newErr = unauthenticated();
+            }
+        }
+        else {
+            if (xhr.getStatus() === 402) {
+                newErr = quotaExceeded(location.bucket);
+            }
+            else {
+                if (xhr.getStatus() === 403) {
+                    newErr = unauthorized(location.path);
+                }
+                else {
+                    newErr = err;
+                }
+            }
+        }
+        newErr.status = xhr.getStatus();
+        newErr.serverResponse = err.serverResponse;
+        return newErr;
+    }
+    return errorHandler;
+}
+function objectErrorHandler(location) {
+    const shared = sharedErrorHandler(location);
+    function errorHandler(xhr, err) {
+        let newErr = shared(xhr, err);
+        if (xhr.getStatus() === 404) {
+            newErr = objectNotFound(location.path);
+        }
+        newErr.serverResponse = err.serverResponse;
+        return newErr;
+    }
+    return errorHandler;
+}
+function getMetadata$2(service, location, mappings) {
+    const urlPart = location.fullServerUrl();
+    const url = makeUrl(urlPart, service.host, service._protocol);
+    const method = 'GET';
+    const timeout = service.maxOperationRetryTime;
+    const requestInfo = new RequestInfo(url, method, metadataHandler(service, mappings), timeout);
+    requestInfo.errorHandler = objectErrorHandler(location);
+    return requestInfo;
+}
+function list$2(service, location, delimiter, pageToken, maxResults) {
+    const urlParams = {};
+    if (location.isRoot) {
+        urlParams['prefix'] = '';
+    }
+    else {
+        urlParams['prefix'] = location.path + '/';
+    }
+    if (delimiter && delimiter.length > 0) {
+        urlParams['delimiter'] = delimiter;
+    }
+    if (pageToken) {
+        urlParams['pageToken'] = pageToken;
+    }
+    if (maxResults) {
+        urlParams['maxResults'] = maxResults;
+    }
+    const urlPart = location.bucketOnlyServerUrl();
+    const url = makeUrl(urlPart, service.host, service._protocol);
+    const method = 'GET';
+    const timeout = service.maxOperationRetryTime;
+    const requestInfo = new RequestInfo(url, method, listHandler(service, location.bucket), timeout);
+    requestInfo.urlParams = urlParams;
+    requestInfo.errorHandler = sharedErrorHandler(location);
+    return requestInfo;
+}
+function getBytes$1(service, location, maxDownloadSizeBytes) {
+    const urlPart = location.fullServerUrl();
+    const url = makeUrl(urlPart, service.host, service._protocol) + '?alt=media';
+    const method = 'GET';
+    const timeout = service.maxOperationRetryTime;
+    const requestInfo = new RequestInfo(url, method, (_, data) => data, timeout);
+    requestInfo.errorHandler = objectErrorHandler(location);
+    if (maxDownloadSizeBytes !== undefined) {
+        requestInfo.headers['Range'] = `bytes=0-${maxDownloadSizeBytes}`;
+        requestInfo.successCodes = [200 /* OK */, 206 /* Partial Content */];
+    }
+    return requestInfo;
+}
+function getDownloadUrl(service, location, mappings) {
+    const urlPart = location.fullServerUrl();
+    const url = makeUrl(urlPart, service.host, service._protocol);
+    const method = 'GET';
+    const timeout = service.maxOperationRetryTime;
+    const requestInfo = new RequestInfo(url, method, downloadUrlHandler(service, mappings), timeout);
+    requestInfo.errorHandler = objectErrorHandler(location);
+    return requestInfo;
+}
+function updateMetadata$2(service, location, metadata, mappings) {
+    const urlPart = location.fullServerUrl();
+    const url = makeUrl(urlPart, service.host, service._protocol);
+    const method = 'PATCH';
+    const body = toResourceString(metadata, mappings);
+    const headers = { 'Content-Type': 'application/json; charset=utf-8' };
+    const timeout = service.maxOperationRetryTime;
+    const requestInfo = new RequestInfo(url, method, metadataHandler(service, mappings), timeout);
+    requestInfo.headers = headers;
+    requestInfo.body = body;
+    requestInfo.errorHandler = objectErrorHandler(location);
+    return requestInfo;
+}
+function deleteObject$2(service, location) {
+    const urlPart = location.fullServerUrl();
+    const url = makeUrl(urlPart, service.host, service._protocol);
+    const method = 'DELETE';
+    const timeout = service.maxOperationRetryTime;
+    function handler(_xhr, _text) { }
+    const requestInfo = new RequestInfo(url, method, handler, timeout);
+    requestInfo.successCodes = [200, 204];
+    requestInfo.errorHandler = objectErrorHandler(location);
+    return requestInfo;
+}
+function determineContentType_(metadata, blob) {
+    return ((metadata && metadata['contentType']) ||
+        (blob && blob.type()) ||
+        'application/octet-stream');
+}
+function metadataForUpload_(location, blob, metadata) {
+    const metadataClone = Object.assign({}, metadata);
+    metadataClone['fullPath'] = location.path;
+    metadataClone['size'] = blob.size();
+    if (!metadataClone['contentType']) {
+        metadataClone['contentType'] = determineContentType_(null, blob);
+    }
+    return metadataClone;
+}
+/**
+ * Prepare RequestInfo for uploads as Content-Type: multipart.
+ */
+function multipartUpload(service, location, mappings, blob, metadata) {
+    const urlPart = location.bucketOnlyServerUrl();
+    const headers = {
+        'X-Goog-Upload-Protocol': 'multipart'
+    };
+    function genBoundary() {
+        let str = '';
+        for (let i = 0; i < 2; i++) {
+            str = str + Math.random().toString().slice(2);
+        }
+        return str;
+    }
+    const boundary = genBoundary();
+    headers['Content-Type'] = 'multipart/related; boundary=' + boundary;
+    const metadata_ = metadataForUpload_(location, blob, metadata);
+    const metadataString = toResourceString(metadata_, mappings);
+    const preBlobPart = '--' +
+        boundary +
+        '\r\n' +
+        'Content-Type: application/json; charset=utf-8\r\n\r\n' +
+        metadataString +
+        '\r\n--' +
+        boundary +
+        '\r\n' +
+        'Content-Type: ' +
+        metadata_['contentType'] +
+        '\r\n\r\n';
+    const postBlobPart = '\r\n--' + boundary + '--';
+    const body = FbsBlob.getBlob(preBlobPart, blob, postBlobPart);
+    if (body === null) {
+        throw cannotSliceBlob();
+    }
+    const urlParams = { name: metadata_['fullPath'] };
+    const url = makeUrl(urlPart, service.host, service._protocol);
+    const method = 'POST';
+    const timeout = service.maxUploadRetryTime;
+    const requestInfo = new RequestInfo(url, method, metadataHandler(service, mappings), timeout);
+    requestInfo.urlParams = urlParams;
+    requestInfo.headers = headers;
+    requestInfo.body = body.uploadData();
+    requestInfo.errorHandler = sharedErrorHandler(location);
+    return requestInfo;
+}
+/**
+ * @param current The number of bytes that have been uploaded so far.
+ * @param total The total number of bytes in the upload.
+ * @param opt_finalized True if the server has finished the upload.
+ * @param opt_metadata The upload metadata, should
+ *     only be passed if opt_finalized is true.
+ */
+class ResumableUploadStatus {
+    constructor(current, total, finalized, metadata) {
+        this.current = current;
+        this.total = total;
+        this.finalized = !!finalized;
+        this.metadata = metadata || null;
+    }
+}
+function checkResumeHeader_(xhr, allowed) {
+    let status = null;
+    try {
+        status = xhr.getResponseHeader('X-Goog-Upload-Status');
+    }
+    catch (e) {
+        handlerCheck(false);
+    }
+    const allowedStatus = allowed || ['active'];
+    handlerCheck(!!status && allowedStatus.indexOf(status) !== -1);
+    return status;
+}
+function createResumableUpload(service, location, mappings, blob, metadata) {
+    const urlPart = location.bucketOnlyServerUrl();
+    const metadataForUpload = metadataForUpload_(location, blob, metadata);
+    const urlParams = { name: metadataForUpload['fullPath'] };
+    const url = makeUrl(urlPart, service.host, service._protocol);
+    const method = 'POST';
+    const headers = {
+        'X-Goog-Upload-Protocol': 'resumable',
+        'X-Goog-Upload-Command': 'start',
+        'X-Goog-Upload-Header-Content-Length': `${blob.size()}`,
+        'X-Goog-Upload-Header-Content-Type': metadataForUpload['contentType'],
+        'Content-Type': 'application/json; charset=utf-8'
+    };
+    const body = toResourceString(metadataForUpload, mappings);
+    const timeout = service.maxUploadRetryTime;
+    function handler(xhr) {
+        checkResumeHeader_(xhr);
+        let url;
+        try {
+            url = xhr.getResponseHeader('X-Goog-Upload-URL');
+        }
+        catch (e) {
+            handlerCheck(false);
+        }
+        handlerCheck(isString(url));
+        return url;
+    }
+    const requestInfo = new RequestInfo(url, method, handler, timeout);
+    requestInfo.urlParams = urlParams;
+    requestInfo.headers = headers;
+    requestInfo.body = body;
+    requestInfo.errorHandler = sharedErrorHandler(location);
+    return requestInfo;
+}
+/**
+ * @param url From a call to fbs.requests.createResumableUpload.
+ */
+function getResumableUploadStatus(service, location, url, blob) {
+    const headers = { 'X-Goog-Upload-Command': 'query' };
+    function handler(xhr) {
+        const status = checkResumeHeader_(xhr, ['active', 'final']);
+        let sizeString = null;
+        try {
+            sizeString = xhr.getResponseHeader('X-Goog-Upload-Size-Received');
+        }
+        catch (e) {
+            handlerCheck(false);
+        }
+        if (!sizeString) {
+            // null or empty string
+            handlerCheck(false);
+        }
+        const size = Number(sizeString);
+        handlerCheck(!isNaN(size));
+        return new ResumableUploadStatus(size, blob.size(), status === 'final');
+    }
+    const method = 'POST';
+    const timeout = service.maxUploadRetryTime;
+    const requestInfo = new RequestInfo(url, method, handler, timeout);
+    requestInfo.headers = headers;
+    requestInfo.errorHandler = sharedErrorHandler(location);
+    return requestInfo;
+}
+/**
+ * Any uploads via the resumable upload API must transfer a number of bytes
+ * that is a multiple of this number.
+ */
+const RESUMABLE_UPLOAD_CHUNK_SIZE = (/* unused pure expression or super */ null && (256 * 1024));
+/**
+ * @param url From a call to fbs.requests.createResumableUpload.
+ * @param chunkSize Number of bytes to upload.
+ * @param status The previous status.
+ *     If not passed or null, we start from the beginning.
+ * @throws fbs.Error If the upload is already complete, the passed in status
+ *     has a final size inconsistent with the blob, or the blob cannot be sliced
+ *     for upload.
+ */
+function continueResumableUpload(location, service, url, blob, chunkSize, mappings, status, progressCallback) {
+    // TODO(andysoto): standardize on internal asserts
+    // assert(!(opt_status && opt_status.finalized));
+    const status_ = new ResumableUploadStatus(0, 0);
+    if (status) {
+        status_.current = status.current;
+        status_.total = status.total;
+    }
+    else {
+        status_.current = 0;
+        status_.total = blob.size();
+    }
+    if (blob.size() !== status_.total) {
+        throw serverFileWrongSize();
+    }
+    const bytesLeft = status_.total - status_.current;
+    let bytesToUpload = bytesLeft;
+    if (chunkSize > 0) {
+        bytesToUpload = Math.min(bytesToUpload, chunkSize);
+    }
+    const startByte = status_.current;
+    const endByte = startByte + bytesToUpload;
+    let uploadCommand = '';
+    if (bytesToUpload === 0) {
+        uploadCommand = 'finalize';
+    }
+    else if (bytesLeft === bytesToUpload) {
+        uploadCommand = 'upload, finalize';
+    }
+    else {
+        uploadCommand = 'upload';
+    }
+    const headers = {
+        'X-Goog-Upload-Command': uploadCommand,
+        'X-Goog-Upload-Offset': `${status_.current}`
+    };
+    const body = blob.slice(startByte, endByte);
+    if (body === null) {
+        throw cannotSliceBlob();
+    }
+    function handler(xhr, text) {
+        // TODO(andysoto): Verify the MD5 of each uploaded range:
+        // the 'x-range-md5' header comes back with status code 308 responses.
+        // We'll only be able to bail out though, because you can't re-upload a
+        // range that you previously uploaded.
+        const uploadStatus = checkResumeHeader_(xhr, ['active', 'final']);
+        const newCurrent = status_.current + bytesToUpload;
+        const size = blob.size();
+        let metadata;
+        if (uploadStatus === 'final') {
+            metadata = metadataHandler(service, mappings)(xhr, text);
+        }
+        else {
+            metadata = null;
+        }
+        return new ResumableUploadStatus(newCurrent, size, uploadStatus === 'final', metadata);
+    }
+    const method = 'POST';
+    const timeout = service.maxUploadRetryTime;
+    const requestInfo = new RequestInfo(url, method, handler, timeout);
+    requestInfo.headers = headers;
+    requestInfo.body = body.uploadData();
+    requestInfo.progressCallback = progressCallback || null;
+    requestInfo.errorHandler = sharedErrorHandler(location);
+    return requestInfo;
+}
+
+/**
+ * @license
+ * Copyright 2017 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/**
+ * An event that is triggered on a task.
+ * @internal
+ */
+const TaskEvent = {
+    /**
+     * For this event,
+     * <ul>
+     *   <li>The `next` function is triggered on progress updates and when the
+     *       task is paused/resumed with an `UploadTaskSnapshot` as the first
+     *       argument.</li>
+     *   <li>The `error` function is triggered if the upload is canceled or fails
+     *       for another reason.</li>
+     *   <li>The `complete` function is triggered if the upload completes
+     *       successfully.</li>
+     * </ul>
+     */
+    STATE_CHANGED: 'state_changed'
+};
+// type keys = keyof TaskState
+/**
+ * Represents the current state of a running upload.
+ * @internal
+ */
+const TaskState = {
+    /** The task is currently transferring data. */
+    RUNNING: 'running',
+    /** The task was paused by the user. */
+    PAUSED: 'paused',
+    /** The task completed successfully. */
+    SUCCESS: 'success',
+    /** The task was canceled. */
+    CANCELED: 'canceled',
+    /** The task failed with an error. */
+    ERROR: 'error'
+};
+function taskStateFromInternalTaskState(state) {
+    switch (state) {
+        case "running" /* InternalTaskState.RUNNING */:
+        case "pausing" /* InternalTaskState.PAUSING */:
+        case "canceling" /* InternalTaskState.CANCELING */:
+            return TaskState.RUNNING;
+        case "paused" /* InternalTaskState.PAUSED */:
+            return TaskState.PAUSED;
+        case "success" /* InternalTaskState.SUCCESS */:
+            return TaskState.SUCCESS;
+        case "canceled" /* InternalTaskState.CANCELED */:
+            return TaskState.CANCELED;
+        case "error" /* InternalTaskState.ERROR */:
+            return TaskState.ERROR;
+        default:
+            // TODO(andysoto): assert(false);
+            return TaskState.ERROR;
+    }
+}
+
+/**
+ * @license
+ * Copyright 2017 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+class Observer {
+    constructor(nextOrObserver, error, complete) {
+        const asFunctions = isFunction(nextOrObserver) || error != null || complete != null;
+        if (asFunctions) {
+            this.next = nextOrObserver;
+            this.error = error !== null && error !== void 0 ? error : undefined;
+            this.complete = complete !== null && complete !== void 0 ? complete : undefined;
+        }
+        else {
+            const observer = nextOrObserver;
+            this.next = observer.next;
+            this.error = observer.error;
+            this.complete = observer.complete;
+        }
+    }
+}
+
+/**
+ * @license
+ * Copyright 2017 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/**
+ * Returns a function that invokes f with its arguments asynchronously as a
+ * microtask, i.e. as soon as possible after the current script returns back
+ * into browser code.
+ */
+// eslint-disable-next-line @typescript-eslint/ban-types
+function index_esm2017_async(f) {
+    return (...argsToForward) => {
+        // eslint-disable-next-line @typescript-eslint/no-floating-promises
+        Promise.resolve().then(() => f(...argsToForward));
+    };
+}
+
+/**
+ * @license
+ * Copyright 2017 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/** An override for the text-based Connection. Used in tests. */
+let textFactoryOverride = null;
+/**
+ * Network layer for browsers. We use this instead of goog.net.XhrIo because
+ * goog.net.XhrIo is hyuuuuge and doesn't work in React Native on Android.
+ */
+class XhrConnection {
+    constructor() {
+        this.sent_ = false;
+        this.xhr_ = new XMLHttpRequest();
+        this.initXhr();
+        this.errorCode_ = ErrorCode.NO_ERROR;
+        this.sendPromise_ = new Promise(resolve => {
+            this.xhr_.addEventListener('abort', () => {
+                this.errorCode_ = ErrorCode.ABORT;
+                resolve();
+            });
+            this.xhr_.addEventListener('error', () => {
+                this.errorCode_ = ErrorCode.NETWORK_ERROR;
+                resolve();
+            });
+            this.xhr_.addEventListener('load', () => {
+                resolve();
+            });
+        });
+    }
+    send(url, method, body, headers) {
+        if (this.sent_) {
+            throw internalError('cannot .send() more than once');
+        }
+        this.sent_ = true;
+        this.xhr_.open(method, url, true);
+        if (headers !== undefined) {
+            for (const key in headers) {
+                if (headers.hasOwnProperty(key)) {
+                    this.xhr_.setRequestHeader(key, headers[key].toString());
+                }
+            }
+        }
+        if (body !== undefined) {
+            this.xhr_.send(body);
+        }
+        else {
+            this.xhr_.send();
+        }
+        return this.sendPromise_;
+    }
+    getErrorCode() {
+        if (!this.sent_) {
+            throw internalError('cannot .getErrorCode() before sending');
+        }
+        return this.errorCode_;
+    }
+    getStatus() {
+        if (!this.sent_) {
+            throw internalError('cannot .getStatus() before sending');
+        }
+        try {
+            return this.xhr_.status;
+        }
+        catch (e) {
+            return -1;
+        }
+    }
+    getResponse() {
+        if (!this.sent_) {
+            throw internalError('cannot .getResponse() before sending');
+        }
+        return this.xhr_.response;
+    }
+    getErrorText() {
+        if (!this.sent_) {
+            throw internalError('cannot .getErrorText() before sending');
+        }
+        return this.xhr_.statusText;
+    }
+    /** Aborts the request. */
+    abort() {
+        this.xhr_.abort();
+    }
+    getResponseHeader(header) {
+        return this.xhr_.getResponseHeader(header);
+    }
+    addUploadProgressListener(listener) {
+        if (this.xhr_.upload != null) {
+            this.xhr_.upload.addEventListener('progress', listener);
+        }
+    }
+    removeUploadProgressListener(listener) {
+        if (this.xhr_.upload != null) {
+            this.xhr_.upload.removeEventListener('progress', listener);
+        }
+    }
+}
+class XhrTextConnection extends XhrConnection {
+    initXhr() {
+        this.xhr_.responseType = 'text';
+    }
+}
+function newTextConnection() {
+    return textFactoryOverride ? textFactoryOverride() : new XhrTextConnection();
+}
+class XhrBytesConnection extends (/* unused pure expression or super */ null && (XhrConnection)) {
+    initXhr() {
+        this.xhr_.responseType = 'arraybuffer';
+    }
+}
+function newBytesConnection() {
+    return new XhrBytesConnection();
+}
+class XhrBlobConnection extends (/* unused pure expression or super */ null && (XhrConnection)) {
+    initXhr() {
+        this.xhr_.responseType = 'blob';
+    }
+}
+function newBlobConnection() {
+    return new XhrBlobConnection();
+}
+
+/**
+ * @license
+ * Copyright 2017 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/**
+ * Represents a blob being uploaded. Can be used to pause/resume/cancel the
+ * upload and manage callbacks for various events.
+ * @internal
+ */
+class UploadTask {
+    /**
+     * @param ref - The firebaseStorage.Reference object this task came
+     *     from, untyped to avoid cyclic dependencies.
+     * @param blob - The blob to upload.
+     */
+    constructor(ref, blob, metadata = null) {
+        /**
+         * Number of bytes transferred so far.
+         */
+        this._transferred = 0;
+        this._needToFetchStatus = false;
+        this._needToFetchMetadata = false;
+        this._observers = [];
+        this._error = undefined;
+        this._uploadUrl = undefined;
+        this._request = undefined;
+        this._chunkMultiplier = 1;
+        this._resolve = undefined;
+        this._reject = undefined;
+        this._ref = ref;
+        this._blob = blob;
+        this._metadata = metadata;
+        this._mappings = getMappings();
+        this._resumable = this._shouldDoResumable(this._blob);
+        this._state = "running" /* InternalTaskState.RUNNING */;
+        this._errorHandler = error => {
+            this._request = undefined;
+            this._chunkMultiplier = 1;
+            if (error._codeEquals(StorageErrorCode.CANCELED)) {
+                this._needToFetchStatus = true;
+                this.completeTransitions_();
+            }
+            else {
+                const backoffExpired = this.isExponentialBackoffExpired();
+                if (isRetryStatusCode(error.status, [])) {
+                    if (backoffExpired) {
+                        error = retryLimitExceeded();
+                    }
+                    else {
+                        this.sleepTime = Math.max(this.sleepTime * 2, DEFAULT_MIN_SLEEP_TIME_MILLIS);
+                        this._needToFetchStatus = true;
+                        this.completeTransitions_();
+                        return;
+                    }
+                }
+                this._error = error;
+                this._transition("error" /* InternalTaskState.ERROR */);
+            }
+        };
+        this._metadataErrorHandler = error => {
+            this._request = undefined;
+            if (error._codeEquals(StorageErrorCode.CANCELED)) {
+                this.completeTransitions_();
+            }
+            else {
+                this._error = error;
+                this._transition("error" /* InternalTaskState.ERROR */);
+            }
+        };
+        this.sleepTime = 0;
+        this.maxSleepTime = this._ref.storage.maxUploadRetryTime;
+        this._promise = new Promise((resolve, reject) => {
+            this._resolve = resolve;
+            this._reject = reject;
+            this._start();
+        });
+        // Prevent uncaught rejections on the internal promise from bubbling out
+        // to the top level with a dummy handler.
+        this._promise.then(null, () => { });
+    }
+    isExponentialBackoffExpired() {
+        return this.sleepTime > this.maxSleepTime;
+    }
+    _makeProgressCallback() {
+        const sizeBefore = this._transferred;
+        return loaded => this._updateProgress(sizeBefore + loaded);
+    }
+    _shouldDoResumable(blob) {
+        return blob.size() > 256 * 1024;
+    }
+    _start() {
+        if (this._state !== "running" /* InternalTaskState.RUNNING */) {
+            // This can happen if someone pauses us in a resume callback, for example.
+            return;
+        }
+        if (this._request !== undefined) {
+            return;
+        }
+        if (this._resumable) {
+            if (this._uploadUrl === undefined) {
+                this._createResumable();
+            }
+            else {
+                if (this._needToFetchStatus) {
+                    this._fetchStatus();
+                }
+                else {
+                    if (this._needToFetchMetadata) {
+                        // Happens if we miss the metadata on upload completion.
+                        this._fetchMetadata();
+                    }
+                    else {
+                        this.pendingTimeout = setTimeout(() => {
+                            this.pendingTimeout = undefined;
+                            this._continueUpload();
+                        }, this.sleepTime);
+                    }
+                }
+            }
+        }
+        else {
+            this._oneShotUpload();
+        }
+    }
+    _resolveToken(callback) {
+        // eslint-disable-next-line @typescript-eslint/no-floating-promises
+        Promise.all([
+            this._ref.storage._getAuthToken(),
+            this._ref.storage._getAppCheckToken()
+        ]).then(([authToken, appCheckToken]) => {
+            switch (this._state) {
+                case "running" /* InternalTaskState.RUNNING */:
+                    callback(authToken, appCheckToken);
+                    break;
+                case "canceling" /* InternalTaskState.CANCELING */:
+                    this._transition("canceled" /* InternalTaskState.CANCELED */);
+                    break;
+                case "pausing" /* InternalTaskState.PAUSING */:
+                    this._transition("paused" /* InternalTaskState.PAUSED */);
+                    break;
+            }
+        });
+    }
+    // TODO(andysoto): assert false
+    _createResumable() {
+        this._resolveToken((authToken, appCheckToken) => {
+            const requestInfo = createResumableUpload(this._ref.storage, this._ref._location, this._mappings, this._blob, this._metadata);
+            const createRequest = this._ref.storage._makeRequest(requestInfo, newTextConnection, authToken, appCheckToken);
+            this._request = createRequest;
+            createRequest.getPromise().then((url) => {
+                this._request = undefined;
+                this._uploadUrl = url;
+                this._needToFetchStatus = false;
+                this.completeTransitions_();
+            }, this._errorHandler);
+        });
+    }
+    _fetchStatus() {
+        // TODO(andysoto): assert(this.uploadUrl_ !== null);
+        const url = this._uploadUrl;
+        this._resolveToken((authToken, appCheckToken) => {
+            const requestInfo = getResumableUploadStatus(this._ref.storage, this._ref._location, url, this._blob);
+            const statusRequest = this._ref.storage._makeRequest(requestInfo, newTextConnection, authToken, appCheckToken);
+            this._request = statusRequest;
+            statusRequest.getPromise().then(status => {
+                status = status;
+                this._request = undefined;
+                this._updateProgress(status.current);
+                this._needToFetchStatus = false;
+                if (status.finalized) {
+                    this._needToFetchMetadata = true;
+                }
+                this.completeTransitions_();
+            }, this._errorHandler);
+        });
+    }
+    _continueUpload() {
+        const chunkSize = RESUMABLE_UPLOAD_CHUNK_SIZE * this._chunkMultiplier;
+        const status = new ResumableUploadStatus(this._transferred, this._blob.size());
+        // TODO(andysoto): assert(this.uploadUrl_ !== null);
+        const url = this._uploadUrl;
+        this._resolveToken((authToken, appCheckToken) => {
+            let requestInfo;
+            try {
+                requestInfo = continueResumableUpload(this._ref._location, this._ref.storage, url, this._blob, chunkSize, this._mappings, status, this._makeProgressCallback());
+            }
+            catch (e) {
+                this._error = e;
+                this._transition("error" /* InternalTaskState.ERROR */);
+                return;
+            }
+            const uploadRequest = this._ref.storage._makeRequest(requestInfo, newTextConnection, authToken, appCheckToken, 
+            /*retry=*/ false // Upload requests should not be retried as each retry should be preceded by another query request. Which is handled in this file.
+            );
+            this._request = uploadRequest;
+            uploadRequest.getPromise().then((newStatus) => {
+                this._increaseMultiplier();
+                this._request = undefined;
+                this._updateProgress(newStatus.current);
+                if (newStatus.finalized) {
+                    this._metadata = newStatus.metadata;
+                    this._transition("success" /* InternalTaskState.SUCCESS */);
+                }
+                else {
+                    this.completeTransitions_();
+                }
+            }, this._errorHandler);
+        });
+    }
+    _increaseMultiplier() {
+        const currentSize = RESUMABLE_UPLOAD_CHUNK_SIZE * this._chunkMultiplier;
+        // Max chunk size is 32M.
+        if (currentSize * 2 < 32 * 1024 * 1024) {
+            this._chunkMultiplier *= 2;
+        }
+    }
+    _fetchMetadata() {
+        this._resolveToken((authToken, appCheckToken) => {
+            const requestInfo = getMetadata$2(this._ref.storage, this._ref._location, this._mappings);
+            const metadataRequest = this._ref.storage._makeRequest(requestInfo, newTextConnection, authToken, appCheckToken);
+            this._request = metadataRequest;
+            metadataRequest.getPromise().then(metadata => {
+                this._request = undefined;
+                this._metadata = metadata;
+                this._transition("success" /* InternalTaskState.SUCCESS */);
+            }, this._metadataErrorHandler);
+        });
+    }
+    _oneShotUpload() {
+        this._resolveToken((authToken, appCheckToken) => {
+            const requestInfo = multipartUpload(this._ref.storage, this._ref._location, this._mappings, this._blob, this._metadata);
+            const multipartRequest = this._ref.storage._makeRequest(requestInfo, newTextConnection, authToken, appCheckToken);
+            this._request = multipartRequest;
+            multipartRequest.getPromise().then(metadata => {
+                this._request = undefined;
+                this._metadata = metadata;
+                this._updateProgress(this._blob.size());
+                this._transition("success" /* InternalTaskState.SUCCESS */);
+            }, this._errorHandler);
+        });
+    }
+    _updateProgress(transferred) {
+        const old = this._transferred;
+        this._transferred = transferred;
+        // A progress update can make the "transferred" value smaller (e.g. a
+        // partial upload not completed by server, after which the "transferred"
+        // value may reset to the value at the beginning of the request).
+        if (this._transferred !== old) {
+            this._notifyObservers();
+        }
+    }
+    _transition(state) {
+        if (this._state === state) {
+            return;
+        }
+        switch (state) {
+            case "canceling" /* InternalTaskState.CANCELING */:
+            case "pausing" /* InternalTaskState.PAUSING */:
+                // TODO(andysoto):
+                // assert(this.state_ === InternalTaskState.RUNNING ||
+                //        this.state_ === InternalTaskState.PAUSING);
+                this._state = state;
+                if (this._request !== undefined) {
+                    this._request.cancel();
+                }
+                else if (this.pendingTimeout) {
+                    clearTimeout(this.pendingTimeout);
+                    this.pendingTimeout = undefined;
+                    this.completeTransitions_();
+                }
+                break;
+            case "running" /* InternalTaskState.RUNNING */:
+                // TODO(andysoto):
+                // assert(this.state_ === InternalTaskState.PAUSED ||
+                //        this.state_ === InternalTaskState.PAUSING);
+                const wasPaused = this._state === "paused" /* InternalTaskState.PAUSED */;
+                this._state = state;
+                if (wasPaused) {
+                    this._notifyObservers();
+                    this._start();
+                }
+                break;
+            case "paused" /* InternalTaskState.PAUSED */:
+                // TODO(andysoto):
+                // assert(this.state_ === InternalTaskState.PAUSING);
+                this._state = state;
+                this._notifyObservers();
+                break;
+            case "canceled" /* InternalTaskState.CANCELED */:
+                // TODO(andysoto):
+                // assert(this.state_ === InternalTaskState.PAUSED ||
+                //        this.state_ === InternalTaskState.CANCELING);
+                this._error = canceled();
+                this._state = state;
+                this._notifyObservers();
+                break;
+            case "error" /* InternalTaskState.ERROR */:
+                // TODO(andysoto):
+                // assert(this.state_ === InternalTaskState.RUNNING ||
+                //        this.state_ === InternalTaskState.PAUSING ||
+                //        this.state_ === InternalTaskState.CANCELING);
+                this._state = state;
+                this._notifyObservers();
+                break;
+            case "success" /* InternalTaskState.SUCCESS */:
+                // TODO(andysoto):
+                // assert(this.state_ === InternalTaskState.RUNNING ||
+                //        this.state_ === InternalTaskState.PAUSING ||
+                //        this.state_ === InternalTaskState.CANCELING);
+                this._state = state;
+                this._notifyObservers();
+                break;
+        }
+    }
+    completeTransitions_() {
+        switch (this._state) {
+            case "pausing" /* InternalTaskState.PAUSING */:
+                this._transition("paused" /* InternalTaskState.PAUSED */);
+                break;
+            case "canceling" /* InternalTaskState.CANCELING */:
+                this._transition("canceled" /* InternalTaskState.CANCELED */);
+                break;
+            case "running" /* InternalTaskState.RUNNING */:
+                this._start();
+                break;
+        }
+    }
+    /**
+     * A snapshot of the current task state.
+     */
+    get snapshot() {
+        const externalState = taskStateFromInternalTaskState(this._state);
+        return {
+            bytesTransferred: this._transferred,
+            totalBytes: this._blob.size(),
+            state: externalState,
+            metadata: this._metadata,
+            task: this,
+            ref: this._ref
+        };
+    }
+    /**
+     * Adds a callback for an event.
+     * @param type - The type of event to listen for.
+     * @param nextOrObserver -
+     *     The `next` function, which gets called for each item in
+     *     the event stream, or an observer object with some or all of these three
+     *     properties (`next`, `error`, `complete`).
+     * @param error - A function that gets called with a `StorageError`
+     *     if the event stream ends due to an error.
+     * @param completed - A function that gets called if the
+     *     event stream ends normally.
+     * @returns
+     *     If only the event argument is passed, returns a function you can use to
+     *     add callbacks (see the examples above). If more than just the event
+     *     argument is passed, returns a function you can call to unregister the
+     *     callbacks.
+     */
+    on(type, nextOrObserver, error, completed) {
+        // Note: `type` isn't being used. Its type is also incorrect. TaskEvent should not be a string.
+        const observer = new Observer(nextOrObserver || undefined, error || undefined, completed || undefined);
+        this._addObserver(observer);
+        return () => {
+            this._removeObserver(observer);
+        };
+    }
+    /**
+     * This object behaves like a Promise, and resolves with its snapshot data
+     * when the upload completes.
+     * @param onFulfilled - The fulfillment callback. Promise chaining works as normal.
+     * @param onRejected - The rejection callback.
+     */
+    then(onFulfilled, onRejected) {
+        // These casts are needed so that TypeScript can infer the types of the
+        // resulting Promise.
+        return this._promise.then(onFulfilled, onRejected);
+    }
+    /**
+     * Equivalent to calling `then(null, onRejected)`.
+     */
+    catch(onRejected) {
+        return this.then(null, onRejected);
+    }
+    /**
+     * Adds the given observer.
+     */
+    _addObserver(observer) {
+        this._observers.push(observer);
+        this._notifyObserver(observer);
+    }
+    /**
+     * Removes the given observer.
+     */
+    _removeObserver(observer) {
+        const i = this._observers.indexOf(observer);
+        if (i !== -1) {
+            this._observers.splice(i, 1);
+        }
+    }
+    _notifyObservers() {
+        this._finishPromise();
+        const observers = this._observers.slice();
+        observers.forEach(observer => {
+            this._notifyObserver(observer);
+        });
+    }
+    _finishPromise() {
+        if (this._resolve !== undefined) {
+            let triggered = true;
+            switch (taskStateFromInternalTaskState(this._state)) {
+                case TaskState.SUCCESS:
+                    index_esm2017_async(this._resolve.bind(null, this.snapshot))();
+                    break;
+                case TaskState.CANCELED:
+                case TaskState.ERROR:
+                    const toCall = this._reject;
+                    index_esm2017_async(toCall.bind(null, this._error))();
+                    break;
+                default:
+                    triggered = false;
+                    break;
+            }
+            if (triggered) {
+                this._resolve = undefined;
+                this._reject = undefined;
+            }
+        }
+    }
+    _notifyObserver(observer) {
+        const externalState = taskStateFromInternalTaskState(this._state);
+        switch (externalState) {
+            case TaskState.RUNNING:
+            case TaskState.PAUSED:
+                if (observer.next) {
+                    index_esm2017_async(observer.next.bind(observer, this.snapshot))();
+                }
+                break;
+            case TaskState.SUCCESS:
+                if (observer.complete) {
+                    index_esm2017_async(observer.complete.bind(observer))();
+                }
+                break;
+            case TaskState.CANCELED:
+            case TaskState.ERROR:
+                if (observer.error) {
+                    index_esm2017_async(observer.error.bind(observer, this._error))();
+                }
+                break;
+            default:
+                // TODO(andysoto): assert(false);
+                if (observer.error) {
+                    index_esm2017_async(observer.error.bind(observer, this._error))();
+                }
+        }
+    }
+    /**
+     * Resumes a paused task. Has no effect on a currently running or failed task.
+     * @returns True if the operation took effect, false if ignored.
+     */
+    resume() {
+        const valid = this._state === "paused" /* InternalTaskState.PAUSED */ ||
+            this._state === "pausing" /* InternalTaskState.PAUSING */;
+        if (valid) {
+            this._transition("running" /* InternalTaskState.RUNNING */);
+        }
+        return valid;
+    }
+    /**
+     * Pauses a currently running task. Has no effect on a paused or failed task.
+     * @returns True if the operation took effect, false if ignored.
+     */
+    pause() {
+        const valid = this._state === "running" /* InternalTaskState.RUNNING */;
+        if (valid) {
+            this._transition("pausing" /* InternalTaskState.PAUSING */);
+        }
+        return valid;
+    }
+    /**
+     * Cancels a currently running or paused task. Has no effect on a complete or
+     * failed task.
+     * @returns True if the operation took effect, false if ignored.
+     */
+    cancel() {
+        const valid = this._state === "running" /* InternalTaskState.RUNNING */ ||
+            this._state === "pausing" /* InternalTaskState.PAUSING */;
+        if (valid) {
+            this._transition("canceling" /* InternalTaskState.CANCELING */);
+        }
+        return valid;
+    }
+}
+
+/**
+ * @license
+ * Copyright 2019 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/**
+ * Provides methods to interact with a bucket in the Firebase Storage service.
+ * @internal
+ * @param _location - An fbs.location, or the URL at
+ *     which to base this object, in one of the following forms:
+ *         gs://<bucket>/<object-path>
+ *         http[s]://firebasestorage.googleapis.com/
+ *                     <api-version>/b/<bucket>/o/<object-path>
+ *     Any query or fragment strings will be ignored in the http[s]
+ *     format. If no value is passed, the storage object will use a URL based on
+ *     the project ID of the base firebase.App instance.
+ */
+class Reference {
+    constructor(_service, location) {
+        this._service = _service;
+        if (location instanceof Location) {
+            this._location = location;
+        }
+        else {
+            this._location = Location.makeFromUrl(location, _service.host);
+        }
+    }
+    /**
+     * Returns the URL for the bucket and path this object references,
+     *     in the form gs://<bucket>/<object-path>
+     * @override
+     */
+    toString() {
+        return 'gs://' + this._location.bucket + '/' + this._location.path;
+    }
+    _newRef(service, location) {
+        return new Reference(service, location);
+    }
+    /**
+     * A reference to the root of this object's bucket.
+     */
+    get root() {
+        const location = new Location(this._location.bucket, '');
+        return this._newRef(this._service, location);
+    }
+    /**
+     * The name of the bucket containing this reference's object.
+     */
+    get bucket() {
+        return this._location.bucket;
+    }
+    /**
+     * The full path of this object.
+     */
+    get fullPath() {
+        return this._location.path;
+    }
+    /**
+     * The short name of this object, which is the last component of the full path.
+     * For example, if fullPath is 'full/path/image.png', name is 'image.png'.
+     */
+    get name() {
+        return lastComponent(this._location.path);
+    }
+    /**
+     * The `StorageService` instance this `StorageReference` is associated with.
+     */
+    get storage() {
+        return this._service;
+    }
+    /**
+     * A `StorageReference` pointing to the parent location of this `StorageReference`, or null if
+     * this reference is the root.
+     */
+    get parent() {
+        const newPath = index_esm2017_parent(this._location.path);
+        if (newPath === null) {
+            return null;
+        }
+        const location = new Location(this._location.bucket, newPath);
+        return new Reference(this._service, location);
+    }
+    /**
+     * Utility function to throw an error in methods that do not accept a root reference.
+     */
+    _throwIfRoot(name) {
+        if (this._location.path === '') {
+            throw invalidRootOperation(name);
+        }
+    }
+}
+/**
+ * Download the bytes at the object's location.
+ * @returns A Promise containing the downloaded bytes.
+ */
+function getBytesInternal(ref, maxDownloadSizeBytes) {
+    ref._throwIfRoot('getBytes');
+    const requestInfo = getBytes$1(ref.storage, ref._location, maxDownloadSizeBytes);
+    return ref.storage
+        .makeRequestWithTokens(requestInfo, newBytesConnection)
+        .then(bytes => maxDownloadSizeBytes !== undefined
+        ? // GCS may not honor the Range header for small files
+            bytes.slice(0, maxDownloadSizeBytes)
+        : bytes);
+}
+/**
+ * Download the bytes at the object's location.
+ * @returns A Promise containing the downloaded blob.
+ */
+function getBlobInternal(ref, maxDownloadSizeBytes) {
+    ref._throwIfRoot('getBlob');
+    const requestInfo = getBytes$1(ref.storage, ref._location, maxDownloadSizeBytes);
+    return ref.storage
+        .makeRequestWithTokens(requestInfo, newBlobConnection)
+        .then(blob => maxDownloadSizeBytes !== undefined
+        ? // GCS may not honor the Range header for small files
+            blob.slice(0, maxDownloadSizeBytes)
+        : blob);
+}
+/**
+ * Uploads data to this object's location.
+ * The upload is not resumable.
+ *
+ * @param ref - StorageReference where data should be uploaded.
+ * @param data - The data to upload.
+ * @param metadata - Metadata for the newly uploaded data.
+ * @returns A Promise containing an UploadResult
+ */
+function uploadBytes$1(ref, data, metadata) {
+    ref._throwIfRoot('uploadBytes');
+    const requestInfo = multipartUpload(ref.storage, ref._location, getMappings(), new FbsBlob(data, true), metadata);
+    return ref.storage
+        .makeRequestWithTokens(requestInfo, newTextConnection)
+        .then(finalMetadata => {
+        return {
+            metadata: finalMetadata,
+            ref
+        };
+    });
+}
+/**
+ * Uploads data to this object's location.
+ * The upload can be paused and resumed, and exposes progress updates.
+ * @public
+ * @param ref - StorageReference where data should be uploaded.
+ * @param data - The data to upload.
+ * @param metadata - Metadata for the newly uploaded data.
+ * @returns An UploadTask
+ */
+function uploadBytesResumable$1(ref, data, metadata) {
+    ref._throwIfRoot('uploadBytesResumable');
+    return new UploadTask(ref, new FbsBlob(data), metadata);
+}
+/**
+ * Uploads a string to this object's location.
+ * The upload is not resumable.
+ * @public
+ * @param ref - StorageReference where string should be uploaded.
+ * @param value - The string to upload.
+ * @param format - The format of the string to upload.
+ * @param metadata - Metadata for the newly uploaded string.
+ * @returns A Promise containing an UploadResult
+ */
+function uploadString$1(ref, value, format = StringFormat.RAW, metadata) {
+    ref._throwIfRoot('uploadString');
+    const data = dataFromString(format, value);
+    const metadataClone = Object.assign({}, metadata);
+    if (metadataClone['contentType'] == null && data.contentType != null) {
+        metadataClone['contentType'] = data.contentType;
+    }
+    return uploadBytes$1(ref, data.data, metadataClone);
+}
+/**
+ * List all items (files) and prefixes (folders) under this storage reference.
+ *
+ * This is a helper method for calling list() repeatedly until there are
+ * no more results. The default pagination size is 1000.
+ *
+ * Note: The results may not be consistent if objects are changed while this
+ * operation is running.
+ *
+ * Warning: listAll may potentially consume too many resources if there are
+ * too many results.
+ * @public
+ * @param ref - StorageReference to get list from.
+ *
+ * @returns A Promise that resolves with all the items and prefixes under
+ *      the current storage reference. `prefixes` contains references to
+ *      sub-directories and `items` contains references to objects in this
+ *      folder. `nextPageToken` is never returned.
+ */
+function listAll$1(ref) {
+    const accumulator = {
+        prefixes: [],
+        items: []
+    };
+    return listAllHelper(ref, accumulator).then(() => accumulator);
+}
+/**
+ * Separated from listAll because async functions can't use "arguments".
+ * @param ref
+ * @param accumulator
+ * @param pageToken
+ */
+async function listAllHelper(ref, accumulator, pageToken) {
+    const opt = {
+        // maxResults is 1000 by default.
+        pageToken
+    };
+    const nextPage = await list$1(ref, opt);
+    accumulator.prefixes.push(...nextPage.prefixes);
+    accumulator.items.push(...nextPage.items);
+    if (nextPage.nextPageToken != null) {
+        await listAllHelper(ref, accumulator, nextPage.nextPageToken);
+    }
+}
+/**
+ * List items (files) and prefixes (folders) under this storage reference.
+ *
+ * List API is only available for Firebase Rules Version 2.
+ *
+ * GCS is a key-blob store. Firebase Storage imposes the semantic of '/'
+ * delimited folder structure.
+ * Refer to GCS's List API if you want to learn more.
+ *
+ * To adhere to Firebase Rules's Semantics, Firebase Storage does not
+ * support objects whose paths end with "/" or contain two consecutive
+ * "/"s. Firebase Storage List API will filter these unsupported objects.
+ * list() may fail if there are too many unsupported objects in the bucket.
+ * @public
+ *
+ * @param ref - StorageReference to get list from.
+ * @param options - See ListOptions for details.
+ * @returns A Promise that resolves with the items and prefixes.
+ *      `prefixes` contains references to sub-folders and `items`
+ *      contains references to objects in this folder. `nextPageToken`
+ *      can be used to get the rest of the results.
+ */
+function list$1(ref, options) {
+    if (options != null) {
+        if (typeof options.maxResults === 'number') {
+            validateNumber('options.maxResults', 
+            /* minValue= */ 1, 
+            /* maxValue= */ 1000, options.maxResults);
+        }
+    }
+    const op = options || {};
+    const requestInfo = list$2(ref.storage, ref._location, 
+    /*delimiter= */ '/', op.pageToken, op.maxResults);
+    return ref.storage.makeRequestWithTokens(requestInfo, newTextConnection);
+}
+/**
+ * A `Promise` that resolves with the metadata for this object. If this
+ * object doesn't exist or metadata cannot be retrieved, the promise is
+ * rejected.
+ * @public
+ * @param ref - StorageReference to get metadata from.
+ */
+function getMetadata$1(ref) {
+    ref._throwIfRoot('getMetadata');
+    const requestInfo = getMetadata$2(ref.storage, ref._location, getMappings());
+    return ref.storage.makeRequestWithTokens(requestInfo, newTextConnection);
+}
+/**
+ * Updates the metadata for this object.
+ * @public
+ * @param ref - StorageReference to update metadata for.
+ * @param metadata - The new metadata for the object.
+ *     Only values that have been explicitly set will be changed. Explicitly
+ *     setting a value to null will remove the metadata.
+ * @returns A `Promise` that resolves
+ *     with the new metadata for this object.
+ *     See `firebaseStorage.Reference.prototype.getMetadata`
+ */
+function updateMetadata$1(ref, metadata) {
+    ref._throwIfRoot('updateMetadata');
+    const requestInfo = updateMetadata$2(ref.storage, ref._location, metadata, getMappings());
+    return ref.storage.makeRequestWithTokens(requestInfo, newTextConnection);
+}
+/**
+ * Returns the download URL for the given Reference.
+ * @public
+ * @returns A `Promise` that resolves with the download
+ *     URL for this object.
+ */
+function getDownloadURL$1(ref) {
+    ref._throwIfRoot('getDownloadURL');
+    const requestInfo = getDownloadUrl(ref.storage, ref._location, getMappings());
+    return ref.storage
+        .makeRequestWithTokens(requestInfo, newTextConnection)
+        .then(url => {
+        if (url === null) {
+            throw noDownloadURL();
+        }
+        return url;
+    });
+}
+/**
+ * Deletes the object at this location.
+ * @public
+ * @param ref - StorageReference for object to delete.
+ * @returns A `Promise` that resolves if the deletion succeeds.
+ */
+function deleteObject$1(ref) {
+    ref._throwIfRoot('deleteObject');
+    const requestInfo = deleteObject$2(ref.storage, ref._location);
+    return ref.storage.makeRequestWithTokens(requestInfo, newTextConnection);
+}
+/**
+ * Returns reference for object obtained by appending `childPath` to `ref`.
+ *
+ * @param ref - StorageReference to get child of.
+ * @param childPath - Child path from provided ref.
+ * @returns A reference to the object obtained by
+ * appending childPath, removing any duplicate, beginning, or trailing
+ * slashes.
+ *
+ */
+function _getChild$1(ref, childPath) {
+    const newPath = child(ref._location.path, childPath);
+    const location = new Location(ref._location.bucket, newPath);
+    return new Reference(ref.storage, location);
+}
+
+/**
+ * @license
+ * Copyright 2017 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+function isUrl(path) {
+    return /^[A-Za-z]+:\/\//.test(path);
+}
+/**
+ * Returns a firebaseStorage.Reference for the given url.
+ */
+function refFromURL(service, url) {
+    return new Reference(service, url);
+}
+/**
+ * Returns a firebaseStorage.Reference for the given path in the default
+ * bucket.
+ */
+function refFromPath(ref, path) {
+    if (ref instanceof FirebaseStorageImpl) {
+        const service = ref;
+        if (service._bucket == null) {
+            throw noDefaultBucket();
+        }
+        const reference = new Reference(service, service._bucket);
+        if (path != null) {
+            return refFromPath(reference, path);
+        }
+        else {
+            return reference;
+        }
+    }
+    else {
+        // ref is a Reference
+        if (path !== undefined) {
+            return _getChild$1(ref, path);
+        }
+        else {
+            return ref;
+        }
+    }
+}
+function ref$1(serviceOrRef, pathOrUrl) {
+    if (pathOrUrl && isUrl(pathOrUrl)) {
+        if (serviceOrRef instanceof FirebaseStorageImpl) {
+            return refFromURL(serviceOrRef, pathOrUrl);
+        }
+        else {
+            throw invalidArgument('To use ref(service, url), the first argument must be a Storage instance.');
+        }
+    }
+    else {
+        return refFromPath(serviceOrRef, pathOrUrl);
+    }
+}
+function extractBucket(host, config) {
+    const bucketString = config === null || config === void 0 ? void 0 : config[CONFIG_STORAGE_BUCKET_KEY];
+    if (bucketString == null) {
+        return null;
+    }
+    return Location.makeFromBucketSpec(bucketString, host);
+}
+function connectStorageEmulator$1(storage, host, port, options = {}) {
+    storage.host = `${host}:${port}`;
+    storage._protocol = 'http';
+    const { mockUserToken } = options;
+    if (mockUserToken) {
+        storage._overrideAuthToken =
+            typeof mockUserToken === 'string'
+                ? mockUserToken
+                : createMockUserToken(mockUserToken, storage.app.options.projectId);
+    }
+}
+/**
+ * A service that provides Firebase Storage Reference instances.
+ * @param opt_url - gs:// url to a custom Storage Bucket
+ *
+ * @internal
+ */
+class FirebaseStorageImpl {
+    constructor(
+    /**
+     * FirebaseApp associated with this StorageService instance.
+     */
+    app, _authProvider, 
+    /**
+     * @internal
+     */
+    _appCheckProvider, 
+    /**
+     * @internal
+     */
+    _url, _firebaseVersion) {
+        this.app = app;
+        this._authProvider = _authProvider;
+        this._appCheckProvider = _appCheckProvider;
+        this._url = _url;
+        this._firebaseVersion = _firebaseVersion;
+        this._bucket = null;
+        /**
+         * This string can be in the formats:
+         * - host
+         * - host:port
+         */
+        this._host = DEFAULT_HOST;
+        this._protocol = 'https';
+        this._appId = null;
+        this._deleted = false;
+        this._maxOperationRetryTime = DEFAULT_MAX_OPERATION_RETRY_TIME;
+        this._maxUploadRetryTime = DEFAULT_MAX_UPLOAD_RETRY_TIME;
+        this._requests = new Set();
+        if (_url != null) {
+            this._bucket = Location.makeFromBucketSpec(_url, this._host);
+        }
+        else {
+            this._bucket = extractBucket(this._host, this.app.options);
+        }
+    }
+    /**
+     * The host string for this service, in the form of `host` or
+     * `host:port`.
+     */
+    get host() {
+        return this._host;
+    }
+    set host(host) {
+        this._host = host;
+        if (this._url != null) {
+            this._bucket = Location.makeFromBucketSpec(this._url, host);
+        }
+        else {
+            this._bucket = extractBucket(host, this.app.options);
+        }
+    }
+    /**
+     * The maximum time to retry uploads in milliseconds.
+     */
+    get maxUploadRetryTime() {
+        return this._maxUploadRetryTime;
+    }
+    set maxUploadRetryTime(time) {
+        validateNumber('time', 
+        /* minValue=*/ 0, 
+        /* maxValue= */ Number.POSITIVE_INFINITY, time);
+        this._maxUploadRetryTime = time;
+    }
+    /**
+     * The maximum time to retry operations other than uploads or downloads in
+     * milliseconds.
+     */
+    get maxOperationRetryTime() {
+        return this._maxOperationRetryTime;
+    }
+    set maxOperationRetryTime(time) {
+        validateNumber('time', 
+        /* minValue=*/ 0, 
+        /* maxValue= */ Number.POSITIVE_INFINITY, time);
+        this._maxOperationRetryTime = time;
+    }
+    async _getAuthToken() {
+        if (this._overrideAuthToken) {
+            return this._overrideAuthToken;
+        }
+        const auth = this._authProvider.getImmediate({ optional: true });
+        if (auth) {
+            const tokenData = await auth.getToken();
+            if (tokenData !== null) {
+                return tokenData.accessToken;
+            }
+        }
+        return null;
+    }
+    async _getAppCheckToken() {
+        const appCheck = this._appCheckProvider.getImmediate({ optional: true });
+        if (appCheck) {
+            const result = await appCheck.getToken();
+            // TODO: What do we want to do if there is an error getting the token?
+            // Context: appCheck.getToken() will never throw even if an error happened. In the error case, a dummy token will be
+            // returned along with an error field describing the error. In general, we shouldn't care about the error condition and just use
+            // the token (actual or dummy) to send requests.
+            return result.token;
+        }
+        return null;
+    }
+    /**
+     * Stop running requests and prevent more from being created.
+     */
+    _delete() {
+        if (!this._deleted) {
+            this._deleted = true;
+            this._requests.forEach(request => request.cancel());
+            this._requests.clear();
+        }
+        return Promise.resolve();
+    }
+    /**
+     * Returns a new firebaseStorage.Reference object referencing this StorageService
+     * at the given Location.
+     */
+    _makeStorageReference(loc) {
+        return new Reference(this, loc);
+    }
+    /**
+     * @param requestInfo - HTTP RequestInfo object
+     * @param authToken - Firebase auth token
+     */
+    _makeRequest(requestInfo, requestFactory, authToken, appCheckToken, retry = true) {
+        if (!this._deleted) {
+            const request = makeRequest(requestInfo, this._appId, authToken, appCheckToken, requestFactory, this._firebaseVersion, retry);
+            this._requests.add(request);
+            // Request removes itself from set when complete.
+            request.getPromise().then(() => this._requests.delete(request), () => this._requests.delete(request));
+            return request;
+        }
+        else {
+            return new FailRequest(appDeleted());
+        }
+    }
+    async makeRequestWithTokens(requestInfo, requestFactory) {
+        const [authToken, appCheckToken] = await Promise.all([
+            this._getAuthToken(),
+            this._getAppCheckToken()
+        ]);
+        return this._makeRequest(requestInfo, requestFactory, authToken, appCheckToken).getPromise();
+    }
+}
+
+const index_esm2017_name = "@firebase/storage";
+const version = "0.13.2";
+
+/**
+ * @license
+ * Copyright 2020 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/**
+ * Type constant for Firebase Storage.
+ */
+const STORAGE_TYPE = 'storage';
+
+/**
+ * @license
+ * Copyright 2020 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/**
+ * Downloads the data at the object's location. Returns an error if the object
+ * is not found.
+ *
+ * To use this functionality, you have to whitelist your app's origin in your
+ * Cloud Storage bucket. See also
+ * https://cloud.google.com/storage/docs/configuring-cors
+ *
+ * @public
+ * @param ref - StorageReference where data should be downloaded.
+ * @param maxDownloadSizeBytes - If set, the maximum allowed size in bytes to
+ * retrieve.
+ * @returns A Promise containing the object's bytes
+ */
+function getBytes(ref, maxDownloadSizeBytes) {
+    ref = getModularInstance(ref);
+    return getBytesInternal(ref, maxDownloadSizeBytes);
+}
+/**
+ * Uploads data to this object's location.
+ * The upload is not resumable.
+ * @public
+ * @param ref - {@link StorageReference} where data should be uploaded.
+ * @param data - The data to upload.
+ * @param metadata - Metadata for the data to upload.
+ * @returns A Promise containing an UploadResult
+ */
+function uploadBytes(ref, data, metadata) {
+    ref = (0,dist_index_esm2017/* getModularInstance */.Ku)(ref);
+    return uploadBytes$1(ref, data, metadata);
+}
+/**
+ * Uploads a string to this object's location.
+ * The upload is not resumable.
+ * @public
+ * @param ref - {@link StorageReference} where string should be uploaded.
+ * @param value - The string to upload.
+ * @param format - The format of the string to upload.
+ * @param metadata - Metadata for the string to upload.
+ * @returns A Promise containing an UploadResult
+ */
+function uploadString(ref, value, format, metadata) {
+    ref = getModularInstance(ref);
+    return uploadString$1(ref, value, format, metadata);
+}
+/**
+ * Uploads data to this object's location.
+ * The upload can be paused and resumed, and exposes progress updates.
+ * @public
+ * @param ref - {@link StorageReference} where data should be uploaded.
+ * @param data - The data to upload.
+ * @param metadata - Metadata for the data to upload.
+ * @returns An UploadTask
+ */
+function uploadBytesResumable(ref, data, metadata) {
+    ref = getModularInstance(ref);
+    return uploadBytesResumable$1(ref, data, metadata);
+}
+/**
+ * A `Promise` that resolves with the metadata for this object. If this
+ * object doesn't exist or metadata cannot be retrieved, the promise is
+ * rejected.
+ * @public
+ * @param ref - {@link StorageReference} to get metadata from.
+ */
+function getMetadata(ref) {
+    ref = getModularInstance(ref);
+    return getMetadata$1(ref);
+}
+/**
+ * Updates the metadata for this object.
+ * @public
+ * @param ref - {@link StorageReference} to update metadata for.
+ * @param metadata - The new metadata for the object.
+ *     Only values that have been explicitly set will be changed. Explicitly
+ *     setting a value to null will remove the metadata.
+ * @returns A `Promise` that resolves with the new metadata for this object.
+ */
+function updateMetadata(ref, metadata) {
+    ref = getModularInstance(ref);
+    return updateMetadata$1(ref, metadata);
+}
+/**
+ * List items (files) and prefixes (folders) under this storage reference.
+ *
+ * List API is only available for Firebase Rules Version 2.
+ *
+ * GCS is a key-blob store. Firebase Storage imposes the semantic of '/'
+ * delimited folder structure.
+ * Refer to GCS's List API if you want to learn more.
+ *
+ * To adhere to Firebase Rules's Semantics, Firebase Storage does not
+ * support objects whose paths end with "/" or contain two consecutive
+ * "/"s. Firebase Storage List API will filter these unsupported objects.
+ * list() may fail if there are too many unsupported objects in the bucket.
+ * @public
+ *
+ * @param ref - {@link StorageReference} to get list from.
+ * @param options - See {@link ListOptions} for details.
+ * @returns A `Promise` that resolves with the items and prefixes.
+ *      `prefixes` contains references to sub-folders and `items`
+ *      contains references to objects in this folder. `nextPageToken`
+ *      can be used to get the rest of the results.
+ */
+function list(ref, options) {
+    ref = getModularInstance(ref);
+    return list$1(ref, options);
+}
+/**
+ * List all items (files) and prefixes (folders) under this storage reference.
+ *
+ * This is a helper method for calling list() repeatedly until there are
+ * no more results. The default pagination size is 1000.
+ *
+ * Note: The results may not be consistent if objects are changed while this
+ * operation is running.
+ *
+ * Warning: `listAll` may potentially consume too many resources if there are
+ * too many results.
+ * @public
+ * @param ref - {@link StorageReference} to get list from.
+ *
+ * @returns A `Promise` that resolves with all the items and prefixes under
+ *      the current storage reference. `prefixes` contains references to
+ *      sub-directories and `items` contains references to objects in this
+ *      folder. `nextPageToken` is never returned.
+ */
+function listAll(ref) {
+    ref = getModularInstance(ref);
+    return listAll$1(ref);
+}
+/**
+ * Returns the download URL for the given {@link StorageReference}.
+ * @public
+ * @param ref - {@link StorageReference} to get the download URL for.
+ * @returns A `Promise` that resolves with the download
+ *     URL for this object.
+ */
+function getDownloadURL(ref) {
+    ref = (0,dist_index_esm2017/* getModularInstance */.Ku)(ref);
+    return getDownloadURL$1(ref);
+}
+/**
+ * Deletes the object at this location.
+ * @public
+ * @param ref - {@link StorageReference} for object to delete.
+ * @returns A `Promise` that resolves if the deletion succeeds.
+ */
+function deleteObject(ref) {
+    ref = getModularInstance(ref);
+    return deleteObject$1(ref);
+}
+function ref(serviceOrRef, pathOrUrl) {
+    serviceOrRef = (0,dist_index_esm2017/* getModularInstance */.Ku)(serviceOrRef);
+    return ref$1(serviceOrRef, pathOrUrl);
+}
+/**
+ * @internal
+ */
+function _getChild(ref, childPath) {
+    return _getChild$1(ref, childPath);
+}
+/**
+ * Gets a {@link FirebaseStorage} instance for the given Firebase app.
+ * @public
+ * @param app - Firebase app to get {@link FirebaseStorage} instance for.
+ * @param bucketUrl - The gs:// url to your Firebase Storage Bucket.
+ * If not passed, uses the app's default Storage Bucket.
+ * @returns A {@link FirebaseStorage} instance.
+ */
+function getStorage(app = getApp(), bucketUrl) {
+    app = getModularInstance(app);
+    const storageProvider = _getProvider(app, STORAGE_TYPE);
+    const storageInstance = storageProvider.getImmediate({
+        identifier: bucketUrl
+    });
+    const emulator = getDefaultEmulatorHostnameAndPort('storage');
+    if (emulator) {
+        connectStorageEmulator(storageInstance, ...emulator);
+    }
+    return storageInstance;
+}
+/**
+ * Modify this {@link FirebaseStorage} instance to communicate with the Cloud Storage emulator.
+ *
+ * @param storage - The {@link FirebaseStorage} instance
+ * @param host - The emulator host (ex: localhost)
+ * @param port - The emulator port (ex: 5001)
+ * @param options - Emulator options. `options.mockUserToken` is the mock auth
+ * token to use for unit testing Security Rules.
+ * @public
+ */
+function connectStorageEmulator(storage, host, port, options = {}) {
+    connectStorageEmulator$1(storage, host, port, options);
+}
+
+/**
+ * @license
+ * Copyright 2021 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/**
+ * Downloads the data at the object's location. Returns an error if the object
+ * is not found.
+ *
+ * To use this functionality, you have to whitelist your app's origin in your
+ * Cloud Storage bucket. See also
+ * https://cloud.google.com/storage/docs/configuring-cors
+ *
+ * This API is not available in Node.
+ *
+ * @public
+ * @param ref - StorageReference where data should be downloaded.
+ * @param maxDownloadSizeBytes - If set, the maximum allowed size in bytes to
+ * retrieve.
+ * @returns A Promise that resolves with a Blob containing the object's bytes
+ */
+function getBlob(ref, maxDownloadSizeBytes) {
+    ref = getModularInstance(ref);
+    return getBlobInternal(ref, maxDownloadSizeBytes);
+}
+/**
+ * Downloads the data at the object's location. Raises an error event if the
+ * object is not found.
+ *
+ * This API is only available in Node.
+ *
+ * @public
+ * @param ref - StorageReference where data should be downloaded.
+ * @param maxDownloadSizeBytes - If set, the maximum allowed size in bytes to
+ * retrieve.
+ * @returns A stream with the object's data as bytes
+ */
+function getStream(ref, maxDownloadSizeBytes) {
+    throw new Error('getStream() is only supported by NodeJS builds');
+}
+
+/**
+ * Cloud Storage for Firebase
+ *
+ * @packageDocumentation
+ */
+function factory(container, { instanceIdentifier: url }) {
+    const app = container.getProvider('app').getImmediate();
+    const authProvider = container.getProvider('auth-internal');
+    const appCheckProvider = container.getProvider('app-check-internal');
+    return new FirebaseStorageImpl(app, authProvider, appCheckProvider, url, index_esm2017/* SDK_VERSION */.MF);
+}
+function registerStorage() {
+    (0,index_esm2017/* _registerComponent */.om)(new esm_index_esm2017/* Component */.uA(STORAGE_TYPE, factory, "PUBLIC" /* ComponentType.PUBLIC */).setMultipleInstances(true));
+    //RUNTIME_ENV will be replaced during the compilation to "node" for nodejs and an empty string for browser
+    (0,index_esm2017/* registerVersion */.KO)(index_esm2017_name, version, '');
+    // BUILD_TARGET will be replaced by values like esm5, esm2017, cjs5, etc during the compilation
+    (0,index_esm2017/* registerVersion */.KO)(index_esm2017_name, version, 'esm2017');
+}
+registerStorage();
+
+
+//# sourceMappingURL=index.esm2017.js.map
+
+;// CONCATENATED MODULE: ./node_modules/firebase/storage/dist/esm/index.esm.js
+
+//# sourceMappingURL=index.esm.js.map
+
+
+/***/ })
+
+}]);

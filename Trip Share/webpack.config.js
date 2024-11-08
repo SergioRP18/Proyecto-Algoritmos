@@ -41,7 +41,7 @@ cache: {
 },
 experiments: { topLevelAwait: true },
 optimization: {
-    minimize: true,
+    minimize: false,
     minimizer: [new TerserPlugin()],
 },
 };
