@@ -181,10 +181,6 @@ class NavBar extends HTMLElement {
 
         inputsDiv.appendChild(ul);
 
-        // Aquí agregamos el ícono de Exit fuera de la lista de enlaces
-        //const exitDiv = this.createExitIcon();
-        //inputsDiv.appendChild(exitDiv);//
-
         return inputsDiv;
     }
 
