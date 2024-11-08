@@ -1,11 +1,8 @@
-import { addObserver } from "../../store";
-
 class AppEditProfile extends HTMLElement{
 
     constructor(){
         super();
         this.attachShadow({mode:'open'});
-        addObserver(this);
     }
 
     async connectedCallback(){
@@ -13,7 +10,8 @@ class AppEditProfile extends HTMLElement{
     }
 
     return(){
-        
+            const nav = this.ownerDocument.createElement('nav-bar');
+            this.shadowRoot?.appendChild(nav);
     }
 };
 customElements.define("app-edit-profile", AppEditProfile);

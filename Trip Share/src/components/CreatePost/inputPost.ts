@@ -16,10 +16,10 @@ class Post extends HTMLElement {
 
         window.addEventListener('beforeunload', this.closeOnNavigation);
 
-        if(appState.postsByUser.length === 0){
-            const action = await getPostsByUser();
-            dispatch(action);
-        } 
+        // if(appState.postsByUser.length === 0){
+        //     const action = await getPostsByUser();
+        //     dispatch(action);
+        // } 
         this.render();
     }
 

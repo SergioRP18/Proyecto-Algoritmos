@@ -1,49 +1,34 @@
-import { addObserver } from "../../store";
-import { appState } from "../../store";
-import { dispatch } from "../../store";
-import { getPostsByUserAction } from "../../store/actions";
 import '../../components/indexPadre';
-import { NavBar, Post, PublicationsUser, UserProfile } from "../../components/indexPadre";
+import { appState } from '../../store';
 
 class AppProfile extends HTMLElement {
 
     constructor(){
         super();
         this.attachShadow({mode:'open'});
-        addObserver(this);
     }
 
     async connectedCallback() {
-        console.log('in profile screen');
-        console.log('screen app', appState.screen);
-        
-        console.log('posts', appState.postsByUser);
         this.render()
         
-		if (appState.postsByUser.length === 0) {
-			const action = await getPostsByUserAction();
-			dispatch(action);
-        }
-            
+		// if (appState.postsByUser.length === 0) {
+		// 	const action = await getPostsByUserAction();
+		// 	dispatch(action);
+        // }
 	}
 
-    render(){
-        if(this.shadowRoot){
-            console.log('render profile');
-            
-
-            const nav = this.ownerDocument.createElement('nav-bar') as NavBar;
+    async render(){
+            const nav = this.ownerDocument.createElement('nav-bar');
             this.shadowRoot?.appendChild(nav);
 
-            const userProfile = this.ownerDocument.createElement('section-user-profile') as UserProfile;
+            const userProfile = this.ownerDocument.createElement('section-user-profile');
             this.shadowRoot?.appendChild(userProfile);
 
-            const publicationsUser = this.ownerDocument.createElement('section-publications-user') as PublicationsUser;
+            const publicationsUser = this.ownerDocument.createElement('section-publications-user');
             this.shadowRoot?.appendChild(publicationsUser);
 
-            const postComponent = this.ownerDocument.createElement('section-post') as Post;
+            const postComponent = this.ownerDocument.createElement('section-post');
             this.shadowRoot?.appendChild(postComponent);
-        }
     }
 };
 customElements.define("app-profile", AppProfile);

@@ -1,7 +1,6 @@
 import { Screens } from '../../types/navigation';
 import { appState, dispatch } from '../../store';
 import { navigate } from '../../store/actions';
-import ExitAccount from '../ExitAccount/exitAccount';
 import { getUser, getFirebaseInstance } from '../../utils/Firebase';
 import { onAuthStateChanged } from "firebase/auth";
 import '../../components/indexPadre';
