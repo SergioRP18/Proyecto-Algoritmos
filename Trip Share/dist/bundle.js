@@ -43521,12 +43521,14 @@ exports["default"] = PublicationsUser;
 /***/ }),
 
 /***/ 1068:
-/***/ ((__unused_webpack_module, exports) => {
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.AttributeProfile = void 0;
+const Firebase_1 = __webpack_require__(8293);
+const auth_1 = __webpack_require__(5052);
 var AttributeProfile;
 (function (AttributeProfile) {
     AttributeProfile["username"] = "username";
@@ -43538,6 +43540,7 @@ var AttributeProfile;
 class UserProfile extends HTMLElement {
     constructor() {
         super();
+        this.isUserLoaded = false; // Controlar que los datos del usuario solo se carguen una vez
         this.attachShadow({ mode: 'open' });
     }
     static get observedAttributes() {
@@ -43555,39 +43558,68 @@ class UserProfile extends HTMLElement {
         }
         this.render();
     }
-    connectedCallback() {
-        console.log("UserProfile connectedCallback");
-        // Valores por defecto
-        if (!this.username)
-            this.username = 'john_doe';
-        if (!this.name)
-            this.name = 'John Doe';
-        if (!this.photo)
-            this.photo = 'user-photo.jpg';
-        if (!this.description)
-            this.description = 'Traveler and photographer';
-        if (!this.uid)
-            this.uid = 12345;
-        this.render();
+    // Método que carga el perfil del usuario desde Firebase
+    async renderUser(userId) {
+        if (this.isUserLoaded)
+            return; // Evitar recargar el usuario si ya se cargó antes
+        try {
+            const data = await (0, Firebase_1.getUser)(userId);
+            console.log(data);
+            if (data) {
+                this.setAttribute(AttributeProfile.photo, data.photo || 'default-photo.jpg');
+                this.setAttribute(AttributeProfile.name, data.name || 'No Name');
+                this.setAttribute(AttributeProfile.username, data.username || 'No Username');
+                this.setAttribute(AttributeProfile.uid, data.id.toString());
+                this.setAttribute(AttributeProfile.description, data.description || 'No description');
+                this.isUserLoaded = true; // Marcar que los datos del usuario fueron cargados
+                this.render(); // Actualizar la vista después de cargar los datos
+            }
+        }
+        catch (error) {
+            console.error('Error fetching user profile:', error);
+        }
     }
-    render() {
-        console.log("Rendering UserProfile");
+    // Método de renderizado principal
+    async render() {
+        try {
+            const { auth } = await (0, Firebase_1.getFirebaseInstance)();
+            (0, auth_1.onAuthStateChanged)(auth, async (user) => {
+                if (user) {
+                    // Si el usuario está autenticado, cargamos sus datos
+                    const userId = user.uid;
+                    await this.renderUser(userId);
+                }
+                else {
+                    console.log("No authenticated user.");
+                    this.isUserLoaded = false; // Resetear si el usuario no está autenticado
+                    // Opcional: Mostrar una vista de perfil por defecto o vacía
+                    this.render();
+                }
+            });
+        }
+        catch (error) {
+            console.error('Error during render:', error);
+        }
         if (this.shadowRoot) {
             const header = document.createElement('section');
             const headerDiv = document.createElement('div');
             header.appendChild(headerDiv);
+            // Foto del usuario
             const photoUser = document.createElement('img');
             photoUser.src = this.photo || 'default-photo.jpg';
             photoUser.alt = 'Profile picture';
             header.appendChild(photoUser);
+            // Nombre del usuario
             const username = document.createElement('h1');
             username.innerText = this.name || 'default_name';
             headerDiv.appendChild(username);
+            // Botón de editar perfil
             const editProfile = document.createElement('button');
             editProfile.type = 'button';
             editProfile.id = 'edit-button-profile';
             editProfile.innerText = 'Edit profile';
             headerDiv.appendChild(editProfile);
+            // Sección de estadísticas
             const bodyDiv = document.createElement('div');
             header.appendChild(bodyDiv);
             const countsUser = document.createElement('div');
@@ -43613,13 +43645,19 @@ class UserProfile extends HTMLElement {
             numberOfFollowed.id = 'number-followed';
             numberOfFollowed.innerText = '0';
             countsUser.appendChild(numberOfFollowed);
+            // Sección de descripción
             const footerDiv = document.createElement('div');
             header.appendChild(footerDiv);
             const description = document.createElement('p');
             description.innerText = this.description || 'default_description';
             footerDiv.appendChild(description);
+            // Agregar al Shadow DOM
             this.shadowRoot.appendChild(header);
         }
+    }
+    connectedCallback() {
+        console.log("UserProfile connectedCallback");
+        this.render(); // Llamar a render() cuando se conecta el componente
     }
 }
 customElements.define("section-user-profile", UserProfile);
