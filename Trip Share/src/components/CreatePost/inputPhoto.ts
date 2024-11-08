@@ -1,5 +1,6 @@
 import { appState } from "../../store";
 import { uploadFileCloudinary } from "../../utils/storageImage";
+import styles from './inputPhoto.css';
 
 class Photo extends HTMLElement {
     constructor(){
@@ -23,7 +24,9 @@ class Photo extends HTMLElement {
             const imgDiv = this.ownerDocument.createElement("div");
             imgDiv.className = 'image icon';
             const imgIcon = this.ownerDocument.createElement("img");
-            imgIcon.src = '';
+
+            // Enlace directo al ícono de imagen
+            imgIcon.src = 'https://example.com/icon-upload.png'; // Cambia esta URL al enlace de tu ícono de carga
             imgIcon.alt = 'icon of upload image or photo';
             imgDiv.appendChild(imgIcon);
             header.appendChild(imgDiv);
@@ -35,16 +38,19 @@ class Photo extends HTMLElement {
             uploadPhoto.addEventListener('change', () => {
                 const file = uploadPhoto.files?.[0];
                 if(file) uploadFileCloudinary(file, appState.user);
-            }) 
-
-            this.ownerDocument.body.appendChild(uploadPhoto);
+            });
 
             header.appendChild(uploadPhoto);
 
+            // Agregar estilo CSS importado
+            const cssPhoto = this.ownerDocument.createElement("style");
+            cssPhoto.innerHTML = styles;
+            this.shadowRoot?.appendChild(cssPhoto);
+
             this.shadowRoot.appendChild(header);
-            this.shadowRoot.appendChild(uploadPhoto);
         }
     }
 }
+
 customElements.define("header-photo-create", Photo);
 export default Photo;

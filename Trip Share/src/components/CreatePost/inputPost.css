@@ -1,0 +1,49 @@
+dialog#create-dialog {
+    width: 100%;
+    max-width: 800px; /* Ajusta el ancho máximo */
+    max-height: 80vh; /* Limita el alto máximo del diálogo */
+    border:none;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+    background-color: #007bff; /* Fondo azul del diálogo */
+    color: #ffffff; /* Color de texto blanco para mejor contraste */
+}
+
+.inputs-create {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 10px;
+    padding: 0 10px; /* Añade relleno interno para evitar bordes */
+}
+
+.inputs-create h1 {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #ffffff; /* Color de texto blanco para encabezados */
+}
+
+.inputs-create input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+.submit-publish {
+    background-color: #28a745;
+    color: #ffffff;
+    font-weight: bold;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    width: 100%; /* Asegura que el botón ocupe todo el ancho del contenedor */
+}
+
+.submit-publish:hover {
+    background-color: #218838;
+}

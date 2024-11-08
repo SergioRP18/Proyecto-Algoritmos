@@ -8138,6 +8138,153 @@ nav {
 
 /***/ }),
 
+/***/ 275:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1601);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6314);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
+// Imports
+
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, `.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    background-color: #007bff;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.content h1 {
+    color: #ffffff;
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.image.icon {
+    width: 150px;
+    height: 150px;
+    background-color: #e0e0e0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.image.icon img {
+    width: 60%;
+    height: 60%;
+    opacity: 0.5;
+}
+
+#upload-photo {
+    background-color: #28a745;
+    color: #ffffff;
+    font-weight: bold;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+#upload-photo:hover {
+    background-color: #218838;
+}
+`, ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ 365:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1601);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6314);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
+// Imports
+
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, `dialog#create-dialog {
+    width: 100%;
+    max-width: 800px; /* Ajusta el ancho máximo */
+    max-height: 80vh; /* Limita el alto máximo del diálogo */
+    border:none;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+    background-color: #007bff; /* Fondo azul del diálogo */
+    color: #ffffff; /* Color de texto blanco para mejor contraste */
+}
+
+.inputs-create {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 10px;
+    padding: 0 10px; /* Añade relleno interno para evitar bordes */
+}
+
+.inputs-create h1 {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #ffffff; /* Color de texto blanco para encabezados */
+}
+
+.inputs-create input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+.submit-publish {
+    background-color: #28a745;
+    color: #ffffff;
+    font-weight: bold;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    width: 100%; /* Asegura que el botón ocupe todo el ancho del contenedor */
+}
+
+.submit-publish:hover {
+    background-color: #218838;
+}
+`, ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
 /***/ 376:
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
@@ -43274,13 +43421,17 @@ exports["default"] = NavAside;
 /***/ }),
 
 /***/ 8490:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const store_1 = __webpack_require__(2482);
 const storageImage_1 = __webpack_require__(6258);
+const inputPhoto_css_1 = __importDefault(__webpack_require__(275));
 class Photo extends HTMLElement {
     constructor() {
         super();
@@ -43299,7 +43450,8 @@ class Photo extends HTMLElement {
             const imgDiv = this.ownerDocument.createElement("div");
             imgDiv.className = 'image icon';
             const imgIcon = this.ownerDocument.createElement("img");
-            imgIcon.src = '';
+            // Enlace directo al ícono de imagen
+            imgIcon.src = 'https://example.com/icon-upload.png'; // Cambia esta URL al enlace de tu ícono de carga
             imgIcon.alt = 'icon of upload image or photo';
             imgDiv.appendChild(imgIcon);
             header.appendChild(imgDiv);
@@ -43312,10 +43464,12 @@ class Photo extends HTMLElement {
                 if (file)
                     (0, storageImage_1.uploadFileCloudinary)(file, store_1.appState.user);
             });
-            this.ownerDocument.body.appendChild(uploadPhoto);
             header.appendChild(uploadPhoto);
+            // Agregar estilo CSS importado
+            const cssPhoto = this.ownerDocument.createElement("style");
+            cssPhoto.innerHTML = inputPhoto_css_1.default;
+            this.shadowRoot?.appendChild(cssPhoto);
             this.shadowRoot.appendChild(header);
-            this.shadowRoot.appendChild(uploadPhoto);
         }
     }
 }
@@ -43326,11 +43480,15 @@ exports["default"] = Photo;
 /***/ }),
 
 /***/ 5630:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", ({ value: true }));
+const inputPost_css_1 = __importDefault(__webpack_require__(365));
 __webpack_require__(2249);
 const store_1 = __webpack_require__(2482);
 class Post extends HTMLElement {
@@ -43341,13 +43499,10 @@ class Post extends HTMLElement {
     }
     async connectedCallback() {
         window.addEventListener('beforeunload', this.closeOnNavigation);
-        // if(appState.postsByUser.length === 0){
-        //     const action = await getPostsByUser();
-        //     dispatch(action);
-        // } 
         this.render();
     }
     async submitPublish() {
+        // Aquí iría la lógica para manejar el envío del post
     }
     disconnectedCallback() {
         window.removeEventListener('beforeunload', this.closeOnNavigation);
@@ -43364,13 +43519,15 @@ class Post extends HTMLElement {
             this.shadowRoot.innerHTML = '';
             const dialog = this.ownerDocument.createElement('dialog');
             dialog.id = 'create-dialog';
+            dialog.style.maxHeight = "80vh"; // Limita el alto máximo del diálogo
+            dialog.style.overflowY = "auto"; // Habilita el scroll vertical si es necesario
             const photoComponent = this.ownerDocument.createElement('header-photo-create');
             dialog.appendChild(photoComponent);
             const inputsDiv = this.ownerDocument.createElement('div');
             inputsDiv.className = 'inputs-create';
             const descriptionHeader = this.ownerDocument.createElement('h1');
             descriptionHeader.innerText = 'Write your review';
-            dialog.appendChild(descriptionHeader);
+            inputsDiv.appendChild(descriptionHeader);
             const description = this.ownerDocument.createElement('input');
             description.type = 'text';
             description.id = 'post-description';
@@ -43378,7 +43535,7 @@ class Post extends HTMLElement {
             inputsDiv.appendChild(description);
             const descriptionHashtags = this.ownerDocument.createElement('h1');
             descriptionHashtags.innerText = 'Your Hashtags';
-            dialog.appendChild(descriptionHashtags);
+            inputsDiv.appendChild(descriptionHashtags);
             const hashtags = this.ownerDocument.createElement('input');
             hashtags.type = 'text';
             hashtags.id = 'post-hashtags';
@@ -43386,24 +43543,28 @@ class Post extends HTMLElement {
             inputsDiv.appendChild(hashtags);
             const descriptionLocation = this.ownerDocument.createElement('h1');
             descriptionLocation.innerText = 'Your Location';
-            dialog.appendChild(descriptionLocation);
+            inputsDiv.appendChild(descriptionLocation);
             const location = this.ownerDocument.createElement('input');
             location.type = 'text';
             location.id = 'post-location';
             location.required = true;
             inputsDiv.appendChild(location);
-            const save = this.ownerDocument.createElement('button');
-            save.type = 'submit';
-            save.id = 'publish-btn';
-            save.innerText = 'Publish';
-            save.className = 'submit-publish';
-            save.addEventListener('click', (event) => {
+            // Botón de "Post"
+            const saveButton = this.ownerDocument.createElement('button');
+            saveButton.type = 'submit';
+            saveButton.id = 'publish-btn';
+            saveButton.innerText = 'Post';
+            saveButton.className = 'submit-publish';
+            saveButton.addEventListener('click', (event) => {
                 event.preventDefault();
                 this.submitPublish();
             });
-            inputsDiv.appendChild(save);
+            inputsDiv.appendChild(saveButton);
             dialog.appendChild(inputsDiv);
             this.shadowRoot.appendChild(dialog);
+            const cssPost = this.ownerDocument.createElement("style");
+            cssPost.innerHTML = inputPost_css_1.default;
+            this.shadowRoot.appendChild(cssPost);
         }
     }
 }
