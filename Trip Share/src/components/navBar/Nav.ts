@@ -78,7 +78,7 @@ class NavBar extends HTMLElement {
     async render() {
         if (this.shadowRoot) {
             this.shadowRoot.innerHTML = '';
-    
+   
             try {
                 const { auth } = await getFirebaseInstance();
                 onAuthStateChanged(auth, async (user) => {
@@ -96,7 +96,7 @@ class NavBar extends HTMLElement {
             } catch (error) {
                 console.error('Error during render:', error);
             }
-    
+   
             const cssNav = this.ownerDocument.createElement('style');
             cssNav.innerHTML = styles;
             this.shadowRoot?.appendChild(cssNav);
@@ -107,21 +107,48 @@ class NavBar extends HTMLElement {
         const aside = this.ownerDocument.createElement('aside');
         const nav = this.ownerDocument.createElement('nav');
         aside.appendChild(nav);
-    
+
         const logoDiv = this.createLogo();
         nav.appendChild(logoDiv);
-    
+
         const inputsDiv = this.createNavLinks();
         nav.appendChild(inputsDiv);
-    
-        const userBar = this.ownerDocument.createElement('user-bar');
-        userBar.setAttribute(Attribute.photo, this.photo || 'default-photo.jpg');
-        userBar.setAttribute(Attribute.username, this.username || 'No Username');
-        userBar.setAttribute(Attribute.name, this.name || 'No Name');
-        userBar.setAttribute(Attribute.uid, this.uid?.toString() || '');
-    
-        nav.appendChild(userBar);
-    
+
+        // Contenedor para la foto de perfil, nombre y logout
+        const userbarExit = this.ownerDocument.createElement('div');
+        userbarExit.className = 'userbar-exit';
+
+        // Imagen de perfil
+        const profileImg = this.ownerDocument.createElement('img');
+        profileImg.src = this.photo || 'default-photo.jpg';
+        profileImg.alt = 'Profile Picture';
+
+        // Contenedor de la información del usuario
+        const userInfo = this.ownerDocument.createElement('div');
+        userInfo.className = 'user-info';
+
+        const usernameText = this.ownerDocument.createElement('span');
+        usernameText.className = 'username';
+        usernameText.textContent = this.username || 'No Username';
+
+        const nameText = this.ownerDocument.createElement('span');
+        nameText.className = 'name';
+        nameText.textContent = this.name || 'No Name';
+
+        userInfo.appendChild(usernameText);
+        userInfo.appendChild(nameText);
+
+        // Ícono de logout
+        const exitIcon = this.createExitIcon();
+
+        // Agregar los elementos al contenedor `userbar-exit`
+        userbarExit.appendChild(profileImg);
+        userbarExit.appendChild(userInfo);
+        userbarExit.appendChild(exitIcon);
+
+        // Agregar el `userbar-exit` al `aside`
+        aside.appendChild(userbarExit);
+
         return aside;
     }
 
@@ -139,28 +166,27 @@ class NavBar extends HTMLElement {
         const inputsDiv = this.ownerDocument.createElement('div');
         inputsDiv.className = 'inputs';
         const ul = this.ownerDocument.createElement('ul');
-    
+
         const links = [
             { id: 'home-screen', icon: '<svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 24 24"><path fill="#147AFF" d="M10 20v-6h4v6h5v-8h3L12 3L2 12h3v8z"/></svg>', text: 'Home' },
             { id: 'wish-list-screen', icon: '<svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 24 24"><path fill="#147AFF" d="m22 9.24l-7.19-.62L12 2L9.19 8.63L2 9.24l5.46 4.73L5.82 21L12 17.27L18.18 21l-1.63-7.03zM12 15.4l-3.76 2.27l1-4.28l-3.32-2.88l4.38-.38L12 6.1l1.71 4.04l4.38.38l-3.32 2.88l1 4.28z"/></svg>', text: 'My Wish List' },
             { id: 'create-screen', icon: '<svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 24 24"><path fill="#147AFF" d="M13 7h-2v4H7v2h4v4h2v-4h4v-2h-4zm-1-5C6.48 2 2 6.48 2 12s4.48 10 10 10s10-4.48 10-10S17.52 2 12 2m0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8s8 3.59 8 8s-3.59 8-8 8"/></svg>', text: 'Create' },
             { id: 'profile-screen', icon: '', text: 'Profile', imgSrc: this.photo }
         ];
-    
+
         links.forEach(link => {
             const li = this.createNavLink(link);
             ul.appendChild(li);
         });
-    
+
         inputsDiv.appendChild(ul);
-    
+
         // Aquí agregamos el ícono de Exit fuera de la lista de enlaces
-        const exitDiv = this.createExitIcon();
-        inputsDiv.appendChild(exitDiv);
-    
+        //const exitDiv = this.createExitIcon();
+        //inputsDiv.appendChild(exitDiv);//
+
         return inputsDiv;
     }
-    
 
     createNavLink(link: { id: string, icon?: string, imgSrc?: string, text: string }) {
         const li = this.ownerDocument.createElement('li');
@@ -202,17 +228,16 @@ class NavBar extends HTMLElement {
     createExitIcon() {
         const div = this.ownerDocument.createElement('div');
         div.className = 'exit-container';
-        
+       
         const iconWrapper = this.ownerDocument.createElement('div');
         iconWrapper.className = 'exit-icon';
         iconWrapper.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 24 24"><g fill="none"><path d="m12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.018-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z"/><path fill="#147AFF" d="M12 3a1 1 0 0 1 .117 1.993L12 5H7a1 1 0 0 0-.993.883L6 6v12a1 1 0 0 0 .883.993L7 19h4.5a1 1 0 0 1 .117 1.993L11.5 21H7a3 3 0 0 1-2.995-2.824L4 18V6a3 3 0 0 1 2.824-2.995L7 3zm5.707 5.464l2.828 2.829a1 1 0 0 1 0 1.414l-2.828 2.829a1 1 0 1 1-1.414-1.415L17.414 13H12a1 1 0 1 1 0-2h5.414l-1.121-1.121a1 1 0 0 1 1.414-1.415"/></g></svg>';
-        
+       
         div.appendChild(iconWrapper);
         div.addEventListener('click', this.handleExit.bind(this));
-    
+   
         return div;
     }
-    
 
     handleNavigation(id: string) {
         switch (id) {
