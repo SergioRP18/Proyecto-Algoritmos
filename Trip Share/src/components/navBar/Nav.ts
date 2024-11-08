@@ -177,8 +177,8 @@ class NavBar extends HTMLElement {
         inputsDiv.appendChild(ul);
 
     
-        const exitDiv = this.createExitIcon();
-        inputsDiv.appendChild(exitDiv);
+        //const exitDiv = this.createExitIcon();//
+        //inputsDiv.appendChild(exitDiv);//
     
         return inputsDiv;
     }
