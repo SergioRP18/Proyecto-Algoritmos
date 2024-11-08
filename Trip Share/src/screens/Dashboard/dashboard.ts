@@ -42,12 +42,13 @@ class AppDashboard extends HTMLElement {
                 postContainer.appendChild(post); // Agrega el post al contenedor
             });
 
-            this.shadowRoot?.appendChild(postContainer); // Agrega el contenedor al Shadow DOM
+            this.shadowRoot?.appendChild(postContainer);
 
         } catch (error) {
             console.error('Error fetching posts:', error);
             return Promise.reject(error);
         }
+
     }
 
     async render() {
@@ -66,5 +67,4 @@ class AppDashboard extends HTMLElement {
         await this.renderPost();
     }
 }
-
 customElements.define("app-dashboard", AppDashboard);

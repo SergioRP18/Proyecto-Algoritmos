@@ -1,3 +1,6 @@
+import { appState } from "../../store";
+import { uploadFileCloudinary } from "../../utils/storageImage";
+
 class Photo extends HTMLElement {
     constructor(){
         super();
@@ -29,21 +32,17 @@ class Photo extends HTMLElement {
             uploadPhoto.type = 'file';
             uploadPhoto.id = 'upload-photo';
             uploadPhoto.accept = 'image/*';
-
-            const uploadButtonLabel = this.ownerDocument.createElement("label");
-            uploadButtonLabel.setAttribute("for", "upload-photo");
-            uploadButtonLabel.innerText = "Select from device";
-            uploadButtonLabel.className = "upload-button"; 
+            uploadPhoto.addEventListener('change', () => {
+                const file = uploadPhoto.files?.[0];
+                if(file) uploadFileCloudinary(file, appState.user);
+            }) 
 
             this.ownerDocument.body.appendChild(uploadPhoto);
-            this.ownerDocument.body.appendChild(uploadButtonLabel);
 
             header.appendChild(uploadPhoto);
-            header.appendChild(uploadButtonLabel);
 
             this.shadowRoot.appendChild(header);
             this.shadowRoot.appendChild(uploadPhoto);
-            this.shadowRoot.appendChild(uploadButtonLabel);
         }
     }
 }

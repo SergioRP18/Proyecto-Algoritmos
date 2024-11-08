@@ -5,6 +5,8 @@ export const reducer = (currentAction: any, currentState: any) => {
 
     switch(action){
         case ScreenActions.NAVIGATE:
+            console.log('payload in screen', payload);
+            
 				return {
                     ...currentState,
                     screen: payload,
@@ -15,6 +17,18 @@ export const reducer = (currentAction: any, currentState: any) => {
                     ...currentState,
                     user: payload,
                 };
+        
+        case ScreenActions.GET_POSTS:
+            return {
+                ...currentState,
+                posts: payload,
+            };
+
+        case ScreenActions.GET_POSTS_BY_USER:
+            return {
+                ...currentState,
+                getPostsByUser: payload,
+            };
                 
                 default:
                     return currentState;

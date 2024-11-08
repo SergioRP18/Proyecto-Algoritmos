@@ -6,7 +6,9 @@ import { logoutUser } from "../../utils/Firebase";
 class ExitAccount extends HTMLElement {
     constructor(){
         super();
-        this.attachShadow({mode:'open'});
+        if (!this.shadowRoot) {
+            this.attachShadow({mode: 'open'});
+        }
     }
 
     connectedCallback(){

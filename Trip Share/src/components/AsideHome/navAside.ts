@@ -87,15 +87,18 @@ class NavAside extends HTMLElement {
 
     async renderNavProfile(userId: string) {
         try {
-            const data = await getUser(userId); // Asegúrate de que `getUser` esté bien implementado
+            const data = await getUser(userId);
+            console.log('data user', data);
+             // Asegúrate de que `getUser` esté bien implementado
             if (data) {
                 this.photo = data.photo || 'default-photo.jpg';
                 this.name = data.name || 'No Name';
                 this.username = data.username || 'No Username';
                 this.uid = data.id;
 
-                this.render(); // Renderiza nuevamente con los datos actualizados
+                 // Renderiza nuevamente con los datos actualizados
             }
+            return
         } catch (error) {
             console.error('Error fetching user profile:', error);
         }

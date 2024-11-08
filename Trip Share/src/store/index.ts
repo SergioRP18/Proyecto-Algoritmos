@@ -1,6 +1,6 @@
 import Storage, { PersistanceKeys } from "../utils/Storage";
 import { Screens } from "../types/navigation";
-import { AppState, Observer } from "../types/store";
+import { AppState, Observer, ScreenActions } from "../types/store";
 import { reducer } from "./reducer";
 import { getFirebaseInstance } from "../utils/Firebase";
 import { navigate, setUserCredentials } from "./actions";
@@ -22,7 +22,9 @@ onAuth();
 
 const initialState: AppState = {
 	screen: 'LOGIN',
+	posts: [],
 	user: '',
+	postsByUser: [],
 };
 
 export let appState = initialState;

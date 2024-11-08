@@ -1,8 +1,6 @@
-import NavBar from "../../components/navBar/Nav";
-import UserProfile from '../../components/Profile/user';
-import PublicationsUser from '../../components/Profile/publications';
-import Post from '../../components/CreatePost/inputPost';
 import '../../components/indexPadre';
+import { NavBar, Post, PublicationsUser, UserProfile } from "../../components/indexPadre";
+import { appState } from '../../store';
 
 class AppProfile extends HTMLElement {
 
@@ -11,12 +9,24 @@ class AppProfile extends HTMLElement {
         this.attachShadow({mode:'open'});
     }
 
-    async connectedCallback(){
-        this.render();
-    }
+    async connectedCallback() {
+        console.log('in profile screen');
+        console.log('screen app', appState.screen);
+        
+        console.log('posts', appState.postsByUser);
+        this.render()
+        
+		// if (appState.postsByUser.length === 0) {
+		// 	const action = await getPostsByUserAction();
+		// 	dispatch(action);
+        // }
+            
+	}
 
     render(){
         if(this.shadowRoot){
+            console.log('render profile');
+            
 
             const nav = this.ownerDocument.createElement('nav-bar') as NavBar;
             this.shadowRoot?.appendChild(nav);
