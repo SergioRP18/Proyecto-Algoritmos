@@ -1,6 +1,6 @@
 import { addObserver } from "../../store";
-import NavBar from "../../components/navBar/Nav";
 import '../../components/indexPadre';
+import { NavBar, Post, PublicationsUser, UserProfile } from "../../components/indexPadre";
 
 class AppProfile extends HTMLElement {
 
@@ -17,22 +17,17 @@ class AppProfile extends HTMLElement {
     render(){
         if(this.shadowRoot){
 
-            const navBar = this.ownerDocument.createElement('app-nav-bar') as NavBar;
-            this.shadowRoot.appendChild(navBar);
+            const nav = this.ownerDocument.createElement('nav-bar') as NavBar;
+            this.shadowRoot?.appendChild(nav);
 
-            const userProfile = this.ownerDocument.createElement('section-user-profile');
-            const publicationsUser = this.ownerDocument.createElement('section-publications-user');
-            const postComponent = this.ownerDocument.createElement('section-post');
+            const userProfile = this.ownerDocument.createElement('section-user-profile') as UserProfile;
+            this.shadowRoot?.appendChild(userProfile);
 
-            userProfile.setAttribute('username', 'john_doe');
-            userProfile.setAttribute('name', 'John Doe');
-            userProfile.setAttribute('photo', 'user-photo.jpg');
-            userProfile.setAttribute('description', 'Traveler and photographer');
-            userProfile.setAttribute('uid', '12345');
+            const publicationsUser = this.ownerDocument.createElement('section-publications-user') as PublicationsUser;
+            this.shadowRoot?.appendChild(publicationsUser);
 
-            this.shadowRoot.appendChild(userProfile);
-            this.shadowRoot.appendChild(publicationsUser);
-            this.shadowRoot.appendChild(postComponent);
+            const postComponent = this.ownerDocument.createElement('section-post') as Post;
+            this.shadowRoot?.appendChild(postComponent);
         }
     }
 };

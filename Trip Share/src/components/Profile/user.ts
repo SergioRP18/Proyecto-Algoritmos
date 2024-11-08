@@ -36,6 +36,13 @@ class UserProfile extends HTMLElement {
     }
 
     connectedCallback(){
+
+        if (!this.username) this.username = 'john_doe';
+        if (!this.name) this.name = 'John Doe';
+        if (!this.photo) this.photo = 'user-photo.jpg';
+        if (!this.description) this.description = 'Traveler and photographer';
+        if (!this.uid) this.uid = 12345;
+        
         this.render();
     }
 
