@@ -8138,7 +8138,7 @@ nav {
 
 /***/ }),
 
-/***/ 275:
+/***/ 5275:
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -8212,7 +8212,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.content {
 
 /***/ }),
 
-/***/ 365:
+/***/ 3365:
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -8277,6 +8277,198 @@ ___CSS_LOADER_EXPORT___.push([module.id, `dialog#create-dialog {
 
 .submit-publish:hover {
     background-color: #218838;
+}
+`, ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ 7815:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1601);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6314);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
+// Imports
+
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, `/* Contenedor de publicaciones */
+section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Título de publicaciones y deseos */
+#icono-posts {
+    display: flex;
+    align-items: center;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+    margin: 10px 0;
+    text-align: center;
+}
+
+/* Contenedor de imágenes en cuadrícula */
+section div {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 10px;
+    width: 100%;
+    margin-top: 15px;
+}
+
+/* Estilo de las imágenes */
+section div img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+    transition: transform 0.2s;
+}
+
+section div img:hover {
+    transform: scale(1.05);
+}
+`, ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ 5651:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1601);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6314);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
+// Imports
+
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, `/* Contenedor principal para la estructura en dos columnas */
+.user-profile-container {
+    display: flex;
+    align-items: flex-start;
+    padding: 40px 20px;
+    font-family: Arial, sans-serif;
+    max-width: 900px;
+    margin: 0 auto;
+    gap: 30px;
+    margin-left: 400px; /* Ajusta este valor para mover todo el contenido a la derecha */
+}
+
+/* Contenedor de la foto de perfil */
+.profile-photo-container {
+    flex-shrink: 0;
+}
+
+/* Estilo de la imagen de perfil */
+.profile-photo {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    border: 2px solid #ddd;
+    margin-top: 10px; /* Alineación vertical con el nombre */
+}
+
+/* Contenedor de la información del usuario */
+.user-info-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+/* Contenedor para nombre de usuario y botón */
+.user-header {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Espacio entre el nombre y el botón */
+    margin-bottom: 5px; /* Espacio entre el encabezado y las estadísticas */
+}
+
+/* Nombre de usuario */
+.username {
+    font-size: 1.8em;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Botón de editar perfil */
+#edit-button-profile {
+    background-color: #007bff;
+    color: white;
+    padding: 5px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+#edit-button-profile:hover {
+    background-color: #0056b3;
+}
+
+/* Contenedor de estadísticas en una sola línea */
+.stats-container {
+    display: flex;
+    gap: 50px; /* Aumenta el espacio entre las estadísticas */
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+/* Estilos para cada estadística */
+.stats-container div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #666;
+}
+
+.stats-container p {
+    font-size: 0.9em;
+    font-weight: bold;
+    color: #333;
+    margin: 0;
+}
+
+.stats-container span {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Descripción del perfil */
+.description {
+    margin-top: 10px;
+    font-size: 0.9em;
+    color: #666;
+    max-width: 600px;
+    text-align: left;
 }
 `, ""]);
 // Exports
@@ -43431,7 +43623,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const store_1 = __webpack_require__(2482);
 const storageImage_1 = __webpack_require__(6258);
-const inputPhoto_css_1 = __importDefault(__webpack_require__(275));
+const inputPhoto_css_1 = __importDefault(__webpack_require__(5275));
 class Photo extends HTMLElement {
     constructor() {
         super();
@@ -43488,7 +43680,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-const inputPost_css_1 = __importDefault(__webpack_require__(365));
+const inputPost_css_1 = __importDefault(__webpack_require__(3365));
 __webpack_require__(2249);
 const store_1 = __webpack_require__(2482);
 class Post extends HTMLElement {
@@ -43644,11 +43836,15 @@ exports["default"] = ExitAccount;
 /***/ }),
 
 /***/ 5360:
-/***/ ((__unused_webpack_module, exports) => {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", ({ value: true }));
+const publications_css_1 = __importDefault(__webpack_require__(7815));
 class PublicationsUser extends HTMLElement {
     constructor() {
         super();
@@ -43671,6 +43867,9 @@ class PublicationsUser extends HTMLElement {
             const section = this.ownerDocument.createElement('section');
             div.appendChild(section);
             this.shadowRoot.appendChild(divSection);
+            const cssPost = this.ownerDocument.createElement("style");
+            cssPost.innerHTML = publications_css_1.default;
+            this.shadowRoot.appendChild(cssPost);
         }
     }
 }
@@ -43682,12 +43881,16 @@ exports["default"] = PublicationsUser;
 /***/ }),
 
 /***/ 1068:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.AttributeProfile = void 0;
+const user_css_1 = __importDefault(__webpack_require__(5651));
 const Firebase_1 = __webpack_require__(8293);
 const auth_1 = __webpack_require__(5052);
 var AttributeProfile;
@@ -43701,14 +43904,13 @@ var AttributeProfile;
 class UserProfile extends HTMLElement {
     constructor() {
         super();
-        this.isUserLoaded = false; // Controlar que los datos del usuario solo se carguen una vez
+        this.isUserLoaded = false;
         this.attachShadow({ mode: 'open' });
     }
     static get observedAttributes() {
         return Object.keys(AttributeProfile);
     }
     attributeChangedCallback(propName, oldValue, newValue) {
-        console.log(`Attribute changed: ${propName}, Old: ${oldValue}, New: ${newValue}`);
         switch (propName) {
             case AttributeProfile.uid:
                 this.uid = newValue ? Number(newValue) : undefined;
@@ -43719,41 +43921,35 @@ class UserProfile extends HTMLElement {
         }
         this.render();
     }
-    // Método que carga el perfil del usuario desde Firebase
     async renderUser(userId) {
         if (this.isUserLoaded)
-            return; // Evitar recargar el usuario si ya se cargó antes
+            return;
         try {
             const data = await (0, Firebase_1.getUser)(userId);
-            console.log(data);
             if (data) {
                 this.setAttribute(AttributeProfile.photo, data.photo || 'default-photo.jpg');
                 this.setAttribute(AttributeProfile.name, data.name || 'No Name');
                 this.setAttribute(AttributeProfile.username, data.username || 'No Username');
                 this.setAttribute(AttributeProfile.uid, data.id.toString());
                 this.setAttribute(AttributeProfile.description, data.description || 'No description');
-                this.isUserLoaded = true; // Marcar que los datos del usuario fueron cargados
-                this.render(); // Actualizar la vista después de cargar los datos
+                this.isUserLoaded = true;
+                this.render();
             }
         }
         catch (error) {
             console.error('Error fetching user profile:', error);
         }
     }
-    // Método de renderizado principal
     async render() {
         try {
             const { auth } = await (0, Firebase_1.getFirebaseInstance)();
             (0, auth_1.onAuthStateChanged)(auth, async (user) => {
                 if (user) {
-                    // Si el usuario está autenticado, cargamos sus datos
                     const userId = user.uid;
                     await this.renderUser(userId);
                 }
                 else {
-                    console.log("No authenticated user.");
-                    this.isUserLoaded = false; // Resetear si el usuario no está autenticado
-                    // Opcional: Mostrar una vista de perfil por defecto o vacía
+                    this.isUserLoaded = false;
                     this.render();
                 }
             });
@@ -43762,63 +43958,65 @@ class UserProfile extends HTMLElement {
             console.error('Error during render:', error);
         }
         if (this.shadowRoot) {
-            const header = document.createElement('section');
-            const headerDiv = document.createElement('div');
-            header.appendChild(headerDiv);
+            this.shadowRoot.innerHTML = '';
+            const container = document.createElement('section');
+            container.className = 'user-profile-container';
+            // Contenedor para la foto de perfil
+            const profilePhotoContainer = document.createElement('div');
+            profilePhotoContainer.className = 'profile-photo-container';
             // Foto del usuario
             const photoUser = document.createElement('img');
             photoUser.src = this.photo || 'default-photo.jpg';
             photoUser.alt = 'Profile picture';
-            header.appendChild(photoUser);
-            // Nombre del usuario
+            photoUser.className = 'profile-photo';
+            profilePhotoContainer.appendChild(photoUser);
+            // Contenedor para la información de usuario
+            const userInfoContainer = document.createElement('div');
+            userInfoContainer.className = 'user-info-container';
+            // Contenedor para nombre de usuario y botón
+            const userHeader = document.createElement('div');
+            userHeader.className = 'user-header';
+            // Nombre de usuario
             const username = document.createElement('h1');
             username.innerText = this.name || 'default_name';
-            headerDiv.appendChild(username);
-            // Botón de editar perfil
+            username.className = 'username';
+            // Botón de editar perfil al lado del nombre de usuario
             const editProfile = document.createElement('button');
             editProfile.type = 'button';
             editProfile.id = 'edit-button-profile';
             editProfile.innerText = 'Edit profile';
-            headerDiv.appendChild(editProfile);
-            // Sección de estadísticas
-            const bodyDiv = document.createElement('div');
-            header.appendChild(bodyDiv);
-            const countsUser = document.createElement('div');
-            bodyDiv.appendChild(countsUser);
-            const publications = document.createElement('p');
-            publications.innerText = 'Publications';
-            countsUser.appendChild(publications);
-            const numberOfPublications = document.createElement('span');
-            numberOfPublications.id = 'number-publications';
-            numberOfPublications.innerText = '0';
-            countsUser.appendChild(numberOfPublications);
-            const followers = document.createElement('p');
-            followers.innerText = 'Followers';
-            countsUser.appendChild(followers);
-            const numberOfFollowers = document.createElement('span');
-            numberOfFollowers.id = 'number-followers';
-            numberOfFollowers.innerText = '0';
-            countsUser.appendChild(numberOfFollowers);
-            const followed = document.createElement('p');
-            followed.innerText = 'Followed';
-            countsUser.appendChild(followed);
-            const numberOfFollowed = document.createElement('span');
-            numberOfFollowed.id = 'number-followed';
-            numberOfFollowed.innerText = '0';
-            countsUser.appendChild(numberOfFollowed);
-            // Sección de descripción
-            const footerDiv = document.createElement('div');
-            header.appendChild(footerDiv);
+            userHeader.appendChild(username);
+            userHeader.appendChild(editProfile);
+            // Contenedor de estadísticas
+            const statsContainer = document.createElement('div');
+            statsContainer.className = 'stats-container';
+            const publications = document.createElement('div');
+            publications.innerHTML = `<p>Publications</p><span>0</span>`;
+            statsContainer.appendChild(publications);
+            const followers = document.createElement('div');
+            followers.innerHTML = `<p>Followers</p><span>0</span>`;
+            statsContainer.appendChild(followers);
+            const followed = document.createElement('div');
+            followed.innerHTML = `<p>Followed</p><span>0</span>`;
+            statsContainer.appendChild(followed);
+            // Descripción del perfil
             const description = document.createElement('p');
+            description.className = 'description';
             description.innerText = this.description || 'default_description';
-            footerDiv.appendChild(description);
-            // Agregar al Shadow DOM
-            this.shadowRoot.appendChild(header);
+            userInfoContainer.appendChild(userHeader);
+            userInfoContainer.appendChild(statsContainer);
+            userInfoContainer.appendChild(description);
+            // Agregar los contenedores al contenedor principal
+            container.appendChild(profilePhotoContainer);
+            container.appendChild(userInfoContainer);
+            this.shadowRoot.appendChild(container);
+            const css = this.ownerDocument.createElement("style");
+            css.innerHTML = user_css_1.default;
+            this.shadowRoot.appendChild(css);
         }
     }
     connectedCallback() {
-        console.log("UserProfile connectedCallback");
-        this.render(); // Llamar a render() cuando se conecta el componente
+        this.render();
     }
 }
 customElements.define("section-user-profile", UserProfile);

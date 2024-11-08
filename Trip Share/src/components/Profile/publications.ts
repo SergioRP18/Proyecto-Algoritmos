@@ -1,3 +1,5 @@
+import styles from './publications.css';
+
 class PublicationsUser extends HTMLElement {
     constructor(){
         super();
@@ -27,6 +29,10 @@ class PublicationsUser extends HTMLElement {
             div.appendChild(section);
 
             this.shadowRoot.appendChild(divSection);
+
+            const cssPost = this.ownerDocument.createElement("style");
+            cssPost.innerHTML = styles;
+            this.shadowRoot.appendChild(cssPost);
         }
     }
 };

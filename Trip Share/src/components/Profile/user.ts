@@ -1,3 +1,4 @@
+import styles from './user.css';
 import { getFirebaseInstance, getUser } from "../../utils/Firebase";
 import { onAuthStateChanged } from "firebase/auth";
 
@@ -16,7 +17,7 @@ class UserProfile extends HTMLElement {
     uid?: number;
     description?: string;
 
-    private isUserLoaded = false; // Controlar que los datos del usuario solo se carguen una vez
+    private isUserLoaded = false;
 
     constructor() {
         super();
@@ -28,7 +29,6 @@ class UserProfile extends HTMLElement {
     }
 
     attributeChangedCallback(propName: AttributeProfile, oldValue: string | undefined, newValue: string | undefined) {
-        console.log(`Attribute changed: ${propName}, Old: ${oldValue}, New: ${newValue}`);
         switch (propName) {
             case AttributeProfile.uid:
                 this.uid = newValue ? Number(newValue) : undefined;
@@ -40,13 +40,11 @@ class UserProfile extends HTMLElement {
         this.render();
     }
 
-    // Método que carga el perfil del usuario desde Firebase
     async renderUser(userId: string) {
-        if (this.isUserLoaded) return; // Evitar recargar el usuario si ya se cargó antes
+        if (this.isUserLoaded) return;
 
         try {
             const data = await getUser(userId);
-            console.log(data);
 
             if (data) {
                 this.setAttribute(AttributeProfile.photo, data.photo || 'default-photo.jpg');
@@ -55,28 +53,24 @@ class UserProfile extends HTMLElement {
                 this.setAttribute(AttributeProfile.uid, data.id.toString());
                 this.setAttribute(AttributeProfile.description, data.description || 'No description');
 
-                this.isUserLoaded = true; // Marcar que los datos del usuario fueron cargados
-                this.render(); // Actualizar la vista después de cargar los datos
+                this.isUserLoaded = true;
+                this.render();
             }
         } catch (error) {
             console.error('Error fetching user profile:', error);
         }
     }
 
-    // Método de renderizado principal
     async render() {
         try {
             const { auth } = await getFirebaseInstance();
             onAuthStateChanged(auth, async (user) => {
                 if (user) {
-                    // Si el usuario está autenticado, cargamos sus datos
                     const userId = user.uid;
                     await this.renderUser(userId);
                 } else {
-                    console.log("No authenticated user.");
-                    this.isUserLoaded = false; // Resetear si el usuario no está autenticado
-                    // Opcional: Mostrar una vista de perfil por defecto o vacía
-                    this.render(); 
+                    this.isUserLoaded = false;
+                    this.render();
                 }
             });
         } catch (error) {
@@ -84,78 +78,84 @@ class UserProfile extends HTMLElement {
         }
 
         if (this.shadowRoot) {
-            const header = document.createElement('section');
-            const headerDiv = document.createElement('div');
-            header.appendChild(headerDiv);
-
+            this.shadowRoot.innerHTML = '';
+            
+            const container = document.createElement('section');
+            container.className = 'user-profile-container';
+        
+            // Contenedor para la foto de perfil
+            const profilePhotoContainer = document.createElement('div');
+            profilePhotoContainer.className = 'profile-photo-container';
+        
             // Foto del usuario
             const photoUser = document.createElement('img');
             photoUser.src = this.photo || 'default-photo.jpg';
             photoUser.alt = 'Profile picture';
-            header.appendChild(photoUser);
-
-            // Nombre del usuario
+            photoUser.className = 'profile-photo';
+        
+            profilePhotoContainer.appendChild(photoUser);
+        
+            // Contenedor para la información de usuario
+            const userInfoContainer = document.createElement('div');
+            userInfoContainer.className = 'user-info-container';
+        
+            // Contenedor para nombre de usuario y botón
+            const userHeader = document.createElement('div');
+            userHeader.className = 'user-header';
+        
+            // Nombre de usuario
             const username = document.createElement('h1');
             username.innerText = this.name || 'default_name';
-            headerDiv.appendChild(username);
-
-            // Botón de editar perfil
+            username.className = 'username';
+        
+            // Botón de editar perfil al lado del nombre de usuario
             const editProfile = document.createElement('button');
             editProfile.type = 'button';
             editProfile.id = 'edit-button-profile';
             editProfile.innerText = 'Edit profile';
-            headerDiv.appendChild(editProfile);
-
-            // Sección de estadísticas
-            const bodyDiv = document.createElement('div');
-            header.appendChild(bodyDiv);
-
-            const countsUser = document.createElement('div');
-            bodyDiv.appendChild(countsUser);
-
-            const publications = document.createElement('p');
-            publications.innerText = 'Publications';
-            countsUser.appendChild(publications);
-
-            const numberOfPublications = document.createElement('span');
-            numberOfPublications.id = 'number-publications';
-            numberOfPublications.innerText = '0';
-            countsUser.appendChild(numberOfPublications);
-
-            const followers = document.createElement('p');
-            followers.innerText = 'Followers';
-            countsUser.appendChild(followers);
-
-            const numberOfFollowers = document.createElement('span');
-            numberOfFollowers.id = 'number-followers';
-            numberOfFollowers.innerText = '0';
-            countsUser.appendChild(numberOfFollowers);
-
-            const followed = document.createElement('p');
-            followed.innerText = 'Followed';
-            countsUser.appendChild(followed);
-
-            const numberOfFollowed = document.createElement('span');
-            numberOfFollowed.id = 'number-followed';
-            numberOfFollowed.innerText = '0';
-            countsUser.appendChild(numberOfFollowed);
-
-            // Sección de descripción
-            const footerDiv = document.createElement('div');
-            header.appendChild(footerDiv);
-
+        
+            userHeader.appendChild(username);
+            userHeader.appendChild(editProfile);
+        
+            // Contenedor de estadísticas
+            const statsContainer = document.createElement('div');
+            statsContainer.className = 'stats-container';
+        
+            const publications = document.createElement('div');
+            publications.innerHTML = `<p>Publications</p><span>0</span>`;
+            statsContainer.appendChild(publications);
+        
+            const followers = document.createElement('div');
+            followers.innerHTML = `<p>Followers</p><span>0</span>`;
+            statsContainer.appendChild(followers);
+        
+            const followed = document.createElement('div');
+            followed.innerHTML = `<p>Followed</p><span>0</span>`;
+            statsContainer.appendChild(followed);
+        
+            // Descripción del perfil
             const description = document.createElement('p');
+            description.className = 'description';
             description.innerText = this.description || 'default_description';
-            footerDiv.appendChild(description);
-
-            // Agregar al Shadow DOM
-            this.shadowRoot.appendChild(header);
-        }
+        
+            userInfoContainer.appendChild(userHeader);
+            userInfoContainer.appendChild(statsContainer);
+            userInfoContainer.appendChild(description);
+        
+            // Agregar los contenedores al contenedor principal
+            container.appendChild(profilePhotoContainer);
+            container.appendChild(userInfoContainer);
+        
+            this.shadowRoot.appendChild(container);
+        
+            const css = this.ownerDocument.createElement("style");
+            css.innerHTML = styles;
+            this.shadowRoot.appendChild(css);
+        }        
     }
 
     connectedCallback() {
-        console.log("UserProfile connectedCallback");
-        this.render(); // Llamar a render() cuando se conecta el componente
+        this.render();
     }
 }
 

@@ -1,0 +1,100 @@
+/* Contenedor principal para la estructura en dos columnas */
+.user-profile-container {
+    display: flex;
+    align-items: flex-start;
+    padding: 40px 20px;
+    font-family: Arial, sans-serif;
+    max-width: 900px;
+    margin: 0 auto;
+    gap: 30px;
+    margin-left: 400px; /* Ajusta este valor para mover todo el contenido a la derecha */
+}
+
+/* Contenedor de la foto de perfil */
+.profile-photo-container {
+    flex-shrink: 0;
+}
+
+/* Estilo de la imagen de perfil */
+.profile-photo {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    border: 2px solid #ddd;
+    margin-top: 10px; /* Alineación vertical con el nombre */
+}
+
+/* Contenedor de la información del usuario */
+.user-info-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+/* Contenedor para nombre de usuario y botón */
+.user-header {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Espacio entre el nombre y el botón */
+    margin-bottom: 5px; /* Espacio entre el encabezado y las estadísticas */
+}
+
+/* Nombre de usuario */
+.username {
+    font-size: 1.8em;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Botón de editar perfil */
+#edit-button-profile {
+    background-color: #007bff;
+    color: white;
+    padding: 5px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+#edit-button-profile:hover {
+    background-color: #0056b3;
+}
+
+/* Contenedor de estadísticas en una sola línea */
+.stats-container {
+    display: flex;
+    gap: 50px; /* Aumenta el espacio entre las estadísticas */
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+/* Estilos para cada estadística */
+.stats-container div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #666;
+}
+
+.stats-container p {
+    font-size: 0.9em;
+    font-weight: bold;
+    color: #333;
+    margin: 0;
+}
+
+.stats-container span {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Descripción del perfil */
+.description {
+    margin-top: 10px;
+    font-size: 0.9em;
+    color: #666;
+    max-width: 600px;
+    text-align: left;
+}
