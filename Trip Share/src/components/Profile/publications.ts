@@ -22,8 +22,13 @@ class PublicationsUser extends HTMLElement {
 
             const tittle = this.ownerDocument.createElement('h1');
             tittle.innerText = 'Publications'
+
+            const section = this.ownerDocument.createElement('section')
+            div.appendChild(section);
+
+            this.shadowRoot.appendChild(divSection);
         }
     }
 };
-customElements.define("section-publications-user", PublicationsUser);
+customElements.define('section-publications-user', PublicationsUser);
 export default PublicationsUser;
