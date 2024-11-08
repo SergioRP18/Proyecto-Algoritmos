@@ -10,3 +10,15 @@
 .logo-login img {
     width: 420px;
 }
+/* Responsividad */
+@media (max-width: 768px) {
+    .logo-login img {
+        width: 200px; /* Tamaño reducido del logo en dispositivos pequeños */
+    }
+}
+
+@media (max-width: 480px) {
+    .logo-login img {
+        width: 150px;
+    }
+}

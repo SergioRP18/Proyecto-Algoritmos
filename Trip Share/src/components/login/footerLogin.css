@@ -18,3 +18,9 @@
     font-family: 'Poppins', sans-serif;
     font-weight: 200; /* Poppins Light */
 }
+/* Responsividad: Ocultar footer en pantallas pequeñas */
+@media (max-width: 768px) {
+    .footer-login {
+        display: none; /* Oculta el footer en dispositivos con ancho menor o igual a 768px */
+    }
+}

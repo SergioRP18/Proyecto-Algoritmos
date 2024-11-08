@@ -57,13 +57,12 @@
     color: #000000;
     cursor: pointer;
     font-size: 0.9rem;
-    text-decoration: underline;
     text-decoration: none;
 }
 
 .forgot-password button:hover {
     color: #007bff;
-    text-decoration: underline;
+    text-decoration: none;
 }
 
 .social-login {
@@ -95,6 +94,19 @@
 }
 
 .create-account:hover {
-    text-decoration: underline;
+    text-decoration: none;
+}
+/* Responsividad */
+@media (max-width: 768px) {
+    .login-container {
+        width: 90%; /* Ajuste para pantallas pequeñas */
+        padding: 20px;
+    }
 }
 
+@media (max-width: 480px) {
+    .login-container {
+        width: 100%;
+        padding: 15px;
+    }
+}

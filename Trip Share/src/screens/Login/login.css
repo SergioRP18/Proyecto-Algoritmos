@@ -36,3 +36,32 @@ body {
     bottom: 0;
     left: 0;
 }
+/* Responsividad */
+@media (max-width: 768px) {
+    /* Ajusta el contenedor principal para pantallas medianas */
+    .main-container {
+        flex-direction: column; /* Cambia a columna para que el logo y el formulario estén en una sola columna */
+        align-items: center;
+        gap: 20px; /* Reduce el espacio entre logo y formulario */
+        padding: 40px;
+    }
+
+    /* Ajusta el footer para pantallas medianas */
+    .footer {
+        padding: 10px 15px;
+        font-size: 0.65rem;
+    }
+}
+
+@media (max-width: 480px) {
+    /* Ajustes adicionales para pantallas pequeñas */
+    .main-container {
+        width: 100%; /* Ocupa el ancho completo de la pantalla */
+        padding: 20px;
+    }
+
+    .footer {
+        padding: 8px 10px;
+        font-size: 0.6rem;
+    }
+}

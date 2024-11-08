@@ -1,6 +1,8 @@
+/* headerRegister.css */
+
 .header-register {
     text-align: center;
-    padding: 20px;
+    padding: 10px;
 }
 
 .header-register h1 {
@@ -11,7 +13,7 @@
 
 .header-register p {
     font-size: 0.9rem;
-    color: #555;
+    color: #666;
     margin-top: 5px;
 }
 
