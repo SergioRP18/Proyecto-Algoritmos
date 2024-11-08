@@ -56,7 +56,7 @@ class Post extends HTMLElement {
 
             const location = this.ownerDocument.createElement('input');
             location.type = 'text';
-            location.id = 'post-hashtags';
+            location.id = 'post-location';
             location.required = true;
             inputsDiv.appendChild(location);
 

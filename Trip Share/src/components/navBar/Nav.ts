@@ -248,10 +248,17 @@ class NavBar extends HTMLElement {
             case 'profile-screen':
                 this.goNavigate(Screens.PROFILE);
                 break;
+            case 'create-screen':
+                this.handleCreate();
             case 'exit':
                 this.handleExit();
                 break;
         }
+    }
+
+    handleCreate() {
+        const createModal = document.createElement('section-post');
+        document.body.appendChild(createModal);
     }
 
     handleExit() {
