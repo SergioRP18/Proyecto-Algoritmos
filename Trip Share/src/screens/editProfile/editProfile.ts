@@ -1,3 +1,5 @@
+import '../../components/indexPadre';
+
 class AppEditProfile extends HTMLElement{
 
     constructor(){
@@ -6,10 +8,10 @@ class AppEditProfile extends HTMLElement{
     }
 
     async connectedCallback(){
-
+        this.render()
     }
 
-    return(){
+    async render(){
             const nav = this.ownerDocument.createElement('nav-bar');
             this.shadowRoot?.appendChild(nav);
     }

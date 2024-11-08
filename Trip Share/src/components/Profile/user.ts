@@ -1,6 +1,9 @@
 import styles from './user.css';
 import { getFirebaseInstance, getUser } from "../../utils/Firebase";
 import { onAuthStateChanged } from "firebase/auth";
+import { dispatch } from '../../store';
+import { navigate } from '../../store/actions';
+import { Screens } from '../../types/navigation';
 
 export enum AttributeProfile {
     'username' = 'username',
@@ -113,6 +116,10 @@ class UserProfile extends HTMLElement {
             editProfile.type = 'button';
             editProfile.id = 'edit-button-profile';
             editProfile.innerText = 'Edit profile';
+            
+            editProfile.addEventListener('click', () => {
+                dispatch(navigate(Screens.EDIT_PROFILE)); // Cambia `Screens.EDIT_PROFILE` según la constante para tu pantalla de edición
+            });
         
             userHeader.appendChild(username);
             userHeader.appendChild(editProfile);

@@ -43683,6 +43683,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 const inputPost_css_1 = __importDefault(__webpack_require__(3365));
 __webpack_require__(2249);
 const store_1 = __webpack_require__(2482);
+const Firebase_1 = __webpack_require__(8293);
 class Post extends HTMLElement {
     constructor() {
         super();
@@ -43694,7 +43695,29 @@ class Post extends HTMLElement {
         this.render();
     }
     async submitPublish() {
-        // Aquí iría la lógica para manejar el envío del post
+        const descriptionInput = this.shadowRoot?.querySelector('#post-description');
+        const hashtagsInput = this.shadowRoot?.querySelector('#post-hashtags');
+        const locationInput = this.shadowRoot?.querySelector('#post-location');
+        if (descriptionInput?.value && hashtagsInput?.value && locationInput?.value) {
+            const newPost = {
+                description: descriptionInput.value,
+                hashtags: hashtagsInput.value,
+                location: locationInput.value,
+            };
+            try {
+                await (0, Firebase_1.addPost)(newPost);
+                descriptionInput.value = '';
+                hashtagsInput.value = '';
+                locationInput.value = '';
+                console.log("Post publicado exitosamente");
+            }
+            catch (error) {
+                console.error("Error publicando el post:", error);
+            }
+        }
+        else {
+            console.warn("Por favor, completa todos los campos antes de publicar");
+        }
     }
     disconnectedCallback() {
         window.removeEventListener('beforeunload', this.closeOnNavigation);
@@ -43711,8 +43734,8 @@ class Post extends HTMLElement {
             this.shadowRoot.innerHTML = '';
             const dialog = this.ownerDocument.createElement('dialog');
             dialog.id = 'create-dialog';
-            dialog.style.maxHeight = "80vh"; // Limita el alto máximo del diálogo
-            dialog.style.overflowY = "auto"; // Habilita el scroll vertical si es necesario
+            dialog.style.maxHeight = "80vh";
+            dialog.style.overflowY = "auto";
             const photoComponent = this.ownerDocument.createElement('header-photo-create');
             dialog.appendChild(photoComponent);
             const inputsDiv = this.ownerDocument.createElement('div');
@@ -43741,7 +43764,6 @@ class Post extends HTMLElement {
             location.id = 'post-location';
             location.required = true;
             inputsDiv.appendChild(location);
-            // Botón de "Post"
             const saveButton = this.ownerDocument.createElement('button');
             saveButton.type = 'submit';
             saveButton.id = 'publish-btn';
@@ -43858,15 +43880,15 @@ class PublicationsUser extends HTMLElement {
             const divSection = this.ownerDocument.createElement('section');
             const div = this.ownerDocument.createElement('div');
             divSection.appendChild(div);
-            const icon = this.ownerDocument.createElement('img');
-            icon.id = 'icono-posts';
-            icon.src = '<svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 24 24"><path fill="#333333" d="M5.5 16V8a3 3 0 0 0-3-3a.5.5 0 0 0-.5.5v13a.5.5 0 0 0 .5.5a3 3 0 0 0 3-3m7-11c1.886 0 2.828 0 3.414.586S16.5 7.114 16.5 9v6c0 1.886 0 2.828-.586 3.414S14.386 19 12.5 19h-1c-1.886 0-2.828 0-3.414-.586S7.5 16.886 7.5 15V9c0-1.886 0-2.828.586-3.414S9.614 5 11.5 5zm6 3v8a3 3 0 0 0 3 3a.5.5 0 0 0 .5-.5v-13a.5.5 0 0 0-.5-.5a3 3 0 0 0-3 3"/></svg>';
-            div.appendChild(icon);
-            const tittle = this.ownerDocument.createElement('h1');
-            tittle.innerText = 'Publications';
-            const section = this.ownerDocument.createElement('section');
-            div.appendChild(section);
-            this.shadowRoot.appendChild(divSection);
+            // const icon = this.ownerDocument.createElement('img');
+            // icon.id = 'icono-posts'
+            // icon.src = '<svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 24 24"><path fill="#333333" d="M5.5 16V8a3 3 0 0 0-3-3a.5.5 0 0 0-.5.5v13a.5.5 0 0 0 .5.5a3 3 0 0 0 3-3m7-11c1.886 0 2.828 0 3.414.586S16.5 7.114 16.5 9v6c0 1.886 0 2.828-.586 3.414S14.386 19 12.5 19h-1c-1.886 0-2.828 0-3.414-.586S7.5 16.886 7.5 15V9c0-1.886 0-2.828.586-3.414S9.614 5 11.5 5zm6 3v8a3 3 0 0 0 3 3a.5.5 0 0 0 .5-.5v-13a.5.5 0 0 0-.5-.5a3 3 0 0 0-3 3"/></svg>'
+            // div.appendChild(icon);
+            // const tittle = this.ownerDocument.createElement('h1');
+            // tittle.innerText = 'Publications'
+            // const section = this.ownerDocument.createElement('section')
+            // div.appendChild(section);
+            // this.shadowRoot.appendChild(divSection);
             const cssPost = this.ownerDocument.createElement("style");
             cssPost.innerHTML = publications_css_1.default;
             this.shadowRoot.appendChild(cssPost);
@@ -43893,6 +43915,9 @@ exports.AttributeProfile = void 0;
 const user_css_1 = __importDefault(__webpack_require__(5651));
 const Firebase_1 = __webpack_require__(8293);
 const auth_1 = __webpack_require__(5052);
+const store_1 = __webpack_require__(2482);
+const actions_1 = __webpack_require__(2997);
+const navigation_1 = __webpack_require__(9006);
 var AttributeProfile;
 (function (AttributeProfile) {
     AttributeProfile["username"] = "username";
@@ -43985,6 +44010,9 @@ class UserProfile extends HTMLElement {
             editProfile.type = 'button';
             editProfile.id = 'edit-button-profile';
             editProfile.innerText = 'Edit profile';
+            editProfile.addEventListener('click', () => {
+                (0, store_1.dispatch)((0, actions_1.navigate)(navigation_1.Screens.EDIT_PROFILE)); // Cambia `Screens.EDIT_PROFILE` según la constante para tu pantalla de edición
+            });
             userHeader.appendChild(username);
             userHeader.appendChild(editProfile);
             // Contenedor de estadísticas
@@ -45298,21 +45326,22 @@ class AppDashboard extends HTMLElement {
     }
     async renderPost() {
         try {
-            const infoPost = await (0, Firebase_1.getPosts)();
+            const infoPost = await (0, Firebase_1.getPosts)(); // Obtener los posts de Firebase
             console.log(infoPost);
-            const postContainer = this.ownerDocument.createElement("div"); // Crea un contenedor para los posts
+            const postContainer = this.ownerDocument.createElement("div");
+            postContainer.className = 'post-container'; // Agrega una clase para el contenedor de posts
             infoPost?.forEach((element) => {
                 const post = this.ownerDocument.createElement("app-post");
-                post.setAttribute(post_1.Attributes.image, element.image);
-                post.setAttribute(post_1.Attributes.photouser, element.photouser);
-                post.setAttribute(post_1.Attributes.username, element.username);
-                post.setAttribute(post_1.Attributes.region, element.region);
-                post.setAttribute(post_1.Attributes.description, element.description);
-                post.setAttribute(post_1.Attributes.hashtags, element.hashtags);
+                post.setAttribute(post_1.Attributes.image, element.image || "default-image.jpg"); // Cambia según los datos de tu post
+                post.setAttribute(post_1.Attributes.photouser, element.photouser || "default-photo.jpg");
+                post.setAttribute(post_1.Attributes.username, element.username || "Unknown User");
+                post.setAttribute(post_1.Attributes.region, element.region || "Unknown Region");
+                post.setAttribute(post_1.Attributes.description, element.description || "");
+                post.setAttribute(post_1.Attributes.hashtags, element.hashtags || "");
                 post.setAttribute(post_1.Attributes.uid, String(element.id));
                 postContainer.appendChild(post); // Agrega el post al contenedor
             });
-            this.shadowRoot?.appendChild(postContainer);
+            this.shadowRoot?.appendChild(postContainer); // Agrega el contenedor de posts al shadow DOM
         }
         catch (error) {
             console.error('Error fetching posts:', error);
@@ -45328,7 +45357,7 @@ class AppDashboard extends HTMLElement {
         this.shadowRoot?.appendChild(navAside);
         const navResponsive = this.ownerDocument.createElement('nav-responsive');
         this.shadowRoot?.appendChild(navResponsive);
-        await this.renderPost();
+        await this.renderPost(); // Llama a renderPost para renderizar los posts
     }
 }
 customElements.define("app-dashboard", AppDashboard);
@@ -45418,19 +45447,21 @@ customElements.define("app-profile", AppProfile);
 /***/ }),
 
 /***/ 7869:
-/***/ ((__unused_webpack_module, exports) => {
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
+__webpack_require__(2249);
 class AppEditProfile extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
     }
     async connectedCallback() {
+        this.render();
     }
-    return() {
+    async render() {
         const nav = this.ownerDocument.createElement('nav-bar');
         this.shadowRoot?.appendChild(nav);
     }
