@@ -1,5 +1,5 @@
 import { Screens } from '../../types/navigation';
-import { dispatch } from '../../store';
+import { appState, dispatch } from '../../store';
 import { navigate } from '../../store/actions';
 import ExitAccount from '../ExitAccount/exitAccount';
 import { getUser, getFirebaseInstance } from '../../utils/Firebase';
@@ -54,10 +54,6 @@ class NavBar extends HTMLElement {
         this.render();
     }
 
-
-    goNavigate(screen: Screens) {
-        dispatch(navigate(screen));
-    }
 
     async renderNavProfile(userId: string) {
         try {
@@ -189,6 +185,7 @@ class NavBar extends HTMLElement {
     }
 
     createNavLink(link: { id: string, icon?: string, imgSrc?: string, text: string }) {
+        
         const li = this.ownerDocument.createElement('li');
         li.id = link.id;
     
@@ -216,11 +213,15 @@ class NavBar extends HTMLElement {
         linkContainer.appendChild(textSpan);
 
         li.addEventListener('click', (event) => {
+            console.log('click en', link.id);
+            
             event.preventDefault();
             if (link.id === 'create-screen') {
                 this.handleCreateDialog(); 
             } else {
                 this.handleNavigation(link.id);
+                console.log('Navegando a handle', link.id);
+                
             }
         });
     
@@ -251,13 +252,15 @@ class NavBar extends HTMLElement {
     handleNavigation(id: string) {
         switch (id) {
             case 'home-screen':
-                this.goNavigate(Screens.DASHBOARD);
+                dispatch(navigate(Screens.DASHBOARD));
                 break;
             case 'wish-list-screen':
-                this.goNavigate(Screens.MY_WISH_LIST);
+                dispatch(navigate(Screens.MY_WISH_LIST));
                 break;
             case 'profile-screen':
-                this.goNavigate(Screens.PROFILE);
+                dispatch(navigate(Screens.PROFILE));
+                console.log('appstate screen', appState.screen);
+                
                 break;
             case 'create-screen':
                 this.handleCreateDialog(); 
