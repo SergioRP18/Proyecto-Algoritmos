@@ -80,7 +80,6 @@ aside {
     border-radius: 50%;
     width: 40px; /* Tamaño de la imagen de perfil */
     height: 40px;
-    margin-right: 0.5rem;
 }
 
 /* Estilo del nombre de usuario y el nombre */
@@ -94,11 +93,13 @@ aside {
     font-size: 1rem;
     font-weight: bold;
     color: #333;
+    font-family: 'Arial', sans-serif; 
 }
 
 .user-info .name {
     font-size: 0.9rem;
     color: #777;
+    font-family: 'Arial', sans-serif;
 }
 
 /* Estilo del ícono de logout */
