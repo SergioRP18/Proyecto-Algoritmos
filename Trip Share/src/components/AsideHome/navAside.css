@@ -22,30 +22,39 @@ nav {
     flex-grow: 1;
 }
 
-/* Estilos del user-bar */
+/* Contenedor de usuario en disposición horizontal */
 .user-bar-dashboard {
-    text-align: center;
-    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Espacio entre los elementos */
+    text-align: left;
+    padding-left: 10px; /* Ajusta este valor para moverlo a la izquierda */
 }
 
 /* Imagen de perfil */
 .user-bar-dashboard img {
     border-radius: 50%;
-    width: 60px;
-    height: 60px;
+    width: 40px;
+    height: 40px;
 }
 
-/* Texto dentro del user-bar */
-.user-bar-dashboard h6 {
-    margin: 0.5rem 0 0.2rem;
+/* Contenedor para el nombre de usuario y el nombre */
+.user-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.user-info .username {
     font-size: 1rem;
     font-weight: bold;
+    color: #333;
 }
 
-.user-bar-dashboard p {
+.user-info .name {
     font-size: 0.9rem;
-    color: #555;
+    color: #777;
 }
+
 
 /* Footer fijo al final de la barra lateral */
 .footer {

@@ -60,6 +60,9 @@ class AppDashboard extends HTMLElement {
         const navAside = this.ownerDocument.createElement('app-nav-profile');
         this.shadowRoot?.appendChild(navAside);
 
+        const navResponsive = this.ownerDocument.createElement('nav-responsive');
+        this.shadowRoot?.appendChild(navResponsive);
+
         await this.renderPost();
     }
 }
