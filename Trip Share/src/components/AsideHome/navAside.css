@@ -1,8 +1,7 @@
 /* Estilos generales para la barra lateral derecha */
 aside {
-    background-color: #E6F4FF; /* Color azul claro */
+    background-color: rgba(20, 122, 255, 0.25); /* Color azul claro */
     padding: 1rem;
-    border-left: 1px solid #CCC; /* Borde de separación */
     position: fixed; /* Hace que la barra de navegación esté fija */
     top: 0;
     right: 0; /* Fijado al lado derecho de la pantalla */
@@ -60,11 +59,11 @@ nav {
 .footer {
     text-align: center;
     font-size: 0.8rem;
-    color: #888;
+    color: rgba(45, 44, 44, 1);
     margin-top: auto; /* Hace que el footer se pegue al fondo de la barra */
     padding-top: 1rem;
     margin-bottom: 1cm; /* Agrega un espacio de 1 cm desde el borde inferior */
-    border-top: 1px solid #CCC;
+    border-top: 1px solid rgba(45, 44, 44, 1);
     width: 100%;
 }
 

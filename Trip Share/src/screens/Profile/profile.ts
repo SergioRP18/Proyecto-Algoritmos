@@ -21,6 +21,9 @@ class AppProfile extends HTMLElement {
             const nav = this.ownerDocument.createElement('nav-bar');
             this.shadowRoot?.appendChild(nav);
 
+            const navResponsive = this.ownerDocument.createElement('nav-responsive');
+            this.shadowRoot?.appendChild(navResponsive);
+
             const userProfile = this.ownerDocument.createElement('section-user-profile');
             this.shadowRoot?.appendChild(userProfile);
 

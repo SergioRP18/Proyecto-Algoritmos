@@ -1,0 +1,38 @@
+* {
+    font-family: 'Poppins', sans-serif;
+    box-sizing: border-box; /* Para evitar problemas de padding/margin que afecten el tamaño */
+}
+
+dialog {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.modal-content h2 {
+    color: rgba(45, 45, 45, 1);
+}
+
+.modal-content p {
+    color: rgba(45, 45, 45, 1);
+}
+
+#cancel-btn {
+    padding: 10px;
+    width: 100px;
+    border: 2px solid #007bff;
+    border-radius: 10px;
+    color: #007bff;
+    background-color: white;
+    cursor: pointer;
+}
+
+#logout-btn {
+    padding: 10px;
+    width: 100px;
+    border: 2px solid #007bff;
+    border-radius: 10px;
+    color: white;
+    background-color: #007bff;
+    cursor: pointer;
+}

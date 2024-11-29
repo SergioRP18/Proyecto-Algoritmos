@@ -42,3 +42,16 @@ section div img {
 section div img:hover {
     transform: scale(1.05);
 }
+
+/* Media Query para dispositivos más pequeños (max-width: 767px) */
+@media (max-width: 767px) {
+    /* Ajustes para la cuadrícula de imágenes */
+    section div {
+        grid-template-columns: 1fr; /* Establecer una sola columna para imágenes en pantallas pequeñas */
+    }
+
+    /* Ajustar tamaño de las imágenes */
+    section div img {
+        height: auto; /* Ajustar la altura de las imágenes de acuerdo a la relación de aspecto */
+    }
+}

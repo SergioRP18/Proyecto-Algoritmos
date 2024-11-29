@@ -44,6 +44,7 @@ class UserProfile extends HTMLElement {
     }
 
     async renderUser(userId: string) {
+        if (this.isUserLoaded) return; 
         if (this.isUserLoaded) return;
 
         try {
@@ -72,6 +73,10 @@ class UserProfile extends HTMLElement {
                     const userId = user.uid;
                     await this.renderUser(userId);
                 } else {
+                    console.log("No authenticated user.");
+                    this.isUserLoaded = false;
+
+                    this.render(); 
                     this.isUserLoaded = false;
                     this.render();
                 }
@@ -108,6 +113,10 @@ class UserProfile extends HTMLElement {
         
             // Nombre de usuario
             const username = document.createElement('h1');
+            username.innerText = this.username || 'default_name';
+            userHeader.appendChild(username);
+
+            // Botón de editar perfil
             username.innerText = this.name || 'default_name';
             username.className = 'username';
         

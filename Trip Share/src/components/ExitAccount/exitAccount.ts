@@ -1,3 +1,4 @@
+import styles from './exit.css';
 import { Screens } from "../../types/navigation";
 import { navigate } from "../../store/actions";
 import { dispatch } from "../../store";
@@ -59,6 +60,10 @@ class ExitAccount extends HTMLElement {
             this.shadowRoot.querySelector('#logout-btn')?.addEventListener('click', () => {
                 this.logout(dialog);
             });
+
+            const cssExit = this.ownerDocument.createElement("style");
+            cssExit.innerHTML = styles;
+            this.shadowRoot.appendChild(cssExit);
         }
     }
 }

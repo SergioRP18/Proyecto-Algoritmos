@@ -12,7 +12,10 @@ class AppMyWishList extends HTMLElement {
 
     render(){
         const nav = this.ownerDocument.createElement('nav-bar');
-            this.shadowRoot?.appendChild(nav);
+        this.shadowRoot?.appendChild(nav);
+
+        const navResponsive = this.ownerDocument.createElement('nav-responsive');
+        this.shadowRoot?.appendChild(navResponsive);
     }
 };
 customElements.define("app-wish-list", AppMyWishList);

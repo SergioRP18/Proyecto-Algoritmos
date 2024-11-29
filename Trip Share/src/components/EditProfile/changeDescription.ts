@@ -9,9 +9,7 @@ class ChangeDescription extends HTMLElement {
     }
 
     render(){
-        if(this.shadowRoot){
-            const div
-        }
+        
     }
 };
 customElements.define("section-edit-description", ChangeDescription);

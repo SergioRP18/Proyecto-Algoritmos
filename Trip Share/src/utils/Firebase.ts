@@ -68,10 +68,8 @@ export const getPosts = async () => {
 }
 
 export const getUser = async (userId: string) => {
-    // Asegurarse de que `db` esté inicializado
     const { db } = await getFirebaseInstance();
 
-    // Crear la referencia al documento y obtener los datos
     const docRef = doc(db, "users", userId);
     const userData = await getDoc(docRef);
 

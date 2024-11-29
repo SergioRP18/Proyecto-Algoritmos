@@ -1,8 +1,8 @@
 /* Estilos generales para la barra de navegación */
 aside {
     background-color: #FAF8F8;
+    box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.1);
     padding: 1rem;
-    border-right: 1px solid #CCC;
     position: fixed;
     top: 0;
     left: 0;

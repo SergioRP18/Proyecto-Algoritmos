@@ -8056,9 +8056,8 @@ var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBP
 // Module
 ___CSS_LOADER_EXPORT___.push([module.id, `/* Estilos generales para la barra lateral derecha */
 aside {
-    background-color: #E6F4FF; /* Color azul claro */
+    background-color: rgba(20, 122, 255, 0.25); /* Color azul claro */
     padding: 1rem;
-    border-left: 1px solid #CCC; /* Borde de separación */
     position: fixed; /* Hace que la barra de navegación esté fija */
     top: 0;
     right: 0; /* Fijado al lado derecho de la pantalla */
@@ -8116,11 +8115,11 @@ nav {
 .footer {
     text-align: center;
     font-size: 0.8rem;
-    color: #888;
+    color: rgba(45, 44, 44, 1);
     margin-top: auto; /* Hace que el footer se pegue al fondo de la barra */
     padding-top: 1rem;
     margin-bottom: 1cm; /* Agrega un espacio de 1 cm desde el borde inferior */
-    border-top: 1px solid #CCC;
+    border-top: 1px solid rgba(45, 44, 44, 1);
     width: 100%;
 }
 
@@ -8138,7 +8137,7 @@ nav {
 
 /***/ }),
 
-/***/ 275:
+/***/ 5275:
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -8212,7 +8211,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.content {
 
 /***/ }),
 
-/***/ 365:
+/***/ 3365:
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -8229,24 +8228,33 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, `dialog#create-dialog {
+___CSS_LOADER_EXPORT___.push([module.id, `* {
+    font-family: 'Poppins', sans-serif;
+    box-sizing: border-box; /* Para evitar problemas de padding/margin que afecten el tamaño */
+}
+
+dialog#create-dialog {
     width: 100%;
-    max-width: 800px; /* Ajusta el ancho máximo */
+    max-width: 800px; /* Limita el ancho máximo del diálogo */
     max-height: 80vh; /* Limita el alto máximo del diálogo */
-    border:none;
+    border: none;
     border-radius: 10px;
     padding: 20px;
     box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
     background-color: #007bff; /* Fondo azul del diálogo */
-    color: #ffffff; /* Color de texto blanco para mejor contraste */
+    color: #ffffff; /* Color de texto blanco */
+    overflow: hidden; /* Evita que aparezca scroll en el diálogo */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .inputs-create {
     display: flex;
     flex-direction: column;
     gap: 15px;
-    margin-top: 10px;
     padding: 0 10px; /* Añade relleno interno para evitar bordes */
+    flex-grow: 1; /* Asegura que este contenedor ocupe el espacio disponible */
 }
 
 .inputs-create h1 {
@@ -8261,6 +8269,8 @@ ___CSS_LOADER_EXPORT___.push([module.id, `dialog#create-dialog {
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 1em;
+    margin-bottom: 10px;
+    box-sizing: border-box;
 }
 
 .submit-publish {
@@ -8271,12 +8281,21 @@ ___CSS_LOADER_EXPORT___.push([module.id, `dialog#create-dialog {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    margin-top: 10px;
+    margin-top: 15px; /* Agrega un pequeño espacio antes del botón */
     width: 100%; /* Asegura que el botón ocupe todo el ancho del contenedor */
+    box-sizing: border-box; /* Asegura que el tamaño del botón se ajuste al contenedor */
 }
 
 .submit-publish:hover {
     background-color: #218838;
+}
+
+/* Asegura que el diálogo ocupe un tamaño adecuado sin sobrepasar la pantalla */
+@media (max-width: 900px) {
+    dialog#create-dialog {
+        max-width: 90%; /* Ajusta el tamaño en pantallas más pequeñas */
+        padding: 15px; /* Reducir el padding en dispositivos pequeños */
+    }
 }
 `, ""]);
 // Exports
@@ -8285,7 +8304,68 @@ ___CSS_LOADER_EXPORT___.push([module.id, `dialog#create-dialog {
 
 /***/ }),
 
-/***/ 815:
+/***/ 464:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1601);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6314);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
+// Imports
+
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, `* {
+    font-family: 'Poppins', sans-serif;
+    box-sizing: border-box; /* Para evitar problemas de padding/margin que afecten el tamaño */
+}
+
+dialog {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.modal-content h2 {
+    color: rgba(45, 45, 45, 1);
+}
+
+.modal-content p {
+    color: rgba(45, 45, 45, 1);
+}
+
+#cancel-btn {
+    padding: 10px;
+    width: 100px;
+    border: 2px solid #007bff;
+    border-radius: 10px;
+    color: #007bff;
+    background-color: white;
+    cursor: pointer;
+}
+
+#logout-btn {
+    padding: 10px;
+    width: 100px;
+    border: 2px solid #007bff;
+    border-radius: 10px;
+    color: white;
+    background-color: #007bff;
+    cursor: pointer;
+}`, ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ 7815:
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -8346,6 +8426,19 @@ section div img {
 section div img:hover {
     transform: scale(1.05);
 }
+
+/* Media Query para dispositivos más pequeños (max-width: 767px) */
+@media (max-width: 767px) {
+    /* Ajustes para la cuadrícula de imágenes */
+    section div {
+        grid-template-columns: 1fr; /* Establecer una sola columna para imágenes en pantallas pequeñas */
+    }
+
+    /* Ajustar tamaño de las imágenes */
+    section div img {
+        height: auto; /* Ajustar la altura de las imágenes de acuerdo a la relación de aspecto */
+    }
+}
 `, ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
@@ -8353,7 +8446,7 @@ section div img:hover {
 
 /***/ }),
 
-/***/ 651:
+/***/ 5651:
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -8394,6 +8487,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/* Contenedor principal para la estruc
     border-radius: 50%;
     border: 2px solid #ddd;
     margin-top: 10px; /* Alineación vertical con el nombre */
+    flex-shrink: 0;
 }
 
 /* Contenedor de la información del usuario */
@@ -8470,57 +8564,27 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/* Contenedor principal para la estruc
     max-width: 600px;
     text-align: left;
 }
-`, ""]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
-
-/***/ }),
-
-/***/ 376:
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1601);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6314);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
-// Imports
-
-
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, `/* headerRegister.css */
-
-.header-register {
-    text-align: center;
-    padding: 10px;
+@media (max-width: 768px) {
+    .user-profile-container {
+        justify-content: flex-start;    
 }
 
-.header-register h1 {
-    font-size: 1.8rem;
-    font-weight: bold;
-    color: #333;
-}
+    .profile-photo-container {
+        max-width: 150px; /* Reduce el tamaño de la foto en dispositivos pequeños */
+        margin-bottom: 10px; /* Espacio entre la foto y el siguiente contenido */
+    }
 
-.header-register p {
-    font-size: 0.9rem;
-    color: #666;
-    margin-top: 5px;
-}
+    .stats-container {
+        justify-content: flex-start; /* Alinea las estadísticas a la izquierda */
+        width: 100%; /* Asegura que ocupe todo el ancho disponible */
+    }
 
-.close-button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    cursor: pointer;
+    .user-info-container {
+        text-align: left; /* Alinea el texto a la izquierda */
+        align-items: flex-start; /* Alinea los elementos internos a la izquierda */
+        width: 100%; /* Asegura que se expanda en toda la pantalla */
+    }
 }
 `, ""]);
 // Exports
@@ -8553,53 +8617,57 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/* Fondo del modal */
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 1000;
+    border: none;
+    background-color: rgba(255, 255, 255, 0.7);
 }
 
 /* Contenido del modal */
 .modal-content {
     display: block;
     position: relative;
-    background-color: #ffffff;
+    background-color: #FAF8F8;
     padding: 20px;
     width: 600px; /* Ajusta el ancho para que sea más compacto */
-    max-height: 80vh; /* Limita la altura del modal al 80% de la altura de la ventana */
-    overflow-y: auto; /* Permite scroll interno si el contenido excede el alto */
-    border-radius: 10px;
-    text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 15px;
+    text-align: left;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     font-family: 'Poppins', sans-serif;
+    border: none;
 }
 
 /* Encabezado del modal */
+.header-register {
+    position: relative; /* Esto hace que el botón de cerrar se posicione respecto al encabezado */
+}
+
 .header-register h1 {
-    font-size: 1.5rem;
+    font-size: 40px;
     font-weight: bold;
-    color: #333;
-    margin-bottom: 5px;
+    color: rgba(45, 45, 45, 1); /* Cambié el color aquí */
+    position: relative;
 }
 
-.header-register p {
-    font-size: 0.85rem;
-    color: #666;
-    margin-top: 5px;
-    margin-bottom: 15px; /* Reduce el espacio entre el texto y los campos de entrada */
-}
-
-/* Botón de cerrar */
+/* Botón de cerrar (alineado con el título) */
 .close-button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
+    position: absolute;  /* Lo posicionamos de forma absoluta respecto al contenedor */
+    top: 40px;              /* Alineamos el botón con la parte superior del contenedor */
+    right: 0;            /* Lo colocamos a la derecha */
     background: none;
     border: none;
-    font-size: 1.5rem;
+    font-size: 40px; /* Tamaño del botón */
     cursor: pointer;
     color: #007bff;
+}
+
+/* Texto debajo del encabezado */
+.header-register p {
+    font-size: 16px;
+    color: rgba(45, 45, 45, 1); /* Cambié el color aquí */
+    margin-bottom: 15px; /* Reduce el espacio entre el texto y los campos de entrada */
 }
 
 /* Campos de entrada */
@@ -8613,6 +8681,12 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/* Fondo del modal */
     font-family: 'Poppins', sans-serif;
     font-size: 1rem;
 }
+
+input::placeholder {
+    color: #007bff;  /* Color azul */
+    opacity: 1;      /* Evitar que sea translúcido */
+}
+
 
 /* Contenedor de selectores de fecha y región */
 .selectors {
@@ -8628,8 +8702,8 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/* Fondo del modal */
     grid-column: span 3;
     text-align: left;
     font-size: 1rem;
-    font-weight: normal;
-    color: #2D2D2D;
+    font-weight: bold;
+    color: rgba(45, 45, 45, 1); /* Cambié el color aquí */
     margin-bottom: 5px;
 }
 
@@ -8641,7 +8715,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/* Fondo del modal */
     font-family: 'Poppins', sans-serif;
     color: #2D2D2D;
     background-color: #b1d0f1;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Agrega sombra */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Sombra de los selectores */
 }
 
 /* Contenedor de "Region" */
@@ -8655,7 +8729,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/* Fondo del modal */
 /* Estilo del título "Region" */
 .region-container h1 {
     font-size: 1rem;
-    color: #2D2D2D;
+    color: rgba(45, 45, 45, 1); /* Cambié el color aquí */
     margin-bottom: 5px;
     text-align: left;
 }
@@ -8681,12 +8755,14 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/* Fondo del modal */
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 1rem;
+    font-size: 24px;
+    font-weight: bold;
     margin-top: 15px;
 }
 .register-button:hover {
     background-color: #1e9e0b;
 }
+
 /* Contenedor para Name y Last Name */
 .name-lastname-container {
     display: flex;
@@ -8703,6 +8779,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/* Fondo del modal */
     font-size: 1rem;
     box-sizing: border-box;
 }
+
 .hidden {
     display: none !important;
 }
@@ -9523,8 +9600,8 @@ var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBP
 ___CSS_LOADER_EXPORT___.push([module.id, `/* Estilos generales para la barra de navegación */
 aside {
     background-color: #FAF8F8;
+    box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.1);
     padding: 1rem;
-    border-right: 1px solid #CCC;
     position: fixed;
     top: 0;
     left: 0;
@@ -43623,7 +43700,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const store_1 = __webpack_require__(2482);
 const storageImage_1 = __webpack_require__(6258);
-const inputPhoto_css_1 = __importDefault(__webpack_require__(275));
+const inputPhoto_css_1 = __importDefault(__webpack_require__(5275));
 class Photo extends HTMLElement {
     constructor() {
         super();
@@ -43643,7 +43720,7 @@ class Photo extends HTMLElement {
             imgDiv.className = 'image icon';
             const imgIcon = this.ownerDocument.createElement("img");
             // Enlace directo al ícono de imagen
-            imgIcon.src = 'https://example.com/icon-upload.png'; // Cambia esta URL al enlace de tu ícono de carga
+            imgIcon.src = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzNSIgaGVpZ2h0PSIzNSIgdmlld0JveD0iMCAwIDIwIDIwIj48cGF0aCBmaWxsPSIjMTQ3QUZGIiBkPSJNMTkuMDkgMmEuOS45IDAgMCAxIC45MS44ODlWMTcuMTFhLjkuOSAwIDAgMS0uOTEuODg5SC45MUEuOS45IDAgMCAxIDAgMTcuMTFWMi44OUEuOS45IDAgMCAxIC45MSAyek01LjQxNiA4LjQxN2wtNC4wNiA0LjA0MnY0LjIxN0gxOC42NHYtMS40MzNsLTMuMi0zLjEybC0yLjc3NyAyLjMzM3EtLjI0OS4xNzUtLjQ4LjE1NWEuOC44IDAgMCAxLS40MzktLjE4OXptMTMuMjItNS4wODZIMS4zNjJ2Ny4yM0w0Ljk2OCA2Ljk3YS43Mi43MiAwIDAgMSAuNDQtLjE1NnEuMjMyIDAgLjQxLjE0bDYuNDMxIDYuMDg4bDIuODA1LTIuMzVhLjcuNyAwIDAgMSAuNDIxLS4xNDZhLjcuNyAwIDAgMSAuNDE4LjE0NWwyLjc0MiAyLjY2NXpNMTUuMjczIDUuMjNjLjc1MyAwIDEuMzYzLjU5NyAxLjM2MyAxLjMzM3MtLjYxIDEuMzMzLTEuMzYzIDEuMzMzYy0uNzU0IDAtMS4zNjQtLjU5Ny0xLjM2NC0xLjMzM3MuNjEtMS4zMzMgMS4zNjQtMS4zMzMiLz48L3N2Zz4='; // Cambia esta URL al enlace de tu ícono de carga
             imgIcon.alt = 'icon of upload image or photo';
             imgDiv.appendChild(imgIcon);
             header.appendChild(imgDiv);
@@ -43680,7 +43757,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-const inputPost_css_1 = __importDefault(__webpack_require__(365));
+const inputPost_css_1 = __importDefault(__webpack_require__(3365));
 __webpack_require__(2249);
 const store_1 = __webpack_require__(2482);
 const Firebase_1 = __webpack_require__(8293);
@@ -43789,11 +43866,15 @@ exports["default"] = Post;
 /***/ }),
 
 /***/ 5250:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", ({ value: true }));
+const exit_css_1 = __importDefault(__webpack_require__(464));
 const navigation_1 = __webpack_require__(9006);
 const actions_1 = __webpack_require__(2997);
 const store_1 = __webpack_require__(2482);
@@ -43848,6 +43929,9 @@ class ExitAccount extends HTMLElement {
             this.shadowRoot.querySelector('#logout-btn')?.addEventListener('click', () => {
                 this.logout(dialog);
             });
+            const cssExit = this.ownerDocument.createElement("style");
+            cssExit.innerHTML = exit_css_1.default;
+            this.shadowRoot.appendChild(cssExit);
         }
     }
 }
@@ -43866,7 +43950,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-const publications_css_1 = __importDefault(__webpack_require__(815));
+const publications_css_1 = __importDefault(__webpack_require__(7815));
 class PublicationsUser extends HTMLElement {
     constructor() {
         super();
@@ -43912,7 +43996,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.AttributeProfile = void 0;
-const user_css_1 = __importDefault(__webpack_require__(651));
+const user_css_1 = __importDefault(__webpack_require__(5651));
 const Firebase_1 = __webpack_require__(8293);
 const auth_1 = __webpack_require__(5052);
 const store_1 = __webpack_require__(2482);
@@ -43949,6 +44033,8 @@ class UserProfile extends HTMLElement {
     async renderUser(userId) {
         if (this.isUserLoaded)
             return;
+        if (this.isUserLoaded)
+            return;
         try {
             const data = await (0, Firebase_1.getUser)(userId);
             if (data) {
@@ -43974,6 +44060,9 @@ class UserProfile extends HTMLElement {
                     await this.renderUser(userId);
                 }
                 else {
+                    console.log("No authenticated user.");
+                    this.isUserLoaded = false;
+                    this.render();
                     this.isUserLoaded = false;
                     this.render();
                 }
@@ -44003,6 +44092,9 @@ class UserProfile extends HTMLElement {
             userHeader.className = 'user-header';
             // Nombre de usuario
             const username = document.createElement('h1');
+            username.innerText = this.username || 'default_name';
+            userHeader.appendChild(username);
+            // Botón de editar perfil
             username.innerText = this.name || 'default_name';
             username.className = 'username';
             // Botón de editar perfil al lado del nombre de usuario
@@ -44049,54 +44141,6 @@ class UserProfile extends HTMLElement {
 }
 customElements.define("section-user-profile", UserProfile);
 exports["default"] = UserProfile;
-
-
-/***/ }),
-
-/***/ 7707:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-const headerRegister_css_1 = __importDefault(__webpack_require__(376));
-const store_1 = __webpack_require__(2482);
-__webpack_require__(2249);
-class HeaderRegister extends HTMLElement {
-    constructor() {
-        super();
-        this.attachShadow({ mode: 'open' });
-        (0, store_1.addObserver)(this);
-    }
-    connectedCallback() {
-        this.render();
-    }
-    render() {
-        if (this.shadowRoot) {
-            this.shadowRoot.innerHTML = `
-            <style>${headerRegister_css_1.default}</style>
-                <div class="header-register">
-                    <h1>Register</h1>
-                    <img id="close-popup" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMSIgaGVpZ2h0PSIyMSIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBmaWxsPSIjMTQ3QUZGIiBkPSJtNy4wNSA1LjYzNmw0Ljk1IDQuOTVsNC45NS00Ljk1bDEuNDE0IDEuNDE0bC00Ljk1IDQuOTVsNC45NSA0Ljk1bC0xLjQxNSAxLjQxNGwtNC45NS00Ljk1bC00Ljk0OSA0Ljk1bC0xLjQxNC0xLjQxNGw0Ljk1LTQuOTVsLTQuOTUtNC45NXoiLz48L3N2Zz4=" alt="Close">
-                    <p>Join our travel community! Sign up to share your adventures, discover new destinations, and connect with fellow travel enthusiasts. Start exploring the world today!</p>
-                </div>
-            `;
-            const style = document.createElement("style");
-            style.textContent = headerRegister_css_1.default;
-            this.shadowRoot.appendChild(style);
-            const closePopupButton = this.shadowRoot.querySelector("#close-popup");
-            closePopupButton?.addEventListener('click', (event) => {
-                event.preventDefault();
-                this.dispatchEvent(new CustomEvent('close-popup', { bubbles: true, composed: true }));
-            });
-        }
-    }
-}
-customElements.define("section-header-register", HeaderRegister);
-exports["default"] = HeaderRegister;
 
 
 /***/ }),
@@ -44199,7 +44243,7 @@ class AppRegister extends HTMLElement {
         if (this.shadowRoot) {
             const dialog = this.ownerDocument.createElement('dialog');
             dialog.id = 'register-dialog';
-            dialog.className = 'modal-content hidden';
+            dialog.className = 'modal-content';
             const closeButton = this.ownerDocument.createElement('button');
             closeButton.className = 'close-button';
             closeButton.innerHTML = '×';
@@ -44772,7 +44816,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.UserProfile = exports.PublicationsUser = exports.ExitAccount = exports.AppRegister = exports.HeaderRegister = exports.FooterLogin = exports.InputLogin = exports.ImageLogin = exports.Post = exports.Photo = exports.NavResponsive = exports.SearchBar = exports.AppPost = exports.UserBar = exports.navAside = exports.NavBar = void 0;
+exports.UserProfile = exports.PublicationsUser = exports.ExitAccount = exports.AppRegister = exports.FooterLogin = exports.InputLogin = exports.ImageLogin = exports.Post = exports.Photo = exports.NavResponsive = exports.SearchBar = exports.AppPost = exports.UserBar = exports.navAside = exports.NavBar = void 0;
 var Nav_1 = __webpack_require__(8405);
 Object.defineProperty(exports, "NavBar", ({ enumerable: true, get: function () { return __importDefault(Nav_1).default; } }));
 var navAside_1 = __webpack_require__(9722);
@@ -44795,8 +44839,6 @@ var inputLogin_1 = __webpack_require__(2082);
 Object.defineProperty(exports, "InputLogin", ({ enumerable: true, get: function () { return __importDefault(inputLogin_1).default; } }));
 var footerLogin_1 = __webpack_require__(4035);
 Object.defineProperty(exports, "FooterLogin", ({ enumerable: true, get: function () { return __importDefault(footerLogin_1).default; } }));
-var headerRegister_1 = __webpack_require__(7707);
-Object.defineProperty(exports, "HeaderRegister", ({ enumerable: true, get: function () { return __importDefault(headerRegister_1).default; } }));
 var register_1 = __webpack_require__(8606);
 Object.defineProperty(exports, "AppRegister", ({ enumerable: true, get: function () { return __importDefault(register_1).default; } }));
 var exitAccount_1 = __webpack_require__(5250);
@@ -45432,6 +45474,8 @@ class AppProfile extends HTMLElement {
     async render() {
         const nav = this.ownerDocument.createElement('nav-bar');
         this.shadowRoot?.appendChild(nav);
+        const navResponsive = this.ownerDocument.createElement('nav-responsive');
+        this.shadowRoot?.appendChild(navResponsive);
         const userProfile = this.ownerDocument.createElement('section-user-profile');
         this.shadowRoot?.appendChild(userProfile);
         const publicationsUser = this.ownerDocument.createElement('section-publications-user');
@@ -45464,6 +45508,8 @@ class AppEditProfile extends HTMLElement {
     async render() {
         const nav = this.ownerDocument.createElement('nav-bar');
         this.shadowRoot?.appendChild(nav);
+        const navResponsive = this.ownerDocument.createElement('nav-responsive');
+        this.shadowRoot?.appendChild(navResponsive);
     }
 }
 ;
@@ -45490,6 +45536,8 @@ class AppMyWishList extends HTMLElement {
     render() {
         const nav = this.ownerDocument.createElement('nav-bar');
         this.shadowRoot?.appendChild(nav);
+        const navResponsive = this.ownerDocument.createElement('nav-responsive');
+        this.shadowRoot?.appendChild(navResponsive);
     }
 }
 ;
@@ -45741,9 +45789,7 @@ const getPosts = async () => {
 };
 exports.getPosts = getPosts;
 const getUser = async (userId) => {
-    // Asegurarse de que `db` esté inicializado
     const { db } = await (0, exports.getFirebaseInstance)();
-    // Crear la referencia al documento y obtener los datos
     const docRef = (0, firestore_1.doc)(db, "users", userId);
     const userData = await (0, firestore_1.getDoc)(docRef);
     return userData.exists() ? userData.data() : null;
