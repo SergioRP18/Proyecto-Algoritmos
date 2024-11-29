@@ -1,7 +1,10 @@
 import styles from './inputPost.css';
+import { v4 as uuidv4 } from 'uuid';
 import '../../components/indexPadre';
 import { addObserver, appState, dispatch } from '../../store';
-import { addPost, getPostsByUser, getFile } from '../../utils/Firebase';
+import {addPost, getPostsByUser, getFile, uploadPost} from '../../utils/Firebase';
+
+let postInfo: {user: string, postDescription: string, postHashtags: string, postLocation: string, photo: string} = { user: appState.us.name, postDescription: '', postHashtags: '', postLocation: '', photo: ''}
 
 class Post extends HTMLElement {
     private dialog!: HTMLDialogElement;
@@ -17,30 +20,30 @@ class Post extends HTMLElement {
         this.render();
     }
 
-    async submitPublish() {
-        const descriptionInput = this.shadowRoot?.querySelector('#post-description') as HTMLInputElement;
-        const hashtagsInput = this.shadowRoot?.querySelector('#post-hashtags') as HTMLInputElement;
-        const locationInput = this.shadowRoot?.querySelector('#post-location') as HTMLInputElement;
-
-        if (descriptionInput?.value && hashtagsInput?.value && locationInput?.value) {
-            const newPost = {
-                description: descriptionInput.value,
-                hashtags: hashtagsInput.value,
-                location: locationInput.value,
-            };
-
-            try {
-                await addPost(newPost);
-                descriptionInput.value = '';
-                hashtagsInput.value = '';
-                locationInput.value = '';
-                console.log("Post publicado exitosamente");
-            } catch (error) {
-                console.error("Error publicando el post:", error);
-            }
-        } else {
-            console.warn("Por favor, completa todos los campos antes de publicar");
+    onChange (e: any){
+        postInfo = {
+            ...postInfo,
+            [e.target.id]: e.target.value
         }
+    }
+
+    async submitPublish(e: Event, photoComponent: HTMLElement) {
+        e.preventDefault();
+
+        console.log(postInfo)
+        postInfo.photo = photoComponent.id == 'undefined' ? 'path_to_default_image' : photoComponent.id;
+
+        postInfo.user = appState.user
+        const ac = await uploadPost(postInfo);
+        dispatch(ac);
+        // const description = description.value;
+        // const hashtags = hashtags.value;
+        // const location = location.value;
+        // const post = { description, hashtags, location };
+        // const action = await addPost(post);
+        // dispatch(action);
+        // this.close(dialog);
+
     }
 
     disconnectedCallback() {
@@ -60,12 +63,16 @@ class Post extends HTMLElement {
         if (this.shadowRoot) {
             this.shadowRoot.innerHTML = '';
 
+            const form = this.ownerDocument.createElement('form');
+            form.className = 'create';
+
             const dialog = this.ownerDocument.createElement('dialog') as HTMLDialogElement;
             dialog.id = 'create-dialog';
             dialog.style.maxHeight = "80vh";
             dialog.style.overflowY = "auto";
 
             const photoComponent = this.ownerDocument.createElement('header-photo-create');
+            photoComponent.id = `postit${uuidv4()}`
             dialog.appendChild(photoComponent);
 
             const inputsDiv = this.ownerDocument.createElement('div');
@@ -79,6 +86,7 @@ class Post extends HTMLElement {
             description.type = 'text';
             description.id = 'post-description';
             description.required = true;
+            description.onchange = (ev) => {this.onChange(ev)};
             inputsDiv.appendChild(description);
 
             const descriptionHashtags = this.ownerDocument.createElement('h1');
@@ -90,6 +98,8 @@ class Post extends HTMLElement {
             hashtags.id = 'post-hashtags';
             hashtags.required = true;
             inputsDiv.appendChild(hashtags);
+            hashtags.onchange = (ev) => {this.onChange(ev)};
+
 
             const descriptionLocation = this.ownerDocument.createElement('h1');
             descriptionLocation.innerText = 'Your Location';
@@ -100,19 +110,26 @@ class Post extends HTMLElement {
             location.id = 'post-location';
             location.required = true;
             inputsDiv.appendChild(location);
+            location.onchange = (ev) => {this.onChange(ev)};
 
             const saveButton = this.ownerDocument.createElement('button');
             saveButton.type = 'submit';
             saveButton.id = 'publish-btn';
             saveButton.innerText = 'Post';
             saveButton.className = 'submit-publish';
-            saveButton.addEventListener('click', (event) => {
-                event.preventDefault();
-                this.submitPublish();
-            });
+
             inputsDiv.appendChild(saveButton);
 
-            dialog.appendChild(inputsDiv);
+            form.appendChild(inputsDiv);
+
+            form.addEventListener('submit', (event) => {
+                event.preventDefault();
+
+                this.submitPublish(event, photoComponent)
+                this.close(dialog)
+            });
+
+            dialog.appendChild(form);
             this.shadowRoot.appendChild(dialog);
 
             const cssPost = this.ownerDocument.createElement("style");

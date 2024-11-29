@@ -25,6 +25,22 @@ const initialState: AppState = {
 	posts: [],
 	user: '',
 	postsByUser: [],
+	us: {
+		name: '',
+		email: '',
+		photo: '',
+		saved: []
+	},
+	logedUserData: {
+		email: '',
+		password: '',
+		confirmPassword: '',
+		name: ''
+	},
+	followers: new Set(),
+	following: new Set()
+
+
 };
 
 export let appState = initialState;
@@ -42,4 +58,5 @@ export const dispatch = (action: any) => {
 export const addObserver = (ref: any) => {
 	observers = [...observers, ref];
 };
+
 

@@ -6,6 +6,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import '../../components/indexPadre';
 import styles from './Nav.css';
 import { Post } from '../../components/indexPadre';
+import {getFileCloudinary} from "../../utils/storageImage";
 
 export enum Attribute {
     'photo' = 'photo',
@@ -115,7 +116,7 @@ class NavBar extends HTMLElement {
         userbarExit.className = 'userbar-exit';
 
         const profileImg = this.ownerDocument.createElement('img');
-        profileImg.src = this.photo || 'default-photo.jpg';
+        profileImg.src = getFileCloudinary(this.photo || 'path-to-default-image') ;
         profileImg.alt = 'Profile Picture';
 
         // Contenedor de la información del usuario

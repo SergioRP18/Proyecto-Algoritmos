@@ -3,7 +3,9 @@ import AppPost, { Attributes } from '../../components/cardPost/post';
 import { addObserver, dispatch } from '../../store';
 import { navigate } from '../../store/actions';
 import { Screens } from '../../types/navigation';
-import { getPosts } from '../../utils/Firebase';
+import {getPosts, getPostsDocs} from '../../utils/Firebase';
+import styles from './dashboard.css';
+import { getFileCloudinary } from '../../utils/storageImage';
 
 class AppDashboard extends HTMLElement {
     posts: AppPost[] = [];
@@ -51,6 +53,7 @@ class AppDashboard extends HTMLElement {
     }
 
     async render() {
+        if (!this.shadowRoot) return;
         const nav = this.ownerDocument.createElement('nav-bar');
         this.shadowRoot?.appendChild(nav);
 
@@ -63,7 +66,40 @@ class AppDashboard extends HTMLElement {
         const navResponsive = this.ownerDocument.createElement('nav-responsive');
         this.shadowRoot?.appendChild(navResponsive);
 
-        await this.renderPost();  // Llama a renderPost para renderizar los posts
+        // await this.renderPost();
+
+        const postContainer = this.ownerDocument.createElement('section');
+        this.shadowRoot?.appendChild(postContainer);
+
+        postContainer.className = 'post-container';
+
+
+        getPostsDocs((posts: any) => {
+            console.log(posts);
+            while(postContainer.firstChild){
+                postContainer.removeChild(postContainer.firstChild);
+            }
+            console.log("importing posts", posts)
+
+            posts.forEach((element: any) => {
+                const postit = this.ownerDocument.createElement("app-post") as AppPost;
+                postit.setAttribute(Attributes.image, element.image);
+                postit.setAttribute(Attributes.photouser, element.photouser);
+                postit.setAttribute(Attributes.username, element.user);
+                postit.setAttribute(Attributes.region, element.location);
+                postit.setAttribute(Attributes.description, element.description);
+                postit.setAttribute(Attributes.hashtags, element.hashtags);
+                postit.setAttribute(Attributes.uid, String(element.id));
+
+                postContainer.appendChild(postit);
+
+            });
+
+        });
+
+        const style = document.createElement('style');
+        style.textContent = styles;
+        this.shadowRoot.appendChild(style);
     }
 }
 customElements.define("app-dashboard", AppDashboard);

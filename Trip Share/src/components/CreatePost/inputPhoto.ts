@@ -37,7 +37,7 @@ class Photo extends HTMLElement {
             uploadPhoto.accept = 'image/*';
             uploadPhoto.addEventListener('change', () => {
                 const file = uploadPhoto.files?.[0];
-                if(file) uploadFileCloudinary(file, appState.user);
+                if(file) uploadFileCloudinary(file, this.id);
             });
 
             header.appendChild(uploadPhoto);

@@ -2,6 +2,7 @@ import styles from './navAside.css';
 import '../../components/indexPadre';
 import { getUser, getFirebaseInstance } from '../../utils/Firebase';
 import { onAuthStateChanged } from "firebase/auth";
+import {getFileCloudinary} from "../../utils/storageImage";
 
 export enum Attribute {
     'photo' = 'photo',
@@ -111,7 +112,7 @@ class NavAside extends HTMLElement {
 
         // Imagen de perfil
         const profileImg = document.createElement('img');
-        profileImg.src = this.photo || 'default-photo.jpg';
+        profileImg.src = getFileCloudinary(this.photo || 'path_to_default_image') ;
         profileImg.alt = 'Profile Picture';
 
         // Contenedor de la información del usuario

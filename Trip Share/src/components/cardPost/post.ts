@@ -1,4 +1,7 @@
 import styles from './post.css';
+import { getFileCloudinary } from '../../utils/storageImage';
+import { getFollowing, getUser, updateUserFollow } from '../../utils/Firebase';
+import { appState } from '../../store';
 
 export enum Attributes {
     "uid" = "uid",
@@ -97,9 +100,12 @@ class AppPost extends HTMLElement {
             if (isFollowing) {
                 followButton.textContent = "Following";
                 followButton.classList.add("Following");
+                updateUserFollow(appState.user, this.getAttribute('username') || '', 'follow');
+
             } else {
                 followButton.textContent = "Follow";
                 followButton.classList.remove("Following");
+                updateUserFollow(appState.user, this.getAttribute('username') || '', 'unfollow');
             }
         });
 
@@ -152,8 +158,11 @@ class AppPost extends HTMLElement {
         return commentInput;
     }
 
+
+
     render() {
         if (this.shadowRoot) {
+            this.shadowRoot.innerHTML = "";
             const container = this.ownerDocument.createElement('section');
 
             const card = this.ownerDocument.createElement('div');
@@ -161,23 +170,51 @@ class AppPost extends HTMLElement {
 
             const headCard = this.ownerDocument.createElement('div');
             headCard.classList.add('head-card');
-
+            const getImage = async (id: string) =>{
+                const user = await getUser(id);
+                return user?.photo || 'path_to_default_image';
+            }
+            const usernameAttr = this.getAttribute('username') || '';
             const imgUser = this.ownerDocument.createElement('img');
-            const photoUser = this.getAttribute('photoUser') || 'path_to_default_image.jpg';
-            imgUser.src = photoUser;
+            getImage(usernameAttr).then((imgt) =>{
+                const resolvedPhoto = imgt || 'path_to_default_image';
+                imgUser.src = getFileCloudinary(resolvedPhoto || 'path_to_default_image') ;
+            });
+
+
             imgUser.alt = 'photo user';
 
             const ubi = this.ownerDocument.createElement('div');
             ubi.classList.add('ubi');
 
             const h1 = this.ownerDocument.createElement('h1');
-            const username = this.getAttribute('username') || 'username_default';
-            h1.innerText = username;
+            const getName = async (id: string) =>{
+                const user = await getUser(id);
+                return user?.username || 'username_default';
+            }
+
+            getName(usernameAttr).then((usName) => {
+                const resolvedName = usName || 'defaultUsername';
+                h1.innerText = resolvedName; // Actualiza el contenido cuando se resuelva la promesa.
+            });
 
             const p = this.ownerDocument.createElement('p');
             const region = this.getAttribute('region') || 'region_default';
             p.innerText = region;
 
+            const getFollowingUsers = async (id: string) =>{
+                const followingUsers = await getFollowing(id);
+                return followingUsers;
+            }
+            getFollowingUsers(appState.user).then((users) =>{
+                if (users.includes(usernameAttr)) {
+                    followButton.innerText = 'Following';
+                    followButton.classList.add('Following');
+                } else{
+                    followButton.innerText = 'Follow';
+                    followButton.classList.remove('Following');
+                }
+            });
             const followButton = this.ownerDocument.createElement('button');
             followButton.innerText = 'Follow';
 
@@ -200,10 +237,17 @@ class AppPost extends HTMLElement {
             const hashtagsPost = this.getAttribute('hashtags') || 'hashtags_default';
             hashtags.innerText = hashtagsPost;
 
+
+
             const postImage = this.ownerDocument.createElement('img');
-            const photoPost = this.getAttribute('image') || 'path_to_default_image.jpg';
-            postImage.src = photoPost;
+            const photoPost = this.getAttribute('image') || 'path_to_default_image';
+            postImage.src = getFileCloudinary(photoPost.toString());
             postImage.alt = 'post image';
+            postImage.width = 500
+            postImage.height = 500
+
+            bodyCard.appendChild(description)
+            bodyCard.appendChild(postImage)
 
             const icons = this.ownerDocument.createElement('div');
             icons.classList.add('icons');
