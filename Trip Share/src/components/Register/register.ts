@@ -102,7 +102,7 @@ class AppRegister extends HTMLElement {
         if (this.shadowRoot) {
             const dialog = this.ownerDocument.createElement('dialog');
             dialog.id = 'register-dialog';
-            dialog.className = 'modal-content hidden';
+            dialog.className = 'modal-content';
 
             const closeButton = this.ownerDocument.createElement('button');
             closeButton.className = 'close-button';

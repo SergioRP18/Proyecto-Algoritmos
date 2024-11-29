@@ -8138,58 +8138,6 @@ nav {
 
 /***/ }),
 
-/***/ 376:
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1601);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6314);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
-// Imports
-
-
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, `/* headerRegister.css */
-
-.header-register {
-    text-align: center;
-    padding: 10px;
-}
-
-.header-register h1 {
-    font-size: 1.8rem;
-    font-weight: bold;
-    color: #333;
-}
-
-.header-register p {
-    font-size: 0.9rem;
-    color: #666;
-    margin-top: 5px;
-}
-
-.close-button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-}
-`, ""]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
-
-
-/***/ }),
-
 /***/ 859:
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
@@ -8214,53 +8162,57 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/* Fondo del modal */
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 1000;
+    border: none;
+    background-color: rgba(255, 255, 255, 0.7);
 }
 
 /* Contenido del modal */
 .modal-content {
     display: block;
     position: relative;
-    background-color: #ffffff;
+    background-color: #FAF8F8;
     padding: 20px;
     width: 600px; /* Ajusta el ancho para que sea más compacto */
-    max-height: 80vh; /* Limita la altura del modal al 80% de la altura de la ventana */
-    overflow-y: auto; /* Permite scroll interno si el contenido excede el alto */
-    border-radius: 10px;
-    text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 15px;
+    text-align: left;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     font-family: 'Poppins', sans-serif;
+    border: none;
 }
 
 /* Encabezado del modal */
+.header-register {
+    position: relative; /* Esto hace que el botón de cerrar se posicione respecto al encabezado */
+}
+
 .header-register h1 {
-    font-size: 1.5rem;
+    font-size: 40px;
     font-weight: bold;
-    color: #333;
-    margin-bottom: 5px;
+    color: rgba(45, 45, 45, 1); /* Cambié el color aquí */
+    position: relative;
 }
 
-.header-register p {
-    font-size: 0.85rem;
-    color: #666;
-    margin-top: 5px;
-    margin-bottom: 15px; /* Reduce el espacio entre el texto y los campos de entrada */
-}
-
-/* Botón de cerrar */
+/* Botón de cerrar (alineado con el título) */
 .close-button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
+    position: absolute;  /* Lo posicionamos de forma absoluta respecto al contenedor */
+    top: 40px;              /* Alineamos el botón con la parte superior del contenedor */
+    right: 0;            /* Lo colocamos a la derecha */
     background: none;
     border: none;
-    font-size: 1.5rem;
+    font-size: 40px; /* Tamaño del botón */
     cursor: pointer;
     color: #007bff;
+}
+
+/* Texto debajo del encabezado */
+.header-register p {
+    font-size: 16px;
+    color: rgba(45, 45, 45, 1); /* Cambié el color aquí */
+    margin-bottom: 15px; /* Reduce el espacio entre el texto y los campos de entrada */
 }
 
 /* Campos de entrada */
@@ -8274,6 +8226,12 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/* Fondo del modal */
     font-family: 'Poppins', sans-serif;
     font-size: 1rem;
 }
+
+input::placeholder {
+    color: #007bff;  /* Color azul */
+    opacity: 1;      /* Evitar que sea translúcido */
+}
+
 
 /* Contenedor de selectores de fecha y región */
 .selectors {
@@ -8289,8 +8247,8 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/* Fondo del modal */
     grid-column: span 3;
     text-align: left;
     font-size: 1rem;
-    font-weight: normal;
-    color: #2D2D2D;
+    font-weight: bold;
+    color: rgba(45, 45, 45, 1); /* Cambié el color aquí */
     margin-bottom: 5px;
 }
 
@@ -8302,7 +8260,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/* Fondo del modal */
     font-family: 'Poppins', sans-serif;
     color: #2D2D2D;
     background-color: #b1d0f1;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Agrega sombra */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Sombra de los selectores */
 }
 
 /* Contenedor de "Region" */
@@ -8316,7 +8274,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/* Fondo del modal */
 /* Estilo del título "Region" */
 .region-container h1 {
     font-size: 1rem;
-    color: #2D2D2D;
+    color: rgba(45, 45, 45, 1); /* Cambié el color aquí */
     margin-bottom: 5px;
     text-align: left;
 }
@@ -8342,12 +8300,14 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/* Fondo del modal */
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 1rem;
+    font-size: 24px;
+    font-weight: bold;
     margin-top: 15px;
 }
 .register-button:hover {
     background-color: #1e9e0b;
 }
+
 /* Contenedor para Name y Last Name */
 .name-lastname-container {
     display: flex;
@@ -8364,6 +8324,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/* Fondo del modal */
     font-size: 1rem;
     box-sizing: border-box;
 }
+
 .hidden {
     display: none !important;
 }
@@ -43540,7 +43501,7 @@ var AttributeProfile;
 class UserProfile extends HTMLElement {
     constructor() {
         super();
-        this.isUserLoaded = false; // Controlar que los datos del usuario solo se carguen una vez
+        this.isUserLoaded = false;
         this.attachShadow({ mode: 'open' });
     }
     static get observedAttributes() {
@@ -43558,10 +43519,9 @@ class UserProfile extends HTMLElement {
         }
         this.render();
     }
-    // Método que carga el perfil del usuario desde Firebase
     async renderUser(userId) {
         if (this.isUserLoaded)
-            return; // Evitar recargar el usuario si ya se cargó antes
+            return;
         try {
             const data = await (0, Firebase_1.getUser)(userId);
             console.log(data);
@@ -43591,8 +43551,7 @@ class UserProfile extends HTMLElement {
                 }
                 else {
                     console.log("No authenticated user.");
-                    this.isUserLoaded = false; // Resetear si el usuario no está autenticado
-                    // Opcional: Mostrar una vista de perfil por defecto o vacía
+                    this.isUserLoaded = false;
                     this.render();
                 }
             });
@@ -43611,7 +43570,7 @@ class UserProfile extends HTMLElement {
             header.appendChild(photoUser);
             // Nombre del usuario
             const username = document.createElement('h1');
-            username.innerText = this.name || 'default_name';
+            username.innerText = this.username || 'default_name';
             headerDiv.appendChild(username);
             // Botón de editar perfil
             const editProfile = document.createElement('button');
@@ -43662,54 +43621,6 @@ class UserProfile extends HTMLElement {
 }
 customElements.define("section-user-profile", UserProfile);
 exports["default"] = UserProfile;
-
-
-/***/ }),
-
-/***/ 7707:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-const headerRegister_css_1 = __importDefault(__webpack_require__(376));
-const store_1 = __webpack_require__(2482);
-__webpack_require__(2249);
-class HeaderRegister extends HTMLElement {
-    constructor() {
-        super();
-        this.attachShadow({ mode: 'open' });
-        (0, store_1.addObserver)(this);
-    }
-    connectedCallback() {
-        this.render();
-    }
-    render() {
-        if (this.shadowRoot) {
-            this.shadowRoot.innerHTML = `
-            <style>${headerRegister_css_1.default}</style>
-                <div class="header-register">
-                    <h1>Register</h1>
-                    <img id="close-popup" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMSIgaGVpZ2h0PSIyMSIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBmaWxsPSIjMTQ3QUZGIiBkPSJtNy4wNSA1LjYzNmw0Ljk1IDQuOTVsNC45NS00Ljk1bDEuNDE0IDEuNDE0bC00Ljk1IDQuOTVsNC45NSA0Ljk1bC0xLjQxNSAxLjQxNGwtNC45NS00Ljk1bC00Ljk0OSA0Ljk1bC0xLjQxNC0xLjQxNGw0Ljk1LTQuOTVsLTQuOTUtNC45NXoiLz48L3N2Zz4=" alt="Close">
-                    <p>Join our travel community! Sign up to share your adventures, discover new destinations, and connect with fellow travel enthusiasts. Start exploring the world today!</p>
-                </div>
-            `;
-            const style = document.createElement("style");
-            style.textContent = headerRegister_css_1.default;
-            this.shadowRoot.appendChild(style);
-            const closePopupButton = this.shadowRoot.querySelector("#close-popup");
-            closePopupButton?.addEventListener('click', (event) => {
-                event.preventDefault();
-                this.dispatchEvent(new CustomEvent('close-popup', { bubbles: true, composed: true }));
-            });
-        }
-    }
-}
-customElements.define("section-header-register", HeaderRegister);
-exports["default"] = HeaderRegister;
 
 
 /***/ }),
@@ -43812,7 +43723,7 @@ class AppRegister extends HTMLElement {
         if (this.shadowRoot) {
             const dialog = this.ownerDocument.createElement('dialog');
             dialog.id = 'register-dialog';
-            dialog.className = 'modal-content hidden';
+            dialog.className = 'modal-content';
             const closeButton = this.ownerDocument.createElement('button');
             closeButton.className = 'close-button';
             closeButton.innerHTML = '×';
@@ -44385,7 +44296,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.UserProfile = exports.PublicationsUser = exports.ExitAccount = exports.AppRegister = exports.HeaderRegister = exports.FooterLogin = exports.InputLogin = exports.ImageLogin = exports.Post = exports.Photo = exports.NavResponsive = exports.SearchBar = exports.AppPost = exports.UserBar = exports.navAside = exports.NavBar = void 0;
+exports.UserProfile = exports.PublicationsUser = exports.ExitAccount = exports.AppRegister = exports.FooterLogin = exports.InputLogin = exports.ImageLogin = exports.Post = exports.Photo = exports.NavResponsive = exports.SearchBar = exports.AppPost = exports.UserBar = exports.navAside = exports.NavBar = void 0;
 var Nav_1 = __webpack_require__(8405);
 Object.defineProperty(exports, "NavBar", ({ enumerable: true, get: function () { return __importDefault(Nav_1).default; } }));
 var navAside_1 = __webpack_require__(9722);
@@ -44408,8 +44319,6 @@ var inputLogin_1 = __webpack_require__(2082);
 Object.defineProperty(exports, "InputLogin", ({ enumerable: true, get: function () { return __importDefault(inputLogin_1).default; } }));
 var footerLogin_1 = __webpack_require__(4035);
 Object.defineProperty(exports, "FooterLogin", ({ enumerable: true, get: function () { return __importDefault(footerLogin_1).default; } }));
-var headerRegister_1 = __webpack_require__(7707);
-Object.defineProperty(exports, "HeaderRegister", ({ enumerable: true, get: function () { return __importDefault(headerRegister_1).default; } }));
 var register_1 = __webpack_require__(8606);
 Object.defineProperty(exports, "AppRegister", ({ enumerable: true, get: function () { return __importDefault(register_1).default; } }));
 var exitAccount_1 = __webpack_require__(5250);
@@ -45351,9 +45260,7 @@ const getPosts = async () => {
 };
 exports.getPosts = getPosts;
 const getUser = async (userId) => {
-    // Asegurarse de que `db` esté inicializado
     const { db } = await (0, exports.getFirebaseInstance)();
-    // Crear la referencia al documento y obtener los datos
     const docRef = (0, firestore_1.doc)(db, "users", userId);
     const userData = await (0, firestore_1.getDoc)(docRef);
     return userData.exists() ? userData.data() : null;

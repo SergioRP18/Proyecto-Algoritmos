@@ -16,7 +16,7 @@ class UserProfile extends HTMLElement {
     uid?: number;
     description?: string;
 
-    private isUserLoaded = false; // Controlar que los datos del usuario solo se carguen una vez
+    private isUserLoaded = false;
 
     constructor() {
         super();
@@ -40,9 +40,8 @@ class UserProfile extends HTMLElement {
         this.render();
     }
 
-    // Método que carga el perfil del usuario desde Firebase
     async renderUser(userId: string) {
-        if (this.isUserLoaded) return; // Evitar recargar el usuario si ya se cargó antes
+        if (this.isUserLoaded) return; 
 
         try {
             const data = await getUser(userId);
@@ -74,8 +73,8 @@ class UserProfile extends HTMLElement {
                     await this.renderUser(userId);
                 } else {
                     console.log("No authenticated user.");
-                    this.isUserLoaded = false; // Resetear si el usuario no está autenticado
-                    // Opcional: Mostrar una vista de perfil por defecto o vacía
+                    this.isUserLoaded = false;
+
                     this.render(); 
                 }
             });
@@ -96,7 +95,7 @@ class UserProfile extends HTMLElement {
 
             // Nombre del usuario
             const username = document.createElement('h1');
-            username.innerText = this.name || 'default_name';
+            username.innerText = this.username || 'default_name';
             headerDiv.appendChild(username);
 
             // Botón de editar perfil
