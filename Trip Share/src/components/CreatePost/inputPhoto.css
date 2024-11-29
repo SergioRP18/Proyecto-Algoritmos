@@ -1,0 +1,48 @@
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    background-color: #007bff;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.content h1 {
+    color: #ffffff;
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.image.icon {
+    width: 150px;
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.image.icon img {
+    width: 60%;
+    height: 60%;
+}
+
+#upload-photo {
+    background-color: #28a745;
+    color: #ffffff;
+    font-weight: bold;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+#upload-photo:hover {
+    background-color: #218838;
+}

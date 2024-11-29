@@ -1,0 +1,8 @@
+export enum Screens {
+    LOGIN = "LOGIN",
+    REGISTER = "REGISTER",
+    DASHBOARD = "DASHBOARD",
+    PROFILE = "PROFILE",
+    MY_WISH_LIST = "MY_WISH_LIST",
+    EDIT_PROFILE = "EDIT_PROFILE",
+};

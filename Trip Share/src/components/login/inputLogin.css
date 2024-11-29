@@ -1,0 +1,112 @@
+/* Estilos del contenedor de inicio de sesión */
+.login-container {
+    background-color: #FAF8F8;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.login-container input[type="email"]::placeholder,
+.login-container input[type="password"]::placeholder {
+    color: #007bff;
+}
+
+.login-container input[type="email"],
+.login-container input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 2px solid #007bff;
+    border-radius: 5px;
+    box-sizing: border-box;
+    color: #000000;
+}
+
+.login-container button[type="submit"] {
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    width: 100%;
+    padding: 12px;
+    background-color: #22BF0D;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-top: 10px;
+}
+
+.login-container button[type="submit"]:hover {
+    background-color: #1e9e0b;
+}
+
+.forgot-password {
+    text-align: center;
+    font-size: 0.85rem;
+    color: #6c757d;
+    margin-top: 15px;
+}
+
+.forgot-password button {
+    background: none;
+    border: none;
+    color: #000000;
+    cursor: pointer;
+    font-size: 0.9rem;
+    text-decoration: none;
+}
+
+.forgot-password button:hover {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.social-login {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.social-login img {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+
+.create-account {
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    color: #147AFF;
+    text-decoration: none;
+    font-size: 1.2rem;
+    text-align: center;
+    margin-top: 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: inline-block;
+}
+
+.create-account:hover {
+    text-decoration: none;
+}
+/* Responsividad */
+@media (max-width: 768px) {
+    .login-container {
+        width: 90%; /* Ajuste para pantallas pequeñas */
+        padding: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .login-container {
+        width: 100%;
+        padding: 15px;
+    }
+}

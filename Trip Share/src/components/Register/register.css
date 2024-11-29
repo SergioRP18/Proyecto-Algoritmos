@@ -1,0 +1,173 @@
+/* Fondo del modal */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    border: none;
+    background-color: rgba(255, 255, 255, 0.7);
+}
+
+/* Contenido del modal */
+.modal-content {
+    display: block;
+    position: relative;
+    background-color: #FAF8F8;
+    padding: 20px;
+    width: 600px; /* Ajusta el ancho para que sea más compacto */
+    border-radius: 15px;
+    text-align: left;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: 'Poppins', sans-serif;
+    border: none;
+}
+
+/* Encabezado del modal */
+.header-register {
+    position: relative; /* Esto hace que el botón de cerrar se posicione respecto al encabezado */
+}
+
+.header-register h1 {
+    font-size: 40px;
+    font-weight: bold;
+    color: rgba(45, 45, 45, 1); /* Cambié el color aquí */
+    position: relative;
+}
+
+/* Botón de cerrar (alineado con el título) */
+.close-button {
+    position: absolute;  /* Lo posicionamos de forma absoluta respecto al contenedor */
+    top: 40px;              /* Alineamos el botón con la parte superior del contenedor */
+    right: 0;            /* Lo colocamos a la derecha */
+    background: none;
+    border: none;
+    font-size: 40px; /* Tamaño del botón */
+    cursor: pointer;
+    color: #007bff;
+}
+
+/* Texto debajo del encabezado */
+.header-register p {
+    font-size: 16px;
+    color: rgba(45, 45, 45, 1); /* Cambié el color aquí */
+    margin-bottom: 15px; /* Reduce el espacio entre el texto y los campos de entrada */
+}
+
+/* Campos de entrada */
+.inputs-register input {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0; /* Reduce el espacio entre los campos */
+    border: 2px solid #007bff;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+}
+
+input::placeholder {
+    color: #007bff;  /* Color azul */
+    opacity: 1;      /* Evitar que sea translúcido */
+}
+
+
+/* Contenedor de selectores de fecha y región */
+.selectors {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+/* Estilo para el título "Birthday" */
+.selectors h1 {
+    grid-column: span 3;
+    text-align: left;
+    font-size: 1rem;
+    font-weight: bold;
+    color: rgba(45, 45, 45, 1); /* Cambié el color aquí */
+    margin-bottom: 5px;
+}
+
+/* Selectores de día, mes y año */
+.selectors select {
+    padding: 8px;
+    border: none;
+    border-radius: 5px;
+    font-family: 'Poppins', sans-serif;
+    color: #2D2D2D;
+    background-color: #b1d0f1;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Sombra de los selectores */
+}
+
+/* Contenedor de "Region" */
+.region-container {
+    grid-column: span 3;
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+}
+
+/* Estilo del título "Region" */
+.region-container h1 {
+    font-size: 1rem;
+    color: rgba(45, 45, 45, 1); /* Cambié el color aquí */
+    margin-bottom: 5px;
+    text-align: left;
+}
+
+/* Selector de región */
+.region-container select {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-family: 'Poppins', sans-serif;
+    color: #2D2D2D;
+    background-color: #b1d0f1;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Agrega sombra */
+}
+
+/* Botón de registro */
+.register-button {
+    background-color: #22BF0D;
+    color: white;
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 15px;
+}
+.register-button:hover {
+    background-color: #1e9e0b;
+}
+
+/* Contenedor para Name y Last Name */
+.name-lastname-container {
+    display: flex;
+    gap: 10px; /* Espacio entre los campos */
+    margin-bottom: 10px; /* Espacio debajo de estos inputs */
+}
+
+.name-lastname-container input {
+    width: 50%; /* Hace que cada input ocupe la mitad del ancho del contenedor */
+    padding: 10px;
+    border: 2px solid #007bff;
+    border-radius: 5px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+.hidden {
+    display: none !important;
+}

@@ -1,61 +1,60 @@
-import {data} from './data/dataUser';
-import { infoPost } from './data/dataPost';
-import './components/indexPadre';
-import NavBar, {Attribute} from './components/navBar/Nav';
-import AppPost, {Attributes} from './components/cardPost/post';
-
+import './screens/Dashboard/dashboard'
+import './screens/Login/login'
+import './screens/Profile/profile'
+import './screens/editProfile/editProfile'
+import './screens/myWishList/wishList'
+import { addObserver } from './store';
+import { appState } from './store';
+import { Screens } from './types/navigation';
 class AppContainer extends HTMLElement {
-    users: NavBar[] = [];
-    posts: AppPost[] = [];
-
     constructor(){
         super();
         this.attachShadow({mode:'open'});
-
-        data.forEach((element) => {
-            const user = this.ownerDocument.createElement("app-nav-bar") as NavBar;
-            user.setAttribute(Attribute.username,element.username);
-            user.setAttribute(Attribute.name,element.name);
-            user.setAttribute(Attribute.photo,element.photo);
-            user.setAttribute(Attribute.uid,String(element.id));
-            this.users.push(user);
-        });
-
-        infoPost.forEach((element) => {
-            const post = this.ownerDocument.createElement("app-post") as AppPost;
-            post.setAttribute(Attributes.image,element.image);
-            post.setAttribute(Attributes.photoUser,element.photoUser);
-            post.setAttribute(Attributes.username,element.username);
-            post.setAttribute(Attributes.region,element.region);
-            post.setAttribute(Attributes.description,element.description);
-            post.setAttribute(Attributes.hashtags,element.hashtags);
-            post.setAttribute(Attributes.uid,String(element.id));
-            this.posts.push(post);
-        });
+        addObserver(this);
     }
+
     connectedCallback(){
         this.render();
     }
+
     render(){
         if(this.shadowRoot){
-            this.shadowRoot.innerHTML += `
-            <app-nav-profile></app-nav-profile>
-            `;
-        }
-        if(this.shadowRoot){
-            this.shadowRoot.innerHTML += `
-                <section-search-bar></section-search-bar>
-            `;
-        }
-        if(this.shadowRoot){
-            this.users.forEach((users) => {
-                this.shadowRoot?.appendChild(users);
-            });
-        }
-        if(this.shadowRoot){
-            this.posts.forEach((posts) => {
-                this.shadowRoot?.appendChild(posts);
-            });
+            this.shadowRoot.innerHTML = '';
+
+            switch(appState.screen){
+                case Screens.DASHBOARD:
+                    const dashboard = this.ownerDocument.createElement("app-dashboard");
+                    this.shadowRoot?.appendChild(dashboard);
+                    break;
+                
+                case Screens.LOGIN:
+                    const login = this.ownerDocument.createElement("app-login");
+                    this.shadowRoot?.appendChild(login);
+                    break;
+                
+                case Screens.REGISTER:
+                    const register = this.ownerDocument.createElement("app-register");
+                    this.shadowRoot?.appendChild(register);
+                    break;
+                
+                case Screens.PROFILE:
+                    const profile = this.ownerDocument.createElement("app-profile");
+                    this.shadowRoot?.appendChild(profile);
+                    break;
+
+                case Screens.MY_WISH_LIST:
+                    const myWishList = this.ownerDocument.createElement("app-wish-list");
+                    this.shadowRoot?.appendChild(myWishList);
+                    break;
+                
+                case Screens.EDIT_PROFILE:
+                    const editProfile = this.ownerDocument.createElement("app-edit-profile");
+                    this.shadowRoot?.appendChild(editProfile);
+                    break;
+
+                default:
+                    break;
+            }
         }
     }
 };
