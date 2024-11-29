@@ -44379,6 +44379,9 @@ class UserProfile extends HTMLElement {
                 this.setAttribute(AttributeProfile.username, data.username || 'No Username');
                 this.setAttribute(AttributeProfile.uid, data.id.toString());
                 this.setAttribute(AttributeProfile.description, data.description || 'No description');
+                this.setAttribute('followers', data.followers.length);
+                console.log(this.getAttribute('followers'));
+                this.setAttribute('following', data.following.length);
                 this.isUserLoaded = true;
                 this.render();
             }
@@ -44450,10 +44453,10 @@ class UserProfile extends HTMLElement {
             publications.innerHTML = `<p>Publications</p><span>0</span>`;
             statsContainer.appendChild(publications);
             const followers = document.createElement('div');
-            followers.innerHTML = `<p>Followers</p><span>0</span>`;
+            followers.innerHTML = `<p>Followers</p><span>${this.getAttribute('followers') || 0} </span>`;
             statsContainer.appendChild(followers);
             const followed = document.createElement('div');
-            followed.innerHTML = `<p>Followed</p><span>0</span>`;
+            followed.innerHTML = `<p>Followed</p><span>${this.getAttribute('following') || 0}</span>`;
             statsContainer.appendChild(followed);
             // Descripción del perfil
             const description = document.createElement('p');
