@@ -3,7 +3,7 @@ import AppPost, { Attributes } from '../../components/cardPost/post';
 import { addObserver, dispatch } from '../../store';
 import { navigate } from '../../store/actions';
 import { Screens } from '../../types/navigation';
-import {getPosts, getPostsDocs} from '../../utils/Firebase';
+import { getPosts, getPostsDocs } from '../../utils/Firebase';
 import styles from './dashboard.css';
 import { getFileCloudinary } from '../../utils/storageImage';
 
@@ -26,31 +26,35 @@ class AppDashboard extends HTMLElement {
 
     async renderPost() {
         try {
-            const infoPost = await getPosts();  // Obtener los posts de Firebase
+            const infoPost = await getPosts();
             console.log(infoPost);
 
-            const postContainer = this.ownerDocument.createElement("div");
-            postContainer.className = 'post-container';  // Agrega una clase para el contenedor de posts
+            const postContainer = this.ownerDocument.createElement("div"); // Crea un contenedor para los posts
 
             infoPost?.forEach((element) => {
                 const post = this.ownerDocument.createElement("app-post") as AppPost;
-                post.setAttribute(Attributes.image, element.image || "default-image.jpg"); // Cambia según los datos de tu post
-                post.setAttribute(Attributes.photouser, element.photouser || "default-photo.jpg");
-                post.setAttribute(Attributes.username, element.username || "Unknown User");
-                post.setAttribute(Attributes.region, element.region || "Unknown Region");
-                post.setAttribute(Attributes.description, element.description || "");
-                post.setAttribute(Attributes.hashtags, element.hashtags || "");
+                post.setAttribute(Attributes.image, element.image);
+                post.setAttribute(Attributes.photouser, element.photouser);
+                post.setAttribute(Attributes.username, element.username);
+                post.setAttribute(Attributes.region, element.region);
+                post.setAttribute(Attributes.description, element.description);
+                post.setAttribute(Attributes.hashtags, element.hashtags);
                 post.setAttribute(Attributes.uid, String(element.id));
 
-                postContainer.appendChild(post);  // Agrega el post al contenedor
+                postContainer.appendChild(post); // Agrega el post al contenedor
             });
 
-            this.shadowRoot?.appendChild(postContainer);  // Agrega el contenedor de posts al shadow DOM
+            this.shadowRoot?.appendChild(postContainer);
+
         } catch (error) {
             console.error('Error fetching posts:', error);
             return Promise.reject(error);
         }
+
     }
+
+
+
 
     async render() {
         if (!this.shadowRoot) return;
@@ -101,5 +105,7 @@ class AppDashboard extends HTMLElement {
         style.textContent = styles;
         this.shadowRoot.appendChild(style);
     }
+
+
 }
 customElements.define("app-dashboard", AppDashboard);
